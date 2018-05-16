@@ -1,0 +1,42 @@
+{
+  "name": "path2d-polyfill",
+  "version": "0.1.0",
+  "description": "Polyfills Path2D api for canvas rendering",
+  "scripts": {
+    "build": "rollup -c --environment BUILD:production",
+    "build:watch": "rollup -c -w",
+    "lint": "eslint src test rollup.config.js",
+    "test": "aw -c aw.config.js",
+    "example": "npm run build -- --environment BUILD:debug && node example/server.js"
+  },
+  "files": [
+    "/dist"
+  ],
+  "main": "dist/path2d-polyfill.js",
+  "module": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nilzona/path2d-polyfill.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nilzona/path2d-polyfill/issues"
+  },
+  "homepage": "https://github.com/nilzona/path2d-polyfill#readme",
+  "devDependencies": {
+    "after-work.js": "^4.2.1",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-chai-expect": "^1.1.1",
+    "eslint-plugin-import": "^2.11.0",
+    "rollup": "^0.59.1",
+    "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-uglify": "^3.0.0"
+  }
+}

@@ -1,0 +1,4 @@
+node_modules
+.vscode
+dist
+example/path2d-polyfill.js
