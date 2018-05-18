@@ -1,7 +1,5 @@
 /* eslint-disable */
-console.log(window.Path2D);
-
-var canvas = document.getElementById('can');
+var canvas = document.getElementById('can1');
 var ctx = canvas.getContext('2d')
 
 function draw2circles(x1, y1, x2, y2, r) {
@@ -14,6 +12,8 @@ function draw2circles(x1, y1, x2, y2, r) {
   ctx.arc(x2,y2,r,0,2*Math.PI);
   ctx.stroke();
 }
+
+ctx.translate(50,50);
 
 //var path1 = new Path2D("m 10 10 l 100 0 l 0 100 l -100 0 z");
 ctx.strokeStyle = 'black';
