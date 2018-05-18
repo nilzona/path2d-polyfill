@@ -7,6 +7,7 @@
     "build:watch": "rollup -c -w",
     "lint": "eslint src test rollup.config.js",
     "test": "aw -c aw.config.js",
+    "test:coverage": "aw -c aw.config.js --coverage --src \"src/!(index)*.js\"",
     "example": "npm run build -- --environment BUILD:debug && simple-server"
   },
   "files": [
@@ -29,6 +30,7 @@
     "after-work.js": "^4.2.1",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
+    "babel-plugin-istanbul": "^4.1.6",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "eslint": "^4.19.1",

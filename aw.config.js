@@ -1,7 +1,8 @@
 module.exports = {
   require: ['babel-register'],
   nyc: {
-    reportDir: 'test/coverage',
+    reportDir: 'coverage',
+    reporter: ['html', 'text-summary'],
   },
   mocha: {
     useColors: true,
