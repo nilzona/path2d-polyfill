@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Testing canvas</title>
+    <style>
+      body { background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%) }
+      canvas { background-color: whitesmoke }
+      .main { position: relative }
+      .fill { background: white; position: absolute; top: 0; left: 0; right: 0; bottom: 0 }
+      #ex1 { position: absolute; top: 50px; left: 50px }
+      #ex2 { position: absolute; top: 50px; left: 600px }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div id="ex1">
+        <div>Arc example</div>
+        <canvas id="can1" width="500" height="500"></canvas>
+      </div>
+      <div id="ex2">
+          <div>Bezier example</div>
+          <canvas id="can2" width="500" height="500"></canvas>
+        </div>
+
+    </div>
+    <script lang="javascript" src='dist/path2d-polyfill.js'></script>
+    <script lang="javascript" src="example/test.js"></script>
+    <script lang="javascript" src="example/test2.js"></script>
+  </body>
+</html>
