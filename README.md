@@ -51,7 +51,7 @@ ctx.stroke(new Path2D('M 80 80 A 45 45 0 0 0 125 125 L 125 80 Z'));
 ```
 
 <aside class="notice">
-Unfortunately Internet Explorer does not support the `ellipse()` function so Arc commands in SVG Paths will always be circular and default to the first radius parameter (and because of that ignore the rotation). That can cause undesirable behaviour.
+Unfortunately Internet Explorer does not support the `ellipse()` function so Arc commands in SVG Paths will always be based on circles and default to the first radius parameter. This can cause undesirable behaviour.
 </aside>
 
 
