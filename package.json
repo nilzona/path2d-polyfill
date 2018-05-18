@@ -19,8 +19,8 @@
     "type": "git",
     "url": "git+https://github.com/nilzona/path2d-polyfill.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["Path2D", "polyfill", "canvas"],
+  "author": "nilzona",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nilzona/path2d-polyfill/issues"
