@@ -125,15 +125,22 @@ describe('Canvas path', () => {
     });
 
     describe('with Path2D methods', () => {
+      it('constructor with another Path2D object', () => {
+        cMock.expects('lineTo').once().withArgs(10, 0);
+        cMock.expects('lineTo').once().withArgs(10, 10);
+        cMock.expects('closePath').once();
+        const p = new window.Path2D('M 0 0 L 10 0 L 10 10 Z');
+        const p2 = new window.Path2D(p);
+        ctx.stroke(p2);
+        cMock.verify();
+      });
       it('addPath', () => {
         cMock.expects('lineTo').once().withArgs(10, 0);
         cMock.expects('lineTo').once().withArgs(10, 10);
         cMock.expects('closePath').once();
-        const p = new window.Path2D('L 10 0 L 10 10 Z');
-        console.log(p.segments);
+        const p = new window.Path2D('M 0 0 L 10 0 L 10 10 Z');
         const p2 = new window.Path2D();
         p2.addPath(p);
-        console.log(p2.segments);
         ctx.stroke(p2);
         cMock.verify();
       });

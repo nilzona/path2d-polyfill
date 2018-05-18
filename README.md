@@ -32,7 +32,7 @@ import 'path2d-polyfill';
 | Method        | Supported     |
 | ------------- |:-------------:|
 | constructor(SVGPath) | Yes |
-| addPath()      | No  |
+| addPath()      | Yes  |
 | closePath()    | Yes |
 | moveTo()       | Yes |
 | lineTo()       | Yes |
