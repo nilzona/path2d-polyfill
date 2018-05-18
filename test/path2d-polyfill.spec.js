@@ -14,15 +14,25 @@ describe('Canvas path', () => {
       moveTo() {},
       lineTo() {},
       arc() {},
+      arcTo() {},
       closePath() {},
       bezierCurveTo() {},
       quadraticCurveTo() {},
+      rect() {},
       strokeStyle: null,
       lineWidth: null,
     };
 
     window = {
       CanvasRenderingContext2D,
+      document: {
+        createElement: () => {
+          const el = {};
+          el.getContext = () => new CanvasRenderingContext2D();
+          el.parentNode = { removeChild: () => {} };
+          return el;
+        },
+      },
     };
   });
 
@@ -46,12 +56,6 @@ describe('Canvas path', () => {
         return { data: [123] };
       };
 
-      window.document = {
-        createElement: () => ({
-          getContext: () => new CanvasRenderingContext2D(),
-        }),
-      };
-
       polyfillPath2D(window);
       // Expected Path2D to be replaced with a new instance based failure
       // on supportsSvgPathArgument() call
@@ -65,12 +69,6 @@ describe('Canvas path', () => {
 
       CanvasRenderingContext2D.prototype.getImageData = function getImageData() {
         return { data: [255] };
-      };
-
-      window.document = {
-        createElement: () => ({
-          getContext: () => new CanvasRenderingContext2D(),
-        }),
       };
 
       polyfillPath2D(window);
@@ -124,6 +122,74 @@ describe('Canvas path', () => {
 
     afterEach(() => {
       cMock.restore();
+    });
+
+    describe('with Path2D methods', () => {
+      it('addPath', () => {
+        cMock.expects('lineTo').once().withArgs(10, 0);
+        cMock.expects('lineTo').once().withArgs(10, 10);
+        cMock.expects('closePath').once();
+        const p = new window.Path2D('L 10 0 L 10 10 Z');
+        console.log(p.segments);
+        const p2 = new window.Path2D();
+        p2.addPath(p);
+        console.log(p2.segments);
+        ctx.stroke(p2);
+        cMock.verify();
+      });
+      it('moveTo', () => {
+        cMock.expects('moveTo').once().withArgs(10, 10);
+        const p = new window.Path2D();
+        p.moveTo(10, 10);
+        ctx.stroke(p);
+        cMock.verify();
+      });
+      it('lineTo and closePath', () => {
+        cMock.expects('lineTo').once().withArgs(10, 0);
+        cMock.expects('lineTo').once().withArgs(10, 10);
+        cMock.expects('closePath').once();
+        const p = new window.Path2D();
+        p.lineTo(10, 0);
+        p.lineTo(10, 10);
+        p.closePath();
+        ctx.stroke(p);
+        cMock.verify();
+      });
+      it('bezierCurveTo', () => {
+        cMock.expects('bezierCurveTo').once().withArgs(10, 10, 20, 20, 30, 30);
+        const p = new window.Path2D();
+        p.bezierCurveTo(10, 10, 20, 20, 30, 30);
+        ctx.stroke(p);
+        cMock.verify();
+      });
+      it('quadraticCurveTo', () => {
+        cMock.expects('quadraticCurveTo').once().withArgs(20, 20, 30, 30);
+        const p = new window.Path2D();
+        p.quadraticCurveTo(20, 20, 30, 30);
+        ctx.stroke(p);
+        cMock.verify();
+      });
+      it('arc', () => {
+        cMock.expects('arc').once().withArgs(20, 20, 30, 0, 40, true);
+        const p = new window.Path2D();
+        p.arc(20, 20, 30, 0, 40, true);
+        ctx.stroke(p);
+        cMock.verify();
+      });
+      it('arcTo', () => {
+        cMock.expects('arcTo').once().withArgs(20, 20, 30, 30, 40);
+        const p = new window.Path2D();
+        p.arcTo(20, 20, 30, 30, 40);
+        ctx.stroke(p);
+        cMock.verify();
+      });
+      it('rect', () => {
+        cMock.expects('rect').once().withArgs(20, 20, 30, 30);
+        const p = new window.Path2D();
+        p.rect(20, 20, 30, 30);
+        ctx.stroke(p);
+        cMock.verify();
+      });
     });
 
     describe('moveTo', () => {

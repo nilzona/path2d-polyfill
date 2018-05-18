@@ -12,7 +12,9 @@ function supportsSvgPathArgument(window) {
   g.lineWidth = 1;
   g.stroke(p);
   const imgData = g.getImageData(0, 0, 1, 1);
-  return imgData.data[0] === 255; // Check if pixel is red
+  const ok = imgData.data[0] === 255; // Check if pixel is red
+  canvas.parentNode.removeChild(canvas);
+  return ok;
 }
 
 function rotatePoint(point, angle) {
@@ -44,8 +46,15 @@ function polyFillPath2D(window) {
   class Path2D {
     constructor(path) {
       this.segments = [];
-      if (path) {
+      if (path && path instanceof Path2D) {
+        this.segments.concat(path.segments);
+      } else if (path) {
         this.segments = parsePath(path);
+      }
+    }
+    addPath(path, transform) {
+      if (path && path instanceof Path2D) {
+        this.segments.concat(path.segments);
       }
     }
     moveTo(x, y) {
@@ -57,6 +66,9 @@ function polyFillPath2D(window) {
     arc(x, y, r, start, end, ccw) {
       this.segments.push(['AC', x, y, r, start, end, !!ccw]);
     }
+    arcTo(x1, y1, x2, y2, r) {
+      this.segments.push(['AT', x1, y1, x2, y2, r]);
+    }
     closePath() {
       this.segments.push(['Z']);
     }
@@ -65,6 +77,9 @@ function polyFillPath2D(window) {
     }
     quadraticCurveTo(cpx, cpy, x, y) {
       this.segments.push(['Q', cpx, cpy, x, y]);
+    }
+    rect(x, y, width, height) {
+      this.segments.push(['R', x, y, width, height]);
     }
   }
 
@@ -79,15 +94,22 @@ function polyFillPath2D(window) {
     let endPoint;
     let angle;
     let x;
+    let x1;
+    let x2;
     let y;
+    let y1;
+    let y2;
     let r;
     let b;
+    let w;
+    let h;
     let pathType;
     let centerPoint;
     let cpx;
     let cpy;
     let qcpx;
     let qcpy;
+    let ccw;
     const currentPoint = { x: 0, y: 0 };
 
     // Reset control point if command is not cubic
@@ -290,6 +312,30 @@ function polyFillPath2D(window) {
         case 'z':
         case 'Z':
           canvas.closePath();
+          break;
+        case 'AC': // arc
+          x = s[1];
+          y = s[2];
+          r = s[3];
+          startAngle = s[4];
+          endAngle = s[5];
+          ccw = s[6];
+          canvas.arc(x, y, r, startAngle, endAngle, ccw);
+          break;
+        case 'AT': // arcTo
+          x1 = s[1];
+          y1 = s[2];
+          x2 = s[3];
+          y2 = s[4];
+          r = s[5];
+          canvas.arcTo(x1, y1, x2, y2, r);
+          break;
+        case 'R': // rect
+          x = s[1];
+          y = s[2];
+          w = s[3];
+          h = s[4];
+          canvas.rect(x, y, w, h);
           break;
         default:
           // throw new Error(`${pathType} is not implemented`); ?
