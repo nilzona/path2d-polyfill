@@ -1,6 +1,6 @@
 {
   "name": "path2d-polyfill",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Polyfills Path2D api for canvas rendering",
   "scripts": {
     "build": "rollup -c --environment BUILD:production",
@@ -19,7 +19,11 @@
     "type": "git",
     "url": "git+https://github.com/nilzona/path2d-polyfill.git"
   },
-  "keywords": ["Path2D", "polyfill", "canvas"],
+  "keywords": [
+    "Path2D",
+    "polyfill",
+    "canvas"
+  ],
   "author": "nilzona",
   "license": "MIT",
   "bugs": {
