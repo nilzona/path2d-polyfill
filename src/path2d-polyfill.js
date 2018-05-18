@@ -47,14 +47,14 @@ function polyFillPath2D(window) {
     constructor(path) {
       this.segments = [];
       if (path && path instanceof Path2D) {
-        this.segments.concat(path.segments);
+        this.segments.push(...path.segments);
       } else if (path) {
         this.segments = parsePath(path);
       }
     }
-    addPath(path, transform) {
+    addPath(path) {
       if (path && path instanceof Path2D) {
-        this.segments.concat(path.segments);
+        this.segments.push(...path.segments);
       }
     }
     moveTo(x, y) {
@@ -95,10 +95,8 @@ function polyFillPath2D(window) {
     let angle;
     let x;
     let x1;
-    let x2;
     let y;
     let y1;
-    let y2;
     let r;
     let b;
     let w;
@@ -325,10 +323,10 @@ function polyFillPath2D(window) {
         case 'AT': // arcTo
           x1 = s[1];
           y1 = s[2];
-          x2 = s[3];
-          y2 = s[4];
+          x = s[3];
+          y = s[4];
           r = s[5];
-          canvas.arcTo(x1, y1, x2, y2, r);
+          canvas.arcTo(x1, y1, x, y, r);
           break;
         case 'R': // rect
           x = s[1];

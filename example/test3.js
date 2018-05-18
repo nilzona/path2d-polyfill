@@ -6,6 +6,9 @@ var ctx = canvas.getContext('2d')
 var path1 = new Path2D();
 
 path1.arc(75, 75, 50, 0, Math.PI);
+path1.lineTo(75,50);
+path1.lineTo(100,60);
+path1.closePath();
 ctx.strokeStyle = '#999999';
 ctx.fillStyle = 'rgba(0, 255, 0, 0.8)';
 ctx.lineWidth = 1;
