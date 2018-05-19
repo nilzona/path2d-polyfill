@@ -1,5 +1,4 @@
 # path2d-polyfill
-[![CircleCI](https://circleci.com/gh/nilzona/path2d-polyfill.svg?style=svg)](https://circleci.com/gh/nilzona/path2d-polyfill)
 
 Polyfills Path2D api for rendering SVG paths in canvas
 
