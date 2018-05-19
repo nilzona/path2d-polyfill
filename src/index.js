@@ -1,7 +1,7 @@
 import parsePath from './parse-path';
 import path2dPolyfill from './path2d-polyfill';
 
-if (window) {
+if (typeof window !== 'undefined') {
   path2dPolyfill(window);
 }
 

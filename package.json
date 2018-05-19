@@ -7,7 +7,7 @@
     "build:watch": "rollup -c -w",
     "lint": "eslint src test rollup.config.js",
     "test": "aw -c aw.config.js",
-    "test:coverage": "aw -c aw.config.js --coverage --src \"src/!(index)*.js\"",
+    "test:coverage": "aw -c aw.config.js --coverage",
     "example": "npm run build -- --environment BUILD:debug && simple-server"
   },
   "files": [
