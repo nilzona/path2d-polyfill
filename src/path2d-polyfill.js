@@ -12,9 +12,7 @@ function supportsSvgPathArgument(window) {
   g.lineWidth = 1;
   g.stroke(p);
   const imgData = g.getImageData(0, 0, 1, 1);
-  const ok = imgData.data[0] === 255; // Check if pixel is red
-  canvas.parentNode.removeChild(canvas);
-  return ok;
+  return imgData.data[0] === 255; // Check if pixel is red
 }
 
 function rotatePoint(point, angle) {

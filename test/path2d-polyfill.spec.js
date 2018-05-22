@@ -29,7 +29,6 @@ describe('Canvas path', () => {
         createElement: () => {
           const el = {};
           el.getContext = () => new CanvasRenderingContext2D();
-          el.parentNode = { removeChild: () => {} };
           return el;
         },
       },
