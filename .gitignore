@@ -1,5 +1,6 @@
 node_modules
 .vscode
+.cache
 dist
 coverage
 example/path2d-polyfill.js

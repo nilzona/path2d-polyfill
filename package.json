@@ -3,15 +3,16 @@
   "version": "0.1.3",
   "description": "Polyfills Path2D api for canvas rendering",
   "scripts": {
-    "build": "rollup -c --environment BUILD:production",
-    "build:watch": "rollup -c -w",
+    "build": "parcel build src/index.js",
+    "build:watch": "parcel src/index.js",
     "lint": "eslint src test rollup.config.js",
     "test": "aw -c aw.config.js",
     "test:coverage": "aw -c aw.config.js --coverage",
     "example": "npm run build -- --environment BUILD:debug && simple-server"
   },
   "files": [
-    "/dist"
+    "/dist",
+    "/src"
   ],
   "main": "dist/path2d-polyfill.js",
   "module": "src/index.js",
@@ -32,18 +33,12 @@
   "homepage": "https://github.com/nilzona/path2d-polyfill#readme",
   "devDependencies": {
     "after-work.js": "^4.2.1",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.3",
     "babel-plugin-istanbul": "^4.1.6",
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-chai-expect": "^1.1.1",
     "eslint-plugin-import": "^2.12.0",
-    "rollup": "^0.59.1",
-    "rollup-plugin-babel": "^3.0.4",
-    "rollup-plugin-uglify": "^3.0.0",
+    "parcel-bundler": "^1.8.1",
     "simple-server": "^1.1.1"
   }
 }
