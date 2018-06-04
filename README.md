@@ -1,5 +1,7 @@
 # path2d-polyfill
 
+[![CircleCI](https://circleci.com/gh/nilzona/path2d-polyfill/tree/master.svg?style=svg&circle-token=912100b3186daf870257a302f7509b0c92f18ae1)](https://circleci.com/gh/nilzona/path2d-polyfill/tree/master)
+
 Polyfills Path2D api for rendering SVG paths in canvas
 
 Use this to enable Path2D features in e.g. Internet Explorer.
