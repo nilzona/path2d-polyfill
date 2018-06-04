@@ -1,6 +1,6 @@
 {
   "name": "path2d-polyfill",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Polyfills Path2D api for canvas rendering",
   "scripts": {
     "build": "parcel build src/index.js",
