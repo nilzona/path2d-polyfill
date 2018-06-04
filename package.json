@@ -5,7 +5,7 @@
   "scripts": {
     "build": "parcel build src/index.js",
     "build:watch": "parcel src/index.js",
-    "lint": "eslint src test rollup.config.js",
+    "lint": "eslint src test",
     "test": "aw -c aw.config.js",
     "test:coverage": "aw -c aw.config.js --coverage",
     "example": "npm run build -- --environment BUILD:debug && simple-server"
@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/nilzona/path2d-polyfill#readme",
   "devDependencies": {
-    "after-work.js": "^4.2.1",
+    "after-work.js": "^4.3.2",
     "babel-plugin-istanbul": "^4.1.6",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
