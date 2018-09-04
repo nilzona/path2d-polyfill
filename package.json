@@ -16,6 +16,7 @@
   ],
   "main": "dist/index.js",
   "module": "src/index.js",
+  "source": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nilzona/path2d-polyfill.git"
