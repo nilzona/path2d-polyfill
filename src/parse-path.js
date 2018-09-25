@@ -33,7 +33,7 @@ function parseValues(args) {
  */
 export default function parse(path) {
   const data = [];
-  const p = `${path}`.trim();
+  const p = String(path).trim();
 
   // A path data segment (if there is one) must begin with a "moveto" command
   if (p[0] !== 'M' && p[0] !== 'm') {

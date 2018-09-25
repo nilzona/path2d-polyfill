@@ -3,7 +3,7 @@
   "version": "0.2.2",
   "description": "Polyfills Path2D api for canvas rendering",
   "scripts": {
-    "build": "rm -rf dist/* && parcel build src/index.js",
+    "build": "rm -rf dist/* && rollup -c rollup.config.js",
     "build:watch": "parcel src/index.js",
     "lint": "eslint src test",
     "test": "aw -c aw.config.js",
@@ -15,8 +15,7 @@
     "/src"
   ],
   "main": "dist/index.js",
-  "module": "src/index.js",
-  "source": true,
+  "module": "dist/index.esm.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nilzona/path2d-polyfill.git"
@@ -33,12 +32,16 @@
   },
   "homepage": "https://github.com/nilzona/path2d-polyfill#readme",
   "devDependencies": {
+    "@babel/core": "^7.1.0",
     "after-work.js": "^4.3.2",
     "babel-plugin-istanbul": "^4.1.6",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-chai-expect": "^1.1.1",
     "eslint-plugin-import": "^2.12.0",
-    "parcel-bundler": "^1.8.1"
+    "parcel-bundler": "^1.8.1",
+    "rollup": "^0.66.2",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-uglify": "^6.0.0"
   }
 }
