@@ -33,6 +33,7 @@
   "homepage": "https://github.com/nilzona/path2d-polyfill#readme",
   "devDependencies": {
     "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
     "after-work.js": "^4.3.2",
     "babel-plugin-istanbul": "^4.1.6",
     "eslint": "^4.19.1",
