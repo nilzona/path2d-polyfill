@@ -28,7 +28,7 @@ function translatePoint(point, dx, dy) {
 }
 
 function polyFillPath2D(window) {
-  if (!window) {
+  if (typeof window === 'undefined' || !window.CanvasRenderingContext2D) {
     return;
   }
   if (window.Path2D && supportsSvgPathArgument(window)) {

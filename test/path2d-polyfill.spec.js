@@ -42,6 +42,12 @@ describe('Canvas path', () => {
       expect(window).to.be.an('undefined');
     });
 
+    it('should not add Path2D if window.CanvasRenderingContext2D is undefined', () => {
+      window.CanvasRenderingContext2D = undefined;
+      polyfillPath2D(window);
+      expect(window.Path2D).to.be.an('undefined');
+    });
+
     it('should add Path2D constructor to window object', () => {
       polyfillPath2D(window);
       expect(new window.Path2D()).to.be.an.instanceOf(window.Path2D);
