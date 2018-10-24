@@ -19,6 +19,11 @@ describe('Canvas path', () => {
       bezierCurveTo() {},
       quadraticCurveTo() {},
       rect() {},
+      save() {},
+      translate() {},
+      rotate() {},
+      scale() {},
+      restore() {},
       strokeStyle: null,
       lineWidth: null,
     };
@@ -195,6 +200,15 @@ describe('Canvas path', () => {
         ctx.stroke(p);
         cMock.verify();
       });
+      it('ellipse', () => {
+        cMock.expects('translate').once().withArgs(100, 150);
+        cMock.expects('scale').once().withArgs(20, 40);
+        cMock.expects('arc').once().withArgs(0, 0, 1, 0, Math.PI, true);
+        const p = new window.Path2D();
+        p.ellipse(100, 150, 20, 40, 0, Math.PI, true);
+        ctx.stroke(p);
+        cMock.verify();
+      });
       it('rect', () => {
         cMock.expects('rect').once().withArgs(20, 20, 30, 30);
         const p = new window.Path2D();
@@ -265,7 +279,9 @@ describe('Canvas path', () => {
     describe('arc', () => {
       it('A', () => {
         cMock.expects('moveTo').once().withArgs(80, 80);
-        cMock.expects('arc').once().withArgs(125, 80, 45, Math.PI, Math.PI / 2, true);
+        cMock.expects('translate').once().withArgs(125, 80);
+        cMock.expects('scale').once().withArgs(45, 45);
+        cMock.expects('arc').once().withArgs(0, 0, 1, Math.PI, Math.PI / 2, true);
         cMock.expects('lineTo').once().withArgs(125, 80);
         cMock.expects('closePath').once();
         ctx.stroke(new window.Path2D('M80 80A 45 45 0 0 0 125 125L 125 80 Z'));
@@ -273,8 +289,18 @@ describe('Canvas path', () => {
       });
 
       it('a - with sweep flag and large flag arc', () => {
-        cMock.expects('arc').once().withArgs(275, 230, 45, Math.PI, Math.PI / 2, false);
+        cMock.expects('translate').once().withArgs(275, 230);
+        cMock.expects('scale').once().withArgs(45, 45);
+        cMock.expects('arc').once().withArgs(0, 0, 1, Math.PI, Math.PI / 2, false);
         ctx.stroke(new window.Path2D('M230 230a 45 45 0 1 1 45 45L 275 230 Z'));
+        cMock.verify();
+      });
+
+      it('a - elliptical', () => {
+        cMock.expects('translate').once().withArgs(250, 230);
+        cMock.expects('scale').once().withArgs(20, 40);
+        cMock.expects('arc').once().withArgs(0, 0, 1, Math.PI, 0, false);
+        ctx.stroke(new window.Path2D('M230 230a 20 40 0 1 1 40 0L 275 230 Z'));
         cMock.verify();
       });
     });

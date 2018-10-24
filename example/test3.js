@@ -50,3 +50,11 @@ path5.closePath();
 ctx.fillStyle = 'rgba(255, 255, 0, 0.8)';
 ctx.stroke(path5);
 ctx.fill(path5)
+
+ctx.translate(0, 50);
+var path5 = new Path2D();
+path5.ellipse(150, 120, 60, 40, 0, Math.PI, true);
+path5.closePath();
+ctx.fillStyle = 'rgba(255, 0, 0, 0.8)';
+ctx.stroke(path5);
+ctx.fill(path5)
