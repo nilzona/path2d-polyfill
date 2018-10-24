@@ -108,21 +108,22 @@ function polyFillPath2D(window) {
     let ccw;
     const currentPoint = { x: 0, y: 0 };
 
-    // Reset control point if command is not cubic
-    if (pathType !== 'S' && pathType !== 's' && pathType !== 'C' && pathType !== 'c') {
-      cpx = null;
-      cpy = null;
-    }
-
-    if (pathType !== 'T' && pathType !== 't' && pathType !== 'Q' && pathType !== 'q') {
-      qcpx = null;
-      qcpy = null;
-    }
-
     canvas.beginPath();
     for (let i = 0; i < segments.length; ++i) {
       const s = segments[i];
       pathType = s[0];
+
+      // Reset control point if command is not cubic
+      if (pathType !== 'S' && pathType !== 's' && pathType !== 'C' && pathType !== 'c') {
+        cpx = null;
+        cpy = null;
+      }
+
+      if (pathType !== 'T' && pathType !== 't' && pathType !== 'Q' && pathType !== 'q') {
+        qcpx = null;
+        qcpy = null;
+      }
+
       switch (pathType) {
         case 'm':
           x += s[1];
