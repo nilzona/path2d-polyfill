@@ -3,7 +3,7 @@
     "test": {
       "plugins": ["istanbul"],
       "presets": [
-        ["env", {
+        ["@babel/env", {
           "targets": {
             "node": "current"
           }
