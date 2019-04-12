@@ -299,7 +299,7 @@ describe('Canvas path', () => {
       it('a - elliptical', () => {
         cMock.expects('translate').once().withArgs(250, 230);
         cMock.expects('scale').once().withArgs(20, 40);
-        cMock.expects('arc').once().withArgs(0, 0, 1, Math.PI, 0, false);
+        cMock.expects('arc').once().withArgs(0, 0, 1, Math.PI, -0, false);
         ctx.stroke(new window.Path2D('M230 230a 20 40 0 1 1 40 0L 275 230 Z'));
         cMock.verify();
       });
