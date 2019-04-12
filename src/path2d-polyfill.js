@@ -27,6 +27,11 @@ function translatePoint(point, dx, dy) {
   point.y += dy;
 }
 
+function scalePoint(point, s) {
+  point.x *= s;
+  point.y *= s;
+}
+
 function polyFillPath2D(window) {
   if (typeof window === 'undefined' || !window.CanvasRenderingContext2D) {
     return;
@@ -73,6 +78,10 @@ function polyFillPath2D(window) {
       this.segments.push(['AT', x1, y1, x2, y2, r]);
     }
 
+    ellipse(x, y, rx, ry, angle, start, end, ccw) {
+      this.segments.push(['E', x, y, rx, ry, angle, start, end, !!ccw]);
+    }
+
     closePath() {
       this.segments.push(['Z']);
     }
@@ -99,13 +108,17 @@ function polyFillPath2D(window) {
     let largeArcFlag;
     let sweepFlag;
     let endPoint;
+    let midPoint;
     let angle;
+    let lambda;
+    let t1;
+    let t2;
     let x;
     let x1;
     let y;
     let y1;
     let r;
-    let b;
+    let r1;
     let w;
     let h;
     let pathType;
@@ -187,45 +200,65 @@ function polyFillPath2D(window) {
             y = s[7];
           }
 
-          r = s[1];
-          // s[2] = 2nd radius in ellipse, ignore
-          // s[3] = rotation of ellipse, ignore
-          largeArcFlag = s[4];
-          sweepFlag = s[5];
+          r = s[1]; // rx
+          r1 = s[2]; // ry
+          angle = (s[3] * Math.PI) / 180;
+          largeArcFlag = !!s[4];
+          sweepFlag = !!s[5];
           endPoint = { x, y };
-          // translate all points so that currentPoint is origin
-          translatePoint(endPoint, -currentPoint.x, -currentPoint.y);
 
-          // angle to destination
-          angle = Math.atan2(endPoint.y, endPoint.x);
+          // https://www.w3.org/TR/SVG/implnote.html#ArcImplementationNotes
 
-          // rotate points so that angle is 0
-          rotatePoint(endPoint, -angle);
+          midPoint = {
+            x: (currentPoint.x - endPoint.x) / 2,
+            y: (currentPoint.y - endPoint.y) / 2,
+          };
+          rotatePoint(midPoint, -angle);
 
-          b = endPoint.x / 2;
-          // var sweepAngle = Math.asin(b / r);
-
-          centerPoint = { x: 0, y: 0 };
-          centerPoint.x = endPoint.x / 2;
-          if ((sweepFlag && !largeArcFlag) || (!sweepFlag && largeArcFlag)) {
-            centerPoint.y = Math.sqrt((r * r) - (b * b));
-          } else {
-            centerPoint.y = -Math.sqrt((r * r) - (b * b));
+          // radius correction
+          lambda = ((midPoint.x * midPoint.x) / (r * r))
+                 + ((midPoint.y * midPoint.y) / (r1 * r1));
+          if (lambda > 1) {
+            lambda = Math.sqrt(lambda);
+            r *= lambda;
+            r1 *= lambda;
           }
-          startAngle = Math.atan2(-centerPoint.y, -centerPoint.x);
-          endAngle = Math.atan2(endPoint.y - centerPoint.y, endPoint.x - centerPoint.x);
 
-          // rotate back
-          startAngle += angle;
-          endAngle += angle;
-          rotatePoint(endPoint, angle);
+          centerPoint = {
+            x: (r * midPoint.y) / r1,
+            y: -(r1 * midPoint.x) / r,
+          };
+          t1 = r * r * r1 * r1;
+          t2 = (r * r * midPoint.y * midPoint.y)
+             + (r1 * r1 * midPoint.x * midPoint.x);
+          if (sweepFlag !== largeArcFlag) {
+            scalePoint(centerPoint, Math.sqrt((t1 - t2) / t2) || 0);
+          } else {
+            scalePoint(centerPoint, -Math.sqrt((t1 - t2) / t2) || 0);
+          }
+
+          startAngle = Math.atan2(
+            (midPoint.y - centerPoint.y) / r1,
+            (midPoint.x - centerPoint.x) / r,
+          );
+          endAngle = Math.atan2(
+            -(midPoint.y + centerPoint.y) / r1,
+            -(midPoint.x + centerPoint.x) / r,
+          );
+
           rotatePoint(centerPoint, angle);
+          translatePoint(
+            centerPoint,
+            (endPoint.x + currentPoint.x) / 2,
+            (endPoint.y + currentPoint.y) / 2,
+          );
 
-          // translate points
-          translatePoint(endPoint, currentPoint.x, currentPoint.y);
-          translatePoint(centerPoint, currentPoint.x, currentPoint.y);
-
-          canvas.arc(centerPoint.x, centerPoint.y, r, startAngle, endAngle, !sweepFlag);
+          canvas.save();
+          canvas.translate(centerPoint.x, centerPoint.y);
+          canvas.rotate(angle);
+          canvas.scale(r, r1);
+          canvas.arc(0, 0, 1, startAngle, endAngle, !sweepFlag);
+          canvas.restore();
           break;
         case 'C':
           cpx = s[3]; // Last control point
@@ -345,6 +378,22 @@ function polyFillPath2D(window) {
           y = s[4];
           r = s[5];
           canvas.arcTo(x1, y1, x, y, r);
+          break;
+        case 'E': // ellipse
+          x = s[1];
+          y = s[2];
+          r = s[3];
+          r1 = s[4];
+          angle = s[5];
+          startAngle = s[6];
+          endAngle = s[7];
+          ccw = s[8];
+          canvas.save();
+          canvas.translate(x, y);
+          canvas.rotate(angle);
+          canvas.scale(r, r1);
+          canvas.arc(0, 0, 1, startAngle, endAngle, ccw);
+          canvas.restore();
           break;
         case 'R': // rect
           x = s[1];

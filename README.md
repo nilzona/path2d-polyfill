@@ -42,7 +42,7 @@ import 'path2d-polyfill';
 | bezierCurveTo() | Yes |
 | quadraticCurveTo() | Yes |
 | arc()       | Yes |
-| ellipse()       | No |
+| ellipse()       | Yes |
 | rect()       | Yes |
 
 You can render SVG paths like this
@@ -50,10 +50,6 @@ You can render SVG paths like this
 ctx.fill(new Path2D('M 80 80 A 45 45 0 0 0 125 125 L 125 80 Z'));
 ctx.stroke(new Path2D('M 80 80 A 45 45 0 0 0 125 125 L 125 80 Z'));
 ```
-
-<aside class="notice">
-Unfortunately Internet Explorer does not support the `ellipse()` function so Arc commands in SVG Paths will always be based on circles and default to the first radius parameter. This can cause undesirable behaviour.
-</aside>
 
 
 ## See it in action
