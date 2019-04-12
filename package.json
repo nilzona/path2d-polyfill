@@ -8,7 +8,7 @@
     "lint": "eslint src test",
     "test": "aw -c aw.config.js",
     "test:coverage": "aw -c aw.config.js --coverage",
-    "example": "parcel index.html"
+    "example": "parcel example/index.html"
   },
   "files": [
     "/dist",

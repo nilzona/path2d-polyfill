@@ -281,6 +281,7 @@ describe('Canvas path', () => {
         cMock.expects('moveTo').once().withArgs(80, 80);
         cMock.expects('translate').once().withArgs(125, 80);
         cMock.expects('scale').once().withArgs(45, 45);
+        cMock.expects('rotate').once().withArgs(0);
         cMock.expects('arc').once().withArgs(0, 0, 1, Math.PI, Math.PI / 2, true);
         cMock.expects('lineTo').once().withArgs(125, 80);
         cMock.expects('closePath').once();
@@ -291,8 +292,9 @@ describe('Canvas path', () => {
       it('a - with sweep flag and large flag arc', () => {
         cMock.expects('translate').once().withArgs(275, 230);
         cMock.expects('scale').once().withArgs(45, 45);
-        cMock.expects('arc').once().withArgs(0, 0, 1, Math.PI, Math.PI / 2, false);
-        ctx.stroke(new window.Path2D('M230 230a 45 45 0 1 1 45 45L 275 230 Z'));
+        cMock.expects('rotate').once().withArgs(-Math.PI / 4);
+        cMock.expects('arc').once().withArgs(0, 0, 1, -3 * Math.PI / 4, 3 * Math.PI / 4, false);
+        ctx.stroke(new window.Path2D('M230 230a 45 45 -45 1 1 45 45L 275 230 Z'));
         cMock.verify();
       });
 
