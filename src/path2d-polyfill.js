@@ -118,7 +118,8 @@ function polyFillPath2D(window) {
     let y;
     let y1;
     let r;
-    let r1;
+    let rx;
+    let ry;
     let w;
     let h;
     let pathType;
@@ -200,8 +201,8 @@ function polyFillPath2D(window) {
             y = s[7];
           }
 
-          r = s[1]; // rx
-          r1 = s[2]; // ry
+          rx = s[1]; // rx
+          ry = s[2]; // ry
           angle = (s[3] * Math.PI) / 180;
           largeArcFlag = !!s[4];
           sweepFlag = !!s[5];
@@ -216,21 +217,21 @@ function polyFillPath2D(window) {
           rotatePoint(midPoint, -angle);
 
           // radius correction
-          lambda = ((midPoint.x * midPoint.x) / (r * r))
-                 + ((midPoint.y * midPoint.y) / (r1 * r1));
+          lambda = ((midPoint.x * midPoint.x) / (rx * rx))
+                 + ((midPoint.y * midPoint.y) / (ry * ry));
           if (lambda > 1) {
             lambda = Math.sqrt(lambda);
-            r *= lambda;
-            r1 *= lambda;
+            rx *= lambda;
+            ry *= lambda;
           }
 
           centerPoint = {
-            x: (r * midPoint.y) / r1,
-            y: -(r1 * midPoint.x) / r,
+            x: (rx * midPoint.y) / ry,
+            y: -(ry * midPoint.x) / rx,
           };
-          t1 = r * r * r1 * r1;
-          t2 = (r * r * midPoint.y * midPoint.y)
-             + (r1 * r1 * midPoint.x * midPoint.x);
+          t1 = rx * rx * ry * ry;
+          t2 = (rx * rx * midPoint.y * midPoint.y)
+             + (ry * ry * midPoint.x * midPoint.x);
           if (sweepFlag !== largeArcFlag) {
             scalePoint(centerPoint, Math.sqrt((t1 - t2) / t2) || 0);
           } else {
@@ -238,12 +239,12 @@ function polyFillPath2D(window) {
           }
 
           startAngle = Math.atan2(
-            (midPoint.y - centerPoint.y) / r1,
-            (midPoint.x - centerPoint.x) / r,
+            (midPoint.y - centerPoint.y) / ry,
+            (midPoint.x - centerPoint.x) / rx,
           );
           endAngle = Math.atan2(
-            -(midPoint.y + centerPoint.y) / r1,
-            -(midPoint.x + centerPoint.x) / r,
+            -(midPoint.y + centerPoint.y) / ry,
+            -(midPoint.x + centerPoint.x) / rx,
           );
 
           rotatePoint(centerPoint, angle);
@@ -256,7 +257,7 @@ function polyFillPath2D(window) {
           canvas.save();
           canvas.translate(centerPoint.x, centerPoint.y);
           canvas.rotate(angle);
-          canvas.scale(r, r1);
+          canvas.scale(rx, ry);
           canvas.arc(0, 0, 1, startAngle, endAngle, !sweepFlag);
           canvas.restore();
           break;
@@ -382,8 +383,8 @@ function polyFillPath2D(window) {
         case 'E': // ellipse
           x = s[1];
           y = s[2];
-          r = s[3];
-          r1 = s[4];
+          rx = s[3];
+          ry = s[4];
           angle = s[5];
           startAngle = s[6];
           endAngle = s[7];
@@ -391,7 +392,7 @@ function polyFillPath2D(window) {
           canvas.save();
           canvas.translate(x, y);
           canvas.rotate(angle);
-          canvas.scale(r, r1);
+          canvas.scale(rx, ry);
           canvas.arc(0, 0, 1, startAngle, endAngle, ccw);
           canvas.restore();
           break;
