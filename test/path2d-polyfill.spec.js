@@ -345,6 +345,13 @@ describe('Canvas path', () => {
         cMock.verify();
       });
 
+      it('S - with break between cubic command', () => {
+        cMock.expects('bezierCurveTo').withArgs(1, 2, 3, 4, 5, 6);
+        cMock.expects('bezierCurveTo').withArgs(10, 12, 10, 20, 30, 40);
+        ctx.stroke(new window.Path2D('M0 0, C1 2, 3 4, 5 6, M10 12, S10 20, 30 40'));
+        cMock.verify();
+      });
+
       it('s - with previous cubic command', () => {
         cMock.expects('bezierCurveTo').withArgs(1, 2, 3, 4, 5, 6);
         cMock.expects('bezierCurveTo').withArgs(7, 8, 15, 26, 35, 46);
@@ -355,6 +362,13 @@ describe('Canvas path', () => {
       it('s - without previous cubic command', () => {
         cMock.expects('bezierCurveTo').withArgs(1, 2, 11, 22, 31, 42);
         ctx.stroke(new window.Path2D('M1 2, s10 20 30 40'));
+        cMock.verify();
+      });
+
+      it('s - with break between cubic command', () => {
+        cMock.expects('bezierCurveTo').withArgs(1, 2, 3, 4, 5, 6);
+        cMock.expects('bezierCurveTo').withArgs(10, 12, 20, 32, 40, 52);
+        ctx.stroke(new window.Path2D('M0 0, C1 2 3 4 5 6, M10 12, s10 20 30 40'));
         cMock.verify();
       });
     });
@@ -385,6 +399,13 @@ describe('Canvas path', () => {
         cMock.verify();
       });
 
+      it('T - with break between quad command', () => {
+        cMock.expects('quadraticCurveTo').withArgs(1, 2, 3, 4);
+        cMock.expects('quadraticCurveTo').withArgs(10, 12, 10, 100);
+        ctx.stroke(new window.Path2D('M10 10, Q1 2,3 4, M10 12, T10 100'));
+        cMock.verify();
+      });
+
       it('t - with previous quad command', () => {
         cMock.expects('quadraticCurveTo').withArgs(0, 5, 10, 15);
         cMock.expects('quadraticCurveTo').withArgs(20, 25, 11, 17);
@@ -395,6 +416,13 @@ describe('Canvas path', () => {
       it('t - without previous quad command', () => {
         cMock.expects('quadraticCurveTo').withArgs(10, 100, 11, 102);
         ctx.stroke(new window.Path2D('M10 100, t1 2'));
+        cMock.verify();
+      });
+
+      it('t - with break between quad command', () => {
+        cMock.expects('quadraticCurveTo').withArgs(0, 5, 10, 15);
+        cMock.expects('quadraticCurveTo').withArgs(10, 12, 11, 14);
+        ctx.stroke(new window.Path2D('M0 0, Q0 5, 10 15, M10 12, t1 2'));
         cMock.verify();
       });
     });

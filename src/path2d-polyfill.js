@@ -128,32 +128,40 @@ function polyFillPath2D(window) {
     let qcpx;
     let qcpy;
     let ccw;
+    let startPoint = { x: 0, y: 0 };
     const currentPoint = { x: 0, y: 0 };
-
-    // Reset control point if command is not cubic
-    if (pathType !== 'S' && pathType !== 's' && pathType !== 'C' && pathType !== 'c') {
-      cpx = null;
-      cpy = null;
-    }
-
-    if (pathType !== 'T' && pathType !== 't' && pathType !== 'Q' && pathType !== 'q') {
-      qcpx = null;
-      qcpy = null;
-    }
 
     canvas.beginPath();
     for (let i = 0; i < segments.length; ++i) {
       const s = segments[i];
       pathType = s[0];
+
+      // Reset control point if command is not cubic
+      if (pathType !== 'S' && pathType !== 's' && pathType !== 'C' && pathType !== 'c') {
+        cpx = null;
+        cpy = null;
+      }
+
+      if (pathType !== 'T' && pathType !== 't' && pathType !== 'Q' && pathType !== 'q') {
+        qcpx = null;
+        qcpy = null;
+      }
+
       switch (pathType) {
         case 'm':
-          x += s[1];
-          y += s[2];
-          canvas.moveTo(x, y);
-          break;
         case 'M':
-          x = s[1];
-          y = s[2];
+          if (pathType === 'm') {
+            x += s[1];
+            y += s[2];
+          } else {
+            x = s[1];
+            y = s[2];
+          }
+
+          if (pathType === 'M' || !startPoint) {
+            startPoint = { x, y };
+          }
+
           canvas.moveTo(x, y);
           break;
         case 'l':
@@ -349,6 +357,9 @@ function polyFillPath2D(window) {
           break;
         case 'z':
         case 'Z':
+          x = startPoint.x;
+          y = startPoint.y;
+          startPoint = undefined;
           canvas.closePath();
           break;
         case 'AC': // arc
@@ -389,6 +400,7 @@ function polyFillPath2D(window) {
           y = s[2];
           w = s[3];
           h = s[4];
+          startPoint = { x, y };
           canvas.rect(x, y, w, h);
           break;
         default:
