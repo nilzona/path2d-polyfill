@@ -50,32 +50,41 @@ function polyFillPath2D(window) {
         this.segments = parsePath(path);
       }
     }
+
     addPath(path) {
       if (path && path instanceof Path2D) {
         this.segments.push(...path.segments);
       }
     }
+
     moveTo(x, y) {
       this.segments.push(['M', x, y]);
     }
+
     lineTo(x, y) {
       this.segments.push(['L', x, y]);
     }
+
     arc(x, y, r, start, end, ccw) {
       this.segments.push(['AC', x, y, r, start, end, !!ccw]);
     }
+
     arcTo(x1, y1, x2, y2, r) {
       this.segments.push(['AT', x1, y1, x2, y2, r]);
     }
+
     closePath() {
       this.segments.push(['Z']);
     }
+
     bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y) {
       this.segments.push(['C', cp1x, cp1y, cp2x, cp2y, x, y]);
     }
+
     quadraticCurveTo(cpx, cpy, x, y) {
       this.segments.push(['Q', cpx, cpy, x, y]);
     }
+
     rect(x, y, width, height) {
       this.segments.push(['R', x, y, width, height]);
     }
