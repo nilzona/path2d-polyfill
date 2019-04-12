@@ -205,7 +205,7 @@ describe('Canvas path', () => {
         cMock.expects('scale').once().withArgs(20, 40);
         cMock.expects('arc').once().withArgs(0, 0, 1, 0, Math.PI, true);
         const p = new window.Path2D();
-        p.ellipse(100, 150, 20, 40, 0, Math.PI, true);
+        p.ellipse(100, 150, 20, 40, 0, 0, Math.PI, true);
         ctx.stroke(p);
         cMock.verify();
       });

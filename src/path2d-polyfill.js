@@ -72,8 +72,8 @@ function polyFillPath2D(window) {
     arcTo(x1, y1, x2, y2, r) {
       this.segments.push(['AT', x1, y1, x2, y2, r]);
     }
-    ellipse(x, y, rx, ry, start, end, ccw) {
-      this.segments.push(['E', x, y, rx, ry, start, end, !!ccw]);
+    ellipse(x, y, rx, ry, angle, start, end, ccw) {
+      this.segments.push(['E', x, y, rx, ry, angle, start, end, !!ccw]);
     }
     closePath() {
       this.segments.push(['Z']);
@@ -363,11 +363,13 @@ function polyFillPath2D(window) {
           y = s[2];
           r = s[3];
           r1 = s[4];
-          startAngle = s[5];
-          endAngle = s[6];
-          ccw = s[7];
+          angle = s[5];
+          startAngle = s[6];
+          endAngle = s[7];
+          ccw = s[8];
           canvas.save();
           canvas.translate(x, y);
+          canvas.rotate(angle);
           canvas.scale(r, r1);
           canvas.arc(0, 0, 1, startAngle, endAngle, ccw);
           canvas.restore();
