@@ -1,6 +1,8 @@
 node_modules
+coverage
+dist
 .vscode
 .cache
-dist
-coverage
-example/path2d-polyfill.js
+.nyc_output
+example/index.js
+example/index.js.map

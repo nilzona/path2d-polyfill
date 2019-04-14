@@ -1,4 +1,5 @@
-import parse from '../src/parse-path';
+const { expect } = require('chai');
+const parse = require('../src/parse-path');
 
 describe('parse', () => {
   // https://www.w3.org/TR/SVG/paths.html#PathDataGeneralInformation

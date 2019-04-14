@@ -1,4 +1,4 @@
-import parsePath from './parse-path';
+const parsePath = require('./parse-path');
 
 /**
  * Work around for https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/8438884/
@@ -240,19 +240,16 @@ function polyFillPath2D(window) {
 
           startAngle = Math.atan2(
             (midPoint.y - centerPoint.y) / ry,
-            (midPoint.x - centerPoint.x) / rx,
-          );
+            (midPoint.x - centerPoint.x) / rx);
           endAngle = Math.atan2(
             -(midPoint.y + centerPoint.y) / ry,
-            -(midPoint.x + centerPoint.x) / rx,
-          );
+            -(midPoint.x + centerPoint.x) / rx);
 
           rotatePoint(centerPoint, angle);
           translatePoint(
             centerPoint,
             (endPoint.x + currentPoint.x) / 2,
-            (endPoint.y + currentPoint.y) / 2,
-          );
+            (endPoint.y + currentPoint.y) / 2);
 
           canvas.save();
           canvas.translate(centerPoint.x, centerPoint.y);
@@ -275,8 +272,7 @@ function polyFillPath2D(window) {
             s[3] + x,
             s[4] + y,
             s[5] + x,
-            s[6] + y,
-          );
+            s[6] + y);
           cpx = s[3] + x; // Last control point
           cpy = s[4] + y;
           x += s[5];
@@ -294,8 +290,7 @@ function polyFillPath2D(window) {
             s[1],
             s[2],
             s[3],
-            s[4],
-          );
+            s[4]);
           cpx = s[1]; // last control point
           cpy = s[2];
           x = s[3];
@@ -313,8 +308,7 @@ function polyFillPath2D(window) {
             s[1] + x,
             s[2] + y,
             s[3] + x,
-            s[4] + y,
-          );
+            s[4] + y);
           cpx = s[1] + x; // last control point
           cpy = s[2] + y;
           x += s[3];
@@ -439,4 +433,4 @@ function polyFillPath2D(window) {
   window.Path2D = Path2D;
 }
 
-export default polyFillPath2D;
+module.exports = polyFillPath2D;

@@ -1,4 +1,10 @@
-import polyfillPath2D from '../src/path2d-polyfill';
+const sinon = require('sinon');
+const chai = require('chai');
+const sinonChai = require('sinon-chai');
+const polyfillPath2D = require('../src/path2d-polyfill');
+
+chai.use(sinonChai);
+const expect = chai.expect;
 
 function CanvasRenderingContext2D() {}
 let window;
@@ -88,38 +94,47 @@ describe('Canvas path', () => {
   });
 
   describe('stroke/fill', () => {
+    let stroke;
+    let fill;
     beforeEach(() => {
+      stroke = sinon.fake();
+      fill = sinon.fake();
+      sinon.replace(window.CanvasRenderingContext2D.prototype, 'stroke', stroke);
+      sinon.replace(window.CanvasRenderingContext2D.prototype, 'fill', fill);
       ctx = new window.CanvasRenderingContext2D();
-      cMock = sinon.mock(ctx);
       polyfillPath2D(window);
     });
 
     afterEach(() => {
-      cMock.restore();
+      sinon.restore();
     });
 
     it('fill - no arguments', () => {
-      cMock.expects('fill').once().withExactArgs();
       ctx.fill();
-      cMock.verify();
+      expect(fill).to.have.been.calledOnceWith();
     });
 
     it('fill - with fillrule', () => {
-      cMock.expects('fill').once().withExactArgs('evenodd');
       ctx.fill('evenodd');
-      cMock.verify();
+      expect(fill).to.have.been.calledOnceWith('evenodd');
     });
 
+    it('fill - with just path defaults to nonzero', () => {
+      const p = new window.Path2D('M 0 0 L 10 0 L 10 10 Z');
+      ctx.fill(p);
+      expect(fill).to.have.been.calledOnceWith('nonzero');
+    });
+
+
     it('fill - with path and fillrule', () => {
-      cMock.expects('fill').once().withArgs({}, 'evenodd');
-      ctx.fill({}, 'evenodd');
-      cMock.verify();
+      const p = new window.Path2D('M 0 0 L 10 0 L 10 10 Z');
+      ctx.fill(p, 'evenodd');
+      expect(fill).to.have.been.calledOnceWith('evenodd');
     });
 
     it('stroke - no arguments', () => {
-      cMock.expects('stroke').once().withExactArgs();
       ctx.stroke();
-      cMock.verify();
+      expect(stroke).to.have.been.calledOnceWith();
     });
   });
 
@@ -286,6 +301,24 @@ describe('Canvas path', () => {
         cMock.expects('lineTo').once().withArgs(125, 80);
         cMock.expects('closePath').once();
         ctx.stroke(new window.Path2D('M80 80A 45 45 0 0 0 125 125L 125 80 Z'));
+        cMock.verify();
+      });
+
+      it('a - with correction', () => {
+        cMock.expects('translate').once().withArgs(40, 20);
+        cMock.expects('scale').once().withArgs(20, 20);
+        cMock.expects('rotate').once().withArgs(0);
+        cMock.expects('arc').once().withArgs(0, 0, 1, -Math.PI / 2, Math.PI / 2, true);
+        ctx.stroke(new window.Path2D('M40 0a 1 1 0 0 0 0 40L 0 20 Z'));
+        cMock.verify();
+      });
+
+      it('a - with sweep flag arc', () => {
+        cMock.expects('translate').once().withArgs(230, 275);
+        cMock.expects('scale').once().withArgs(45, 45);
+        cMock.expects('rotate').once().withArgs(0);
+        cMock.expects('arc').once().withArgs(0, 0, 1, -Math.PI / 2, -0, true);
+        ctx.stroke(new window.Path2D('M230 230a 45 45 0 1 0 45 45L 275 230 Z'));
         cMock.verify();
       });
 
