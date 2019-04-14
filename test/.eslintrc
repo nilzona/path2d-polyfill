@@ -1,10 +1,5 @@
 {
   "env": {
     "mocha": true
-  },
-  "globals": {
-    "chai": false,
-    "expect": false,
-    "sinon": false
   }
 }

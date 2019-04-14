@@ -31,7 +31,7 @@ function parseValues(args) {
  * @param {string} path
  * @returns {array}
  */
-export default function parse(path) {
+function parse(path) {
   const data = [];
   const p = String(path).trim();
 
@@ -42,31 +42,33 @@ export default function parse(path) {
 
   p.replace(SEGMENT_PATTERN, (_, command, args) => {
     let type = command.toLowerCase();
-    args = parseValues(args);
-
+    let theArgs = parseValues(args);
+    let theCommand = command;
     // overloaded moveTo
-    if (type === 'm' && args.length > 2) {
-      data.push([command].concat(args.splice(0, 2)));
+    if (type === 'm' && theArgs.length > 2) {
+      data.push([theCommand].concat(theArgs.splice(0, 2)));
       type = 'l';
-      command = command === 'm' ? 'l' : 'L';
+      theCommand = theCommand === 'm' ? 'l' : 'L';
     }
 
     // Ignore invalid commands
-    if (args.length < ARG_LENGTH[type]) {
+    if (theArgs.length < ARG_LENGTH[type]) {
       return '';
     }
 
-    data.push([command].concat(args.splice(0, ARG_LENGTH[type])));
+    data.push([theCommand].concat(theArgs.splice(0, ARG_LENGTH[type])));
 
     // The command letter can be eliminated on subsequent commands if the
     // same command is used multiple times in a row (e.g., you can drop the
     // second "L" in "M 100 200 L 200 100 L -100 -200" and use
     // "M 100 200 L 200 100 -100 -200" instead).
-    while (args.length >= ARG_LENGTH[type] && args.length && ARG_LENGTH[type]) {
-      data.push([command].concat(args.splice(0, ARG_LENGTH[type])));
+    while (theArgs.length >= ARG_LENGTH[type] && theArgs.length && ARG_LENGTH[type]) {
+      data.push([theCommand].concat(theArgs.splice(0, ARG_LENGTH[type])));
     }
 
     return '';
   });
   return data;
 }
+
+module.exports = parse;

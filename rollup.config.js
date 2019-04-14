@@ -1,10 +1,15 @@
+const commonjs = require('rollup-plugin-commonjs');
 const babel = require('rollup-plugin-babel');
 const { uglify } = require('rollup-plugin-uglify');
+const liveServer = require('rollup-plugin-live-server');
 
 const pkg = require('./package.json');
+const production = !process.env.ROLLUP_WATCH;
 
 const config = isEsm => {
-  const outputFile = isEsm ? pkg.module : pkg.main;
+  
+  const outputFile = production ? (isEsm ? pkg.module : pkg.main) : 'example/index.js';
+
   const umdName = 'path2dPolyfill';
 
   const cfg = {
@@ -16,20 +21,24 @@ const config = isEsm => {
       sourcemap: true,
     },
     plugins: [
+      commonjs(),
       babel({
         include: [
           'src/**',
         ],
         presets: [
           ['@babel/preset-env', {
-            modules: false,
             targets: {
               browsers: ['ie 11'],
             },
           }],
         ],
       }),
-      isEsm ? 0 : uglify(),
+      production ? (isEsm ? 0 : uglify()) : 0,
+      production ? 0 : liveServer({
+        root: 'example',
+        wait: 500,
+      }),
     ].filter(Boolean),
   };
 
@@ -38,5 +47,5 @@ const config = isEsm => {
 
 module.exports = [
   config(),
-  config(true),
+  production ? config(true) : undefined,
 ].filter(Boolean);
