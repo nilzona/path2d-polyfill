@@ -57,6 +57,6 @@ ctx.stroke(new Path2D('M 80 80 A 45 45 0 0 0 125 125 L 125 80 Z'));
 Clone this repo and run the following
 ```
 npm install
-npm run example
+npm start
 ```
-open http://localhost:3000 to see the example page.
+open http://localhost:8080 to see the example page.
