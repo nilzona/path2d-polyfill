@@ -19,6 +19,7 @@ const config = isEsm => {
       file: outputFile,
       name: umdName,
       sourcemap: true,
+      exports: 'named',
     },
     plugins: [
       commonjs(),

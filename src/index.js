@@ -5,5 +5,7 @@ if (typeof window !== 'undefined') {
   path2dPolyfill(window);
 }
 
-exports.path2dPolyfill = path2dPolyfill;
-exports.parsePath = parsePath;
+module.exports = {
+  path2dPolyfill,
+  parsePath,
+};
