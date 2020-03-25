@@ -11,9 +11,9 @@ const ARG_LENGTH = {
   z: 0,
 };
 
-const SEGMENT_PATTERN = /([astvzqmhlc])([^astvzqmhlc]*)/ig;
+const SEGMENT_PATTERN = /([astvzqmhlc])([^astvzqmhlc]*)/gi;
 
-const NUMBER = /-?[0-9]*\.?[0-9]+(?:e[-+]?\d+)?/ig;
+const NUMBER = /-?[0-9]*\.?[0-9]+(?:e[-+]?\d+)?/gi;
 
 function parseValues(args) {
   const numbers = args.match(NUMBER);

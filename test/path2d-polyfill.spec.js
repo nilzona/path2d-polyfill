@@ -125,7 +125,6 @@ describe('Canvas path', () => {
       expect(fill).to.have.been.calledOnceWith('nonzero');
     });
 
-
     it('fill - with path and fillrule', () => {
       const p = new window.Path2D('M 0 0 L 10 0 L 10 10 Z');
       ctx.fill(p, 'evenodd');
@@ -297,7 +296,10 @@ describe('Canvas path', () => {
         cMock.expects('translate').once().withArgs(125, 80);
         cMock.expects('scale').once().withArgs(45, 45);
         cMock.expects('rotate').once().withArgs(0);
-        cMock.expects('arc').once().withArgs(0, 0, 1, Math.PI, Math.PI / 2, true);
+        cMock
+          .expects('arc')
+          .once()
+          .withArgs(0, 0, 1, Math.PI, Math.PI / 2, true);
         cMock.expects('lineTo').once().withArgs(125, 80);
         cMock.expects('closePath').once();
         ctx.stroke(new window.Path2D('M80 80A 45 45 0 0 0 125 125L 125 80 Z'));
@@ -308,7 +310,10 @@ describe('Canvas path', () => {
         cMock.expects('translate').once().withArgs(40, 20);
         cMock.expects('scale').once().withArgs(20, 20);
         cMock.expects('rotate').once().withArgs(0);
-        cMock.expects('arc').once().withArgs(0, 0, 1, -Math.PI / 2, Math.PI / 2, true);
+        cMock
+          .expects('arc')
+          .once()
+          .withArgs(0, 0, 1, -Math.PI / 2, Math.PI / 2, true);
         ctx.stroke(new window.Path2D('M40 0a 1 1 0 0 0 0 40L 0 20 Z'));
         cMock.verify();
       });
@@ -317,7 +322,10 @@ describe('Canvas path', () => {
         cMock.expects('translate').once().withArgs(230, 275);
         cMock.expects('scale').once().withArgs(45, 45);
         cMock.expects('rotate').once().withArgs(0);
-        cMock.expects('arc').once().withArgs(0, 0, 1, -Math.PI / 2, -0, true);
+        cMock
+          .expects('arc')
+          .once()
+          .withArgs(0, 0, 1, -Math.PI / 2, -0, true);
         ctx.stroke(new window.Path2D('M230 230a 45 45 0 1 0 45 45L 275 230 Z'));
         cMock.verify();
       });
@@ -325,8 +333,14 @@ describe('Canvas path', () => {
       it('a - with sweep flag and large flag arc', () => {
         cMock.expects('translate').once().withArgs(275, 230);
         cMock.expects('scale').once().withArgs(45, 45);
-        cMock.expects('rotate').once().withArgs(-Math.PI / 4);
-        cMock.expects('arc').once().withArgs(0, 0, 1, -3 * Math.PI / 4, 3 * Math.PI / 4, false);
+        cMock
+          .expects('rotate')
+          .once()
+          .withArgs(-Math.PI / 4);
+        cMock
+          .expects('arc')
+          .once()
+          .withArgs(0, 0, 1, (-3 * Math.PI) / 4, (3 * Math.PI) / 4, false);
         ctx.stroke(new window.Path2D('M230 230a 45 45 -45 1 1 45 45L 275 230 Z'));
         cMock.verify();
       });

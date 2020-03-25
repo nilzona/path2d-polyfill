@@ -16,8 +16,8 @@ function supportsSvgPathArgument(window) {
 }
 
 function rotatePoint(point, angle) {
-  const nx = (point.x * Math.cos(angle)) - (point.y * Math.sin(angle));
-  const ny = (point.y * Math.cos(angle)) + (point.x * Math.sin(angle));
+  const nx = point.x * Math.cos(angle) - point.y * Math.sin(angle);
+  const ny = point.y * Math.cos(angle) + point.x * Math.sin(angle);
   point.x = nx;
   point.y = ny;
 }
@@ -41,11 +41,11 @@ function polyFillPath2D(window) {
   }
 
   /**
-     * Crates a Path2D polyfill object
-     * @constructor
-     * @ignore
-     * @param {String} path
-     */
+   * Crates a Path2D polyfill object
+   * @constructor
+   * @ignore
+   * @param {String} path
+   */
   class Path2D {
     constructor(path) {
       this.segments = [];
@@ -217,8 +217,7 @@ function polyFillPath2D(window) {
           rotatePoint(midPoint, -angle);
 
           // radius correction
-          lambda = ((midPoint.x * midPoint.x) / (rx * rx))
-                 + ((midPoint.y * midPoint.y) / (ry * ry));
+          lambda = (midPoint.x * midPoint.x) / (rx * rx) + (midPoint.y * midPoint.y) / (ry * ry);
           if (lambda > 1) {
             lambda = Math.sqrt(lambda);
             rx *= lambda;
@@ -230,8 +229,7 @@ function polyFillPath2D(window) {
             y: -(ry * midPoint.x) / rx,
           };
           t1 = rx * rx * ry * ry;
-          t2 = (rx * rx * midPoint.y * midPoint.y)
-             + (ry * ry * midPoint.x * midPoint.x);
+          t2 = rx * rx * midPoint.y * midPoint.y + ry * ry * midPoint.x * midPoint.x;
           if (sweepFlag !== largeArcFlag) {
             scalePoint(centerPoint, Math.sqrt((t1 - t2) / t2) || 0);
           } else {
@@ -240,16 +238,19 @@ function polyFillPath2D(window) {
 
           startAngle = Math.atan2(
             (midPoint.y - centerPoint.y) / ry,
-            (midPoint.x - centerPoint.x) / rx);
+            (midPoint.x - centerPoint.x) / rx
+          );
           endAngle = Math.atan2(
             -(midPoint.y + centerPoint.y) / ry,
-            -(midPoint.x + centerPoint.x) / rx);
+            -(midPoint.x + centerPoint.x) / rx
+          );
 
           rotatePoint(centerPoint, angle);
           translatePoint(
             centerPoint,
             (endPoint.x + currentPoint.x) / 2,
-            (endPoint.y + currentPoint.y) / 2);
+            (endPoint.y + currentPoint.y) / 2
+          );
 
           canvas.save();
           canvas.translate(centerPoint.x, centerPoint.y);
@@ -266,13 +267,7 @@ function polyFillPath2D(window) {
           canvas.bezierCurveTo(s[1], s[2], cpx, cpy, x, y);
           break;
         case 'c':
-          canvas.bezierCurveTo(
-            s[1] + x,
-            s[2] + y,
-            s[3] + x,
-            s[4] + y,
-            s[5] + x,
-            s[6] + y);
+          canvas.bezierCurveTo(s[1] + x, s[2] + y, s[3] + x, s[4] + y, s[5] + x, s[6] + y);
           cpx = s[3] + x; // Last control point
           cpy = s[4] + y;
           x += s[5];
@@ -284,13 +279,7 @@ function polyFillPath2D(window) {
             cpy = y;
           }
 
-          canvas.bezierCurveTo(
-            (2 * x) - cpx,
-            (2 * y) - cpy,
-            s[1],
-            s[2],
-            s[3],
-            s[4]);
+          canvas.bezierCurveTo(2 * x - cpx, 2 * y - cpy, s[1], s[2], s[3], s[4]);
           cpx = s[1]; // last control point
           cpy = s[2];
           x = s[3];
@@ -302,13 +291,7 @@ function polyFillPath2D(window) {
             cpy = y;
           }
 
-          canvas.bezierCurveTo(
-            (2 * x) - cpx,
-            (2 * y) - cpy,
-            s[1] + x,
-            s[2] + y,
-            s[3] + x,
-            s[4] + y);
+          canvas.bezierCurveTo(2 * x - cpx, 2 * y - cpy, s[1] + x, s[2] + y, s[3] + x, s[4] + y);
           cpx = s[1] + x; // last control point
           cpy = s[2] + y;
           x += s[3];
@@ -333,8 +316,8 @@ function polyFillPath2D(window) {
             qcpx = x;
             qcpy = y;
           }
-          qcpx = (2 * x) - qcpx; // last control point
-          qcpy = (2 * y) - qcpy;
+          qcpx = 2 * x - qcpx; // last control point
+          qcpy = 2 * y - qcpy;
           x = s[1];
           y = s[2];
           canvas.quadraticCurveTo(qcpx, qcpy, x, y);
@@ -344,8 +327,8 @@ function polyFillPath2D(window) {
             qcpx = x;
             qcpy = y;
           }
-          qcpx = (2 * x) - qcpx; // last control point
-          qcpy = (2 * y) - qcpy;
+          qcpx = 2 * x - qcpx; // last control point
+          qcpy = 2 * y - qcpy;
           x += s[1];
           y += s[2];
           canvas.quadraticCurveTo(qcpx, qcpy, x, y);
@@ -399,7 +382,7 @@ function polyFillPath2D(window) {
           canvas.rect(x, y, w, h);
           break;
         default:
-          // throw new Error(`${pathType} is not implemented`); ?
+        // throw new Error(`${pathType} is not implemented`); ?
       }
 
       currentPoint.x = x;

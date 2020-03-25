@@ -20,12 +20,7 @@ describe('parse', () => {
   it(' should join multiple commands', () => {
     path = 'M1 2 L3 4 Q5 6 7 8 Z';
     ary = parse(path);
-    expect(ary).to.deep.equal([
-      ['M', 1, 2],
-      ['L', 3, 4],
-      ['Q', 5, 6, 7, 8],
-      ['Z'],
-    ]);
+    expect(ary).to.deep.equal([['M', 1, 2], ['L', 3, 4], ['Q', 5, 6, 7, 8], ['Z']]);
   });
 
   it('should be possible to chain command parameters', () => {
@@ -87,17 +82,13 @@ describe('parse', () => {
     it('M', () => {
       path = 'M123 456';
       ary = parse(path);
-      expect(ary).to.deep.equal([
-        ['M', 123, 456],
-      ]);
+      expect(ary).to.deep.equal([['M', 123, 456]]);
     });
 
     it('m', () => {
       path = 'm123 456';
       ary = parse(path);
-      expect(ary).to.deep.equal([
-        ['m', 123, 456],
-      ]);
+      expect(ary).to.deep.equal([['m', 123, 456]]);
     });
 
     it('subsequent pairs are treated as implicit lineTo commands', () => {
@@ -117,17 +108,13 @@ describe('parse', () => {
 
       path = 'm1 2 3'; // Invalid length on subsequnt paramaters
       ary = parse(path);
-      expect(ary).to.deep.equal([
-        ['m', 1, 2],
-      ]);
+      expect(ary).to.deep.equal([['m', 1, 2]]);
     });
 
     it('exceed max parameters', () => {
       path = 'M 1 2 3';
       ary = parse(path);
-      expect(ary).to.deep.equal([
-        ['M', 1, 2],
-      ]);
+      expect(ary).to.deep.equal([['M', 1, 2]]);
     });
 
     it('below parameter limit', () => {
@@ -210,25 +197,19 @@ describe('parse', () => {
     it('L - below parameter limit', () => {
       path = 'M0 0 L 1';
       ary = parse(path);
-      expect(ary).to.deep.equal([
-        ['M', 0, 0],
-      ]);
+      expect(ary).to.deep.equal([['M', 0, 0]]);
     });
 
     it('V - below parameter limit', () => {
       path = 'M0 0 V';
       ary = parse(path);
-      expect(ary).to.deep.equal([
-        ['M', 0, 0],
-      ]);
+      expect(ary).to.deep.equal([['M', 0, 0]]);
     });
 
     it('H - below parameter limit', () => {
       path = 'M0 0 H';
       ary = parse(path);
-      expect(ary).to.deep.equal([
-        ['M', 0, 0],
-      ]);
+      expect(ary).to.deep.equal([['M', 0, 0]]);
     });
   });
 
@@ -236,28 +217,19 @@ describe('parse', () => {
     it('z', () => {
       path = 'M0 0 Z';
       ary = parse(path);
-      expect(ary).to.deep.equal([
-        ['M', 0, 0],
-        ['Z'],
-      ]);
+      expect(ary).to.deep.equal([['M', 0, 0], ['Z']]);
     });
 
     it('z', () => {
       path = 'M0 0 z';
       ary = parse(path);
-      expect(ary).to.deep.equal([
-        ['M', 0, 0],
-        ['z'],
-      ]);
+      expect(ary).to.deep.equal([['M', 0, 0], ['z']]);
     });
 
     it('exceed max parameters', () => {
       path = 'M0 0 Z 1';
       ary = parse(path);
-      expect(ary).to.deep.equal([
-        ['M', 0, 0],
-        ['Z'],
-      ]);
+      expect(ary).to.deep.equal([['M', 0, 0], ['Z']]);
     });
   });
 
@@ -319,17 +291,13 @@ describe('parse', () => {
     it('C - below parameter limit', () => {
       path = 'M0 0 C 1 2 3 4 5';
       ary = parse(path);
-      expect(ary).to.deep.equal([
-        ['M', 0, 0],
-      ]);
+      expect(ary).to.deep.equal([['M', 0, 0]]);
     });
 
     it('S - below parameter limit', () => {
       path = 'M0 0 S 1 2 3';
       ary = parse(path);
-      expect(ary).to.deep.equal([
-        ['M', 0, 0],
-      ]);
+      expect(ary).to.deep.equal([['M', 0, 0]]);
     });
   });
 
@@ -391,17 +359,13 @@ describe('parse', () => {
     it('Q - below parameter limit', () => {
       path = 'M0 0 Q 1 2 3';
       ary = parse(path);
-      expect(ary).to.deep.equal([
-        ['M', 0, 0],
-      ]);
+      expect(ary).to.deep.equal([['M', 0, 0]]);
     });
 
     it('T - below parameter limit', () => {
       path = 'M0 0 T 1';
       ary = parse(path);
-      expect(ary).to.deep.equal([
-        ['M', 0, 0],
-      ]);
+      expect(ary).to.deep.equal([['M', 0, 0]]);
     });
   });
 
@@ -436,9 +400,7 @@ describe('parse', () => {
     it('below parameter limit', () => {
       path = 'M0 0 A 1 2 3 4 5 6';
       ary = parse(path);
-      expect(ary).to.deep.equal([
-        ['M', 0, 0],
-      ]);
+      expect(ary).to.deep.equal([['M', 0, 0]]);
     });
   });
 });

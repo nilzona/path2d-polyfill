@@ -7,7 +7,6 @@ const pkg = require('./package.json');
 const production = !process.env.ROLLUP_WATCH;
 
 const config = isEsm => {
-  
   const outputFile = production ? (isEsm ? pkg.module : pkg.main) : 'example/index.js';
 
   const umdName = 'path2dPolyfill';
@@ -24,29 +23,29 @@ const config = isEsm => {
     plugins: [
       commonjs(),
       babel({
-        include: [
-          'src/**',
-        ],
+        include: ['src/**'],
         presets: [
-          ['@babel/preset-env', {
-            targets: {
-              browsers: ['ie 11'],
+          [
+            '@babel/preset-env',
+            {
+              targets: {
+                browsers: ['ie 11'],
+              },
             },
-          }],
+          ],
         ],
       }),
       production ? (isEsm ? 0 : uglify()) : 0,
-      production ? 0 : liveServer({
-        root: 'example',
-        wait: 500,
-      }),
+      production
+        ? 0
+        : liveServer({
+            root: 'example',
+            wait: 500,
+          }),
     ].filter(Boolean),
   };
 
   return cfg;
 };
 
-module.exports = [
-  config(),
-  production ? config(true) : undefined,
-].filter(Boolean);
+module.exports = [config(), production ? config(true) : undefined].filter(Boolean);
