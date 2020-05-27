@@ -99,7 +99,11 @@ describe('Canvas path', () => {
     beforeEach(() => {
       stroke = sinon.fake();
       fill = sinon.fake();
-      sinon.replace(window.CanvasRenderingContext2D.prototype, 'stroke', stroke);
+      sinon.replace(
+        window.CanvasRenderingContext2D.prototype,
+        'stroke',
+        stroke
+      );
       sinon.replace(window.CanvasRenderingContext2D.prototype, 'fill', fill);
       ctx = new window.CanvasRenderingContext2D();
       polyfillPath2D(window);
@@ -124,7 +128,6 @@ describe('Canvas path', () => {
       ctx.fill(p);
       expect(fill).to.have.been.calledOnceWith('nonzero');
     });
-
 
     it('fill - with path and fillrule', () => {
       const p = new window.Path2D('M 0 0 L 10 0 L 10 10 Z');
@@ -297,7 +300,10 @@ describe('Canvas path', () => {
         cMock.expects('translate').once().withArgs(125, 80);
         cMock.expects('scale').once().withArgs(45, 45);
         cMock.expects('rotate').once().withArgs(0);
-        cMock.expects('arc').once().withArgs(0, 0, 1, Math.PI, Math.PI / 2, true);
+        cMock
+          .expects('arc')
+          .once()
+          .withArgs(0, 0, 1, Math.PI, Math.PI / 2, true);
         cMock.expects('lineTo').once().withArgs(125, 80);
         cMock.expects('closePath').once();
         ctx.stroke(new window.Path2D('M80 80A 45 45 0 0 0 125 125L 125 80 Z'));
@@ -308,7 +314,10 @@ describe('Canvas path', () => {
         cMock.expects('translate').once().withArgs(40, 20);
         cMock.expects('scale').once().withArgs(20, 20);
         cMock.expects('rotate').once().withArgs(0);
-        cMock.expects('arc').once().withArgs(0, 0, 1, -Math.PI / 2, Math.PI / 2, true);
+        cMock
+          .expects('arc')
+          .once()
+          .withArgs(0, 0, 1, -Math.PI / 2, Math.PI / 2, true);
         ctx.stroke(new window.Path2D('M40 0a 1 1 0 0 0 0 40L 0 20 Z'));
         cMock.verify();
       });
@@ -317,7 +326,10 @@ describe('Canvas path', () => {
         cMock.expects('translate').once().withArgs(230, 275);
         cMock.expects('scale').once().withArgs(45, 45);
         cMock.expects('rotate').once().withArgs(0);
-        cMock.expects('arc').once().withArgs(0, 0, 1, -Math.PI / 2, -0, true);
+        cMock
+          .expects('arc')
+          .once()
+          .withArgs(0, 0, 1, -Math.PI / 2, -0, true);
         ctx.stroke(new window.Path2D('M230 230a 45 45 0 1 0 45 45L 275 230 Z'));
         cMock.verify();
       });
@@ -325,9 +337,17 @@ describe('Canvas path', () => {
       it('a - with sweep flag and large flag arc', () => {
         cMock.expects('translate').once().withArgs(275, 230);
         cMock.expects('scale').once().withArgs(45, 45);
-        cMock.expects('rotate').once().withArgs(-Math.PI / 4);
-        cMock.expects('arc').once().withArgs(0, 0, 1, -3 * Math.PI / 4, 3 * Math.PI / 4, false);
-        ctx.stroke(new window.Path2D('M230 230a 45 45 -45 1 1 45 45L 275 230 Z'));
+        cMock
+          .expects('rotate')
+          .once()
+          .withArgs(-Math.PI / 4);
+        cMock
+          .expects('arc')
+          .once()
+          .withArgs(0, 0, 1, (-3 * Math.PI) / 4, (3 * Math.PI) / 4, false);
+        ctx.stroke(
+          new window.Path2D('M230 230a 45 45 -45 1 1 45 45L 275 230 Z')
+        );
         cMock.verify();
       });
 
@@ -362,7 +382,10 @@ describe('Canvas path', () => {
       });
 
       it('c', () => {
-        cMock.expects('bezierCurveTo').once().withExactArgs(11, 102, 13, 104, 15, 106);
+        cMock
+          .expects('bezierCurveTo')
+          .once()
+          .withExactArgs(11, 102, 13, 104, 15, 106);
         ctx.stroke(new window.Path2D('M10 100, c1 2, 3 4, 5 6'));
         cMock.verify();
       });
@@ -383,7 +406,9 @@ describe('Canvas path', () => {
       it('S - with break between cubic command', () => {
         cMock.expects('bezierCurveTo').withArgs(1, 2, 3, 4, 5, 6);
         cMock.expects('bezierCurveTo').withArgs(10, 12, 10, 20, 30, 40);
-        ctx.stroke(new window.Path2D('M0 0, C1 2, 3 4, 5 6, M10 12, S10 20, 30 40'));
+        ctx.stroke(
+          new window.Path2D('M0 0, C1 2, 3 4, 5 6, M10 12, S10 20, 30 40')
+        );
         cMock.verify();
       });
 
@@ -403,7 +428,9 @@ describe('Canvas path', () => {
       it('s - with break between cubic command', () => {
         cMock.expects('bezierCurveTo').withArgs(1, 2, 3, 4, 5, 6);
         cMock.expects('bezierCurveTo').withArgs(10, 12, 20, 32, 40, 52);
-        ctx.stroke(new window.Path2D('M0 0, C1 2 3 4 5 6, M10 12, s10 20 30 40'));
+        ctx.stroke(
+          new window.Path2D('M0 0, C1 2 3 4 5 6, M10 12, s10 20 30 40')
+        );
         cMock.verify();
       });
     });
@@ -416,7 +443,10 @@ describe('Canvas path', () => {
       });
 
       it('q', () => {
-        cMock.expects('quadraticCurveTo').once().withExactArgs(11, 102, 13, 104);
+        cMock
+          .expects('quadraticCurveTo')
+          .once()
+          .withExactArgs(11, 102, 13, 104);
         ctx.stroke(new window.Path2D('M10 100, q1 2, 3 4'));
         cMock.verify();
       });

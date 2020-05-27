@@ -6,39 +6,39 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8.11.2
+      - image: circleci/node:12.16
     working_directory: ~/repo
     steps:
       - checkout
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run:
           name: Install dependencies
-          command: npm install
+          command: yarn
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: ESLint
-          command: npm run lint
+          command: yarn lint
       - run:
           name: Unit Test
-          command: npm test
+          command: yarn test
       - run:
           name: Build
-          command: npm run build
+          command: yarn build
       - persist_to_workspace:
           root: ~/repo
           paths: [.]
   deploy:
     docker:
       # specify the version you desire here
-      - image: circleci/node:8.11.2
+      - image: circleci/node:12.16
     working_directory: ~/repo
     steps:
       - attach_workspace:

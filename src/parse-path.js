@@ -11,9 +11,9 @@ const ARG_LENGTH = {
   z: 0,
 };
 
-const SEGMENT_PATTERN = /([astvzqmhlc])([^astvzqmhlc]*)/ig;
+const SEGMENT_PATTERN = /([astvzqmhlc])([^astvzqmhlc]*)/gi;
 
-const NUMBER = /-?[0-9]*\.?[0-9]+(?:e[-+]?\d+)?/ig;
+const NUMBER = /-?[0-9]*\.?[0-9]+(?:e[-+]?\d+)?/gi;
 
 function parseValues(args) {
   const numbers = args.match(NUMBER);
@@ -62,7 +62,11 @@ function parse(path) {
     // same command is used multiple times in a row (e.g., you can drop the
     // second "L" in "M 100 200 L 200 100 L -100 -200" and use
     // "M 100 200 L 200 100 -100 -200" instead).
-    while (theArgs.length >= ARG_LENGTH[type] && theArgs.length && ARG_LENGTH[type]) {
+    while (
+      theArgs.length >= ARG_LENGTH[type] &&
+      theArgs.length &&
+      ARG_LENGTH[type]
+    ) {
       data.push([theCommand].concat(theArgs.splice(0, ARG_LENGTH[type])));
     }
 
