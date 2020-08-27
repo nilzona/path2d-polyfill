@@ -1,6 +1,6 @@
 # path2d-polyfill
 
-[![CircleCI](https://circleci.com/gh/nilzona/path2d-polyfill/tree/master.svg?style=svg&circle-token=912100b3186daf870257a302f7509b0c92f18ae1)](https://circleci.com/gh/nilzona/path2d-polyfill/tree/master)
+![Build, Test and maybe Publish](https://github.com/nilzona/path2d-polyfill/workflows/Build,%20Test%20and%20maybe%20Publish/badge.svg)
 
 Polyfills Path2D api for rendering SVG paths in canvas
 
