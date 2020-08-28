@@ -16,6 +16,7 @@ describe('Canvas path', () => {
     CanvasRenderingContext2D.prototype = {
       fill() {},
       stroke() {},
+      isPointInPath() {},
       beginPath() {},
       moveTo() {},
       lineTo() {},
@@ -138,6 +139,69 @@ describe('Canvas path', () => {
     it('stroke - no arguments', () => {
       ctx.stroke();
       expect(stroke).to.have.been.calledOnceWith();
+    });
+  });
+
+  describe('isPointInPath', () => {
+    let isPointInPath;
+    beforeEach(() => {
+      isPointInPath = sinon.fake();
+      sinon.replace(
+        window.CanvasRenderingContext2D.prototype,
+        'isPointInPath',
+        isPointInPath
+      );
+      ctx = new window.CanvasRenderingContext2D();
+      cMock = sinon.mock(ctx);
+      polyfillPath2D(window);
+    });
+
+    afterEach(() => {
+      sinon.restore();
+    });
+
+    it('isPointInPath - with two arguments x, y', () => {
+      const x = 20;
+      const y = 30;
+      ctx.isPointInPath(x, y);
+      expect(isPointInPath).to.have.been.calledOnceWith(x, y);
+    });
+
+    it('isPointInPath - with three arguments x, y, fillRule', () => {
+      const x = 20;
+      const y = 30;
+      const fillRule = 'nonzero';
+      ctx.isPointInPath(x, y, fillRule);
+      expect(isPointInPath).to.have.been.calledOnceWith(x, y, fillRule);
+    });
+
+    it('isPointInPath - with Path2D as first argument', () => {
+      var region = new window.Path2D(
+        'M 30 90 L 110 20 L 240 130 L 60 130 L 190 20 L 270 90 Z'
+      );
+      const x = 30;
+      const y = 20;
+      cMock.expects('moveTo').once().withArgs(30, 90);
+      cMock.expects('lineTo').exactly(5);
+      cMock.expects('closePath').once();
+      ctx.isPointInPath(region, x, y);
+      cMock.verify();
+      expect(isPointInPath).to.have.been.calledOnceWith(x, y, 'nonzero');
+    });
+
+    it('isPointInPath - with Path2D as first argument and fillRule', () => {
+      var region = new window.Path2D(
+        'M 30 90 L 110 20 L 240 130 L 60 130 L 190 20 L 270 90 Z'
+      );
+      const x = 30;
+      const y = 20;
+      const fillRule = 'evenodd';
+      cMock.expects('moveTo').once().withArgs(30, 90);
+      cMock.expects('lineTo').exactly(5);
+      cMock.expects('closePath').once();
+      ctx.isPointInPath(region, x, y, fillRule);
+      cMock.verify();
+      expect(isPointInPath).to.have.been.calledOnceWith(x, y, fillRule);
     });
   });
 

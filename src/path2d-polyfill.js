@@ -99,9 +99,6 @@ function polyFillPath2D(window) {
     }
   }
 
-  const cFill = window.CanvasRenderingContext2D.prototype.fill;
-  const cStroke = window.CanvasRenderingContext2D.prototype.stroke;
-
   function buildPath(canvas, segments) {
     let endAngle;
     let startAngle;
@@ -425,6 +422,9 @@ function polyFillPath2D(window) {
     }
   }
 
+  const cFill = window.CanvasRenderingContext2D.prototype.fill;
+  const cStroke = window.CanvasRenderingContext2D.prototype.stroke;
+
   window.CanvasRenderingContext2D.prototype.fill = function fill(...args) {
     let fillRule = 'nonzero';
     if (
@@ -449,6 +449,26 @@ function polyFillPath2D(window) {
     }
     buildPath(this, path.segments);
     cStroke.call(this);
+  };
+
+  const cIsPointInPath =
+    window.CanvasRenderingContext2D.prototype.isPointInPath;
+
+  window.CanvasRenderingContext2D.prototype.isPointInPath = function isPointInPath(
+    ...args
+  ) {
+    // let fillRule = 'nonzero';
+    if (args[0].constructor.name === 'Path2D') {
+      // first argument is a Path2D object
+      const x = args[1];
+      const y = args[2];
+      const fillRule = args[3] || 'nonzero';
+      const path = args[0];
+      buildPath(this, path.segments);
+      return cIsPointInPath.apply(this, [x, y, fillRule]);
+    } else {
+      return cIsPointInPath.apply(this, args);
+    }
   };
 
   window.Path2D = Path2D;

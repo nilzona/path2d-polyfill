@@ -2,14 +2,34 @@
   <head>
     <title>Testing canvas</title>
     <style>
-      body { background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%) }
-      canvas { background-color: whitesmoke }
-      .main { position: relative }
-      #ex1 { position: absolute; top: 50px; left: 50px }
-      #ex2 { position: absolute; top: 50px; left: 600px }
-      #ex3 { position: absolute; top: 600px; left: 50px }
-      #ex4 { position: absolute; top: 600px; left: 600px }
-      #ex5 { position: absolute; top: 1150px; left: 50px }
+      body {
+        background: linear-gradient(
+          141deg,
+          #0fb8ad 0%,
+          #1fc8db 51%,
+          #2cb5e8 75%
+        );
+        width: 100%;
+        margin: 0;
+      }
+      canvas {
+        background-color: whitesmoke;
+      }
+      .main {
+        position: relative;
+        width: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+      .square {
+        width: 550px;
+        height: 550px;
+        margin: 25px 0 0 25px;
+      }
     </style>
     <script lang="javascript">
       // remove Path2D from window api to enable code in all browsers
@@ -18,32 +38,37 @@
   </head>
   <body>
     <div class="main">
-      <div id="ex1">
+      <div class="square">
         <div>Arc example</div>
         <canvas id="can1" width="500" height="500"></canvas>
       </div>
-      <div id="ex2">
+      <div class="square">
         <div>Bezier example</div>
         <canvas id="can2" width="500" height="500"></canvas>
       </div>
-      <div id="ex3">
+      <div class="square">
         <div>Use Path2D methods</div>
         <canvas id="can3" width="500" height="500"></canvas>
       </div>
-      <div id="ex4">
+      <div class="square">
         <div>Ellipse example</div>
         <canvas id="can4" width="500" height="500"></canvas>
       </div>
-      <div id="ex5">
+      <div class="square">
         <div>Close example</div>
         <canvas id="can5" width="500" height="500"></canvas>
       </div>
+      <div class="square">
+        <div>Point inside example</div>
+        <canvas id="can6" width="500" height="500"></canvas>
+      </div>
     </div>
-    <script lang="javascript" src='index.js'></script>
+    <script lang="javascript" src="index.js"></script>
     <script lang="javascript" src="test1.js"></script>
     <script lang="javascript" src="test2.js"></script>
     <script lang="javascript" src="test3.js"></script>
     <script lang="javascript" src="test4.js"></script>
     <script lang="javascript" src="test5.js"></script>
+    <script lang="javascript" src="test6.js"></script>
   </body>
 </html>

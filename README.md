@@ -1,6 +1,6 @@
 # path2d-polyfill
 
-![Build, Test and maybe Publish](https://github.com/nilzona/path2d-polyfill/workflows/Build,%20Test%20and%20maybe%20Publish/badge.svg)
+![master](https://github.com/nilzona/path2d-polyfill/workflows/Build,%20Test%20and%20maybe%20Publish/badge.svg)
 
 Polyfills Path2D api for rendering SVG paths in canvas
 
