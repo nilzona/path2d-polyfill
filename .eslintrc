@@ -1,6 +1,5 @@
 {
   "extends": ["eslint:recommended", "prettier"],
-  "plugins": ["prettier"],
   "env": {
     "commonjs": true,
     "es6": true,
@@ -8,7 +7,6 @@
   },
   "rules": {
     "eqeqeq": ["error", "always"],
-    "no-param-reassign": ["error"],
-    "prettier/prettier": "error"
+    "no-param-reassign": ["error"]
   }
 }

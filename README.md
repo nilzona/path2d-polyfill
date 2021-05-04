@@ -7,11 +7,15 @@ Polyfills Path2D api for rendering SVG paths in canvas
 Use this to enable Path2D features in e.g. Internet Explorer.
 
 ## Usage
+
 Load from cdn
+
 ```
 <script lang="javascript" src="https://unpkg.com/path2d-polyfill"></script>
 ```
+
 or install from npm
+
 ```
 npm install --save path2d-polyfill
 ```
