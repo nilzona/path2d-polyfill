@@ -292,7 +292,7 @@ function polyFillPath2D(window) {
           y += s[6];
           break;
         case 'S':
-          if (cpx === null || cpx === null) {
+          if (cpx === null || cpy === null) {
             cpx = x;
             cpy = y;
           }
@@ -311,7 +311,7 @@ function polyFillPath2D(window) {
           y = s[4];
           break;
         case 's':
-          if (cpx === null || cpx === null) {
+          if (cpx === null || cpy === null) {
             cpx = x;
             cpy = y;
           }
@@ -344,7 +344,7 @@ function polyFillPath2D(window) {
           canvas.quadraticCurveTo(qcpx, qcpy, x, y);
           break;
         case 'T':
-          if (qcpx === null || qcpx === null) {
+          if (qcpx === null || qcpy === null) {
             qcpx = x;
             qcpy = y;
           }
@@ -355,7 +355,7 @@ function polyFillPath2D(window) {
           canvas.quadraticCurveTo(qcpx, qcpy, x, y);
           break;
         case 't':
-          if (qcpx === null || qcpx === null) {
+          if (qcpx === null || qcpy === null) {
             qcpx = x;
             qcpy = y;
           }
