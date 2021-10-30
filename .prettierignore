@@ -2,6 +2,7 @@
 .eslintcache
 .prettierignore
 .lintstagedrc
+.gitignore
 yarn.lock
 node_modules
 dist
