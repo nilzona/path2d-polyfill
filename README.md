@@ -20,26 +20,13 @@ or install from npm
 npm install --save path2d-polyfill
 ```
 
-include directly in html-page
-
-```html
-<html>
-  <head>
-    ...
-  </head>
-  <body>
-    <script lang="javascript" src="node_modules/path2d-polyfill/path2d-polyfill.js"></script>
-  </body>
-</html>
-```
-
-or import with module bundler e.g. webpack _before_ you try to use the feature
+and import with module bundler e.g. webpack _before_ you try to use the feature
 
 ```javascript
 require("path2d-polyfill");
 ```
 
-or if you use transpiler to support es2015+ modules
+or with es2015+ modules
 
 ```javascript
 import "path2d-polyfill";
