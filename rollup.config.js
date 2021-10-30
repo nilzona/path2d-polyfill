@@ -1,6 +1,6 @@
 /* eslint-env node */
 const commonjs = require("@rollup/plugin-commonjs");
-const babel = require("@rollup/plugin-babel");
+const { babel } = require("@rollup/plugin-babel");
 const { terser } = require("rollup-plugin-terser");
 const livereload = require("rollup-plugin-livereload");
 const serve = require("rollup-plugin-serve");
