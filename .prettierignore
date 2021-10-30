@@ -1,9 +1,17 @@
 .husky
 .eslintcache
+.editorconfig
+.eslintignore
 .prettierignore
 .lintstagedrc
 .gitignore
+.nyc_output
+.vscode
+.cache
 yarn.lock
 node_modules
 dist
 coverage
+LICENSE
+example/index.js
+example/index.js.map
