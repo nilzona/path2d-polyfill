@@ -36,7 +36,7 @@ function parse(path) {
   const p = String(path).trim();
 
   // A path data segment (if there is one) must begin with a "moveto" command
-  if (p[0] !== 'M' && p[0] !== 'm') {
+  if (p[0] !== "M" && p[0] !== "m") {
     return data;
   }
 
@@ -45,15 +45,15 @@ function parse(path) {
     let theArgs = parseValues(args);
     let theCommand = command;
     // overloaded moveTo
-    if (type === 'm' && theArgs.length > 2) {
+    if (type === "m" && theArgs.length > 2) {
       data.push([theCommand].concat(theArgs.splice(0, 2)));
-      type = 'l';
-      theCommand = theCommand === 'm' ? 'l' : 'L';
+      type = "l";
+      theCommand = theCommand === "m" ? "l" : "L";
     }
 
     // Ignore invalid commands
     if (theArgs.length < ARG_LENGTH[type]) {
-      return '';
+      return "";
     }
 
     data.push([theCommand].concat(theArgs.splice(0, ARG_LENGTH[type])));
@@ -62,15 +62,11 @@ function parse(path) {
     // same command is used multiple times in a row (e.g., you can drop the
     // second "L" in "M 100 200 L 200 100 L -100 -200" and use
     // "M 100 200 L 200 100 -100 -200" instead).
-    while (
-      theArgs.length >= ARG_LENGTH[type] &&
-      theArgs.length &&
-      ARG_LENGTH[type]
-    ) {
+    while (theArgs.length >= ARG_LENGTH[type] && theArgs.length && ARG_LENGTH[type]) {
       data.push([theCommand].concat(theArgs.splice(0, ARG_LENGTH[type])));
     }
 
-    return '';
+    return "";
   });
   return data;
 }

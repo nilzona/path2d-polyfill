@@ -1,0 +1,20 @@
+{
+  "npm": {
+    "publish": false
+  },
+  "git": {
+    "commitMessage": "chore(release): v${version}",
+    "tagName": "v${version}"
+  },
+  "hooks": {
+    "before:init": ["git pull", "yarn", "yarn lint", "yarn test"]
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "infile": "CHANGELOG.md",
+      "preset": {
+        "name": "conventionalcommits"
+      }
+    }
+  }
+}

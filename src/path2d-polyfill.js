@@ -1,14 +1,14 @@
-const parsePath = require('./parse-path');
+const parsePath = require("./parse-path");
 
 /**
  * Work around for https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/8438884/
  * @ignore
  */
 function supportsSvgPathArgument(window) {
-  const canvas = window.document.createElement('canvas');
-  const g = canvas.getContext('2d');
-  const p = new window.Path2D('M0 0 L1 1');
-  g.strokeStyle = 'red';
+  const canvas = window.document.createElement("canvas");
+  const g = canvas.getContext("2d");
+  const p = new window.Path2D("M0 0 L1 1");
+  g.strokeStyle = "red";
   g.lineWidth = 1;
   g.stroke(p);
   const imgData = g.getImageData(0, 0, 1, 1);
@@ -33,7 +33,7 @@ function scalePoint(point, s) {
 }
 
 function polyFillPath2D(window) {
-  if (typeof window === 'undefined' || !window.CanvasRenderingContext2D) {
+  if (typeof window === "undefined" || !window.CanvasRenderingContext2D) {
     return;
   }
   if (window.Path2D && supportsSvgPathArgument(window)) {
@@ -63,39 +63,39 @@ function polyFillPath2D(window) {
     }
 
     moveTo(x, y) {
-      this.segments.push(['M', x, y]);
+      this.segments.push(["M", x, y]);
     }
 
     lineTo(x, y) {
-      this.segments.push(['L', x, y]);
+      this.segments.push(["L", x, y]);
     }
 
     arc(x, y, r, start, end, ccw) {
-      this.segments.push(['AC', x, y, r, start, end, !!ccw]);
+      this.segments.push(["AC", x, y, r, start, end, !!ccw]);
     }
 
     arcTo(x1, y1, x2, y2, r) {
-      this.segments.push(['AT', x1, y1, x2, y2, r]);
+      this.segments.push(["AT", x1, y1, x2, y2, r]);
     }
 
     ellipse(x, y, rx, ry, angle, start, end, ccw) {
-      this.segments.push(['E', x, y, rx, ry, angle, start, end, !!ccw]);
+      this.segments.push(["E", x, y, rx, ry, angle, start, end, !!ccw]);
     }
 
     closePath() {
-      this.segments.push(['Z']);
+      this.segments.push(["Z"]);
     }
 
     bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y) {
-      this.segments.push(['C', cp1x, cp1y, cp2x, cp2y, x, y]);
+      this.segments.push(["C", cp1x, cp1y, cp2x, cp2y, x, y]);
     }
 
     quadraticCurveTo(cpx, cpy, x, y) {
-      this.segments.push(['Q', cpx, cpy, x, y]);
+      this.segments.push(["Q", cpx, cpy, x, y]);
     }
 
     rect(x, y, width, height) {
-      this.segments.push(['R', x, y, width, height]);
+      this.segments.push(["R", x, y, width, height]);
     }
   }
 
@@ -135,30 +135,20 @@ function polyFillPath2D(window) {
       pathType = s[0];
 
       // Reset control point if command is not cubic
-      if (
-        pathType !== 'S' &&
-        pathType !== 's' &&
-        pathType !== 'C' &&
-        pathType !== 'c'
-      ) {
+      if (pathType !== "S" && pathType !== "s" && pathType !== "C" && pathType !== "c") {
         cpx = null;
         cpy = null;
       }
 
-      if (
-        pathType !== 'T' &&
-        pathType !== 't' &&
-        pathType !== 'Q' &&
-        pathType !== 'q'
-      ) {
+      if (pathType !== "T" && pathType !== "t" && pathType !== "Q" && pathType !== "q") {
         qcpx = null;
         qcpy = null;
       }
 
       switch (pathType) {
-        case 'm':
-        case 'M':
-          if (pathType === 'm') {
+        case "m":
+        case "M":
+          if (pathType === "m") {
             x += s[1];
             y += s[2];
           } else {
@@ -166,41 +156,41 @@ function polyFillPath2D(window) {
             y = s[2];
           }
 
-          if (pathType === 'M' || !startPoint) {
+          if (pathType === "M" || !startPoint) {
             startPoint = { x, y };
           }
 
           canvas.moveTo(x, y);
           break;
-        case 'l':
+        case "l":
           x += s[1];
           y += s[2];
           canvas.lineTo(x, y);
           break;
-        case 'L':
+        case "L":
           x = s[1];
           y = s[2];
           canvas.lineTo(x, y);
           break;
-        case 'H':
+        case "H":
           x = s[1];
           canvas.lineTo(x, y);
           break;
-        case 'h':
+        case "h":
           x += s[1];
           canvas.lineTo(x, y);
           break;
-        case 'V':
+        case "V":
           y = s[1];
           canvas.lineTo(x, y);
           break;
-        case 'v':
+        case "v":
           y += s[1];
           canvas.lineTo(x, y);
           break;
-        case 'a':
-        case 'A':
-          if (pathType === 'a') {
+        case "a":
+        case "A":
+          if (pathType === "a") {
             x += s[6];
             y += s[7];
           } else {
@@ -224,9 +214,7 @@ function polyFillPath2D(window) {
           rotatePoint(midPoint, -angle);
 
           // radius correction
-          lambda =
-            (midPoint.x * midPoint.x) / (rx * rx) +
-            (midPoint.y * midPoint.y) / (ry * ry);
+          lambda = (midPoint.x * midPoint.x) / (rx * rx) + (midPoint.y * midPoint.y) / (ry * ry);
           if (lambda > 1) {
             lambda = Math.sqrt(lambda);
             rx *= lambda;
@@ -238,30 +226,18 @@ function polyFillPath2D(window) {
             y: -(ry * midPoint.x) / rx,
           };
           t1 = rx * rx * ry * ry;
-          t2 =
-            rx * rx * midPoint.y * midPoint.y +
-            ry * ry * midPoint.x * midPoint.x;
+          t2 = rx * rx * midPoint.y * midPoint.y + ry * ry * midPoint.x * midPoint.x;
           if (sweepFlag !== largeArcFlag) {
             scalePoint(centerPoint, Math.sqrt((t1 - t2) / t2) || 0);
           } else {
             scalePoint(centerPoint, -Math.sqrt((t1 - t2) / t2) || 0);
           }
 
-          startAngle = Math.atan2(
-            (midPoint.y - centerPoint.y) / ry,
-            (midPoint.x - centerPoint.x) / rx
-          );
-          endAngle = Math.atan2(
-            -(midPoint.y + centerPoint.y) / ry,
-            -(midPoint.x + centerPoint.x) / rx
-          );
+          startAngle = Math.atan2((midPoint.y - centerPoint.y) / ry, (midPoint.x - centerPoint.x) / rx);
+          endAngle = Math.atan2(-(midPoint.y + centerPoint.y) / ry, -(midPoint.x + centerPoint.x) / rx);
 
           rotatePoint(centerPoint, angle);
-          translatePoint(
-            centerPoint,
-            (endPoint.x + currentPoint.x) / 2,
-            (endPoint.y + currentPoint.y) / 2
-          );
+          translatePoint(centerPoint, (endPoint.x + currentPoint.x) / 2, (endPoint.y + currentPoint.y) / 2);
 
           canvas.save();
           canvas.translate(centerPoint.x, centerPoint.y);
@@ -270,80 +246,59 @@ function polyFillPath2D(window) {
           canvas.arc(0, 0, 1, startAngle, endAngle, !sweepFlag);
           canvas.restore();
           break;
-        case 'C':
+        case "C":
           cpx = s[3]; // Last control point
           cpy = s[4];
           x = s[5];
           y = s[6];
           canvas.bezierCurveTo(s[1], s[2], cpx, cpy, x, y);
           break;
-        case 'c':
-          canvas.bezierCurveTo(
-            s[1] + x,
-            s[2] + y,
-            s[3] + x,
-            s[4] + y,
-            s[5] + x,
-            s[6] + y
-          );
+        case "c":
+          canvas.bezierCurveTo(s[1] + x, s[2] + y, s[3] + x, s[4] + y, s[5] + x, s[6] + y);
           cpx = s[3] + x; // Last control point
           cpy = s[4] + y;
           x += s[5];
           y += s[6];
           break;
-        case 'S':
+        case "S":
           if (cpx === null || cpy === null) {
             cpx = x;
             cpy = y;
           }
 
-          canvas.bezierCurveTo(
-            2 * x - cpx,
-            2 * y - cpy,
-            s[1],
-            s[2],
-            s[3],
-            s[4]
-          );
+          canvas.bezierCurveTo(2 * x - cpx, 2 * y - cpy, s[1], s[2], s[3], s[4]);
           cpx = s[1]; // last control point
           cpy = s[2];
           x = s[3];
           y = s[4];
           break;
-        case 's':
+        case "s":
           if (cpx === null || cpy === null) {
             cpx = x;
             cpy = y;
           }
 
-          canvas.bezierCurveTo(
-            2 * x - cpx,
-            2 * y - cpy,
-            s[1] + x,
-            s[2] + y,
-            s[3] + x,
-            s[4] + y
-          );
+          canvas.bezierCurveTo(2 * x - cpx, 2 * y - cpy, s[1] + x, s[2] + y, s[3] + x, s[4] + y);
           cpx = s[1] + x; // last control point
           cpy = s[2] + y;
           x += s[3];
           y += s[4];
           break;
-        case 'Q':
+        case "Q":
           qcpx = s[1]; // last control point
           qcpy = s[2];
           x = s[3];
           y = s[4];
           canvas.quadraticCurveTo(qcpx, qcpy, x, y);
           break;
-        case 'q':
+        case "q":
           qcpx = s[1] + x; // last control point
           qcpy = s[2] + y;
           x += s[3];
           y += s[4];
           canvas.quadraticCurveTo(qcpx, qcpy, x, y);
           break;
-        case 'T':
+        case "T":
           if (qcpx === null || qcpy === null) {
             qcpx = x;
             qcpy = y;
@@ -354,7 +309,7 @@ function polyFillPath2D(window) {
           y = s[2];
           canvas.quadraticCurveTo(qcpx, qcpy, x, y);
           break;
-        case 't':
+        case "t":
           if (qcpx === null || qcpy === null) {
             qcpx = x;
             qcpy = y;
@@ -365,14 +320,14 @@ function polyFillPath2D(window) {
           y += s[2];
           canvas.quadraticCurveTo(qcpx, qcpy, x, y);
           break;
-        case 'z':
-        case 'Z':
+        case "z":
+        case "Z":
           x = startPoint.x;
           y = startPoint.y;
           startPoint = undefined;
           canvas.closePath();
           break;
-        case 'AC': // arc
+        case "AC": // arc
           x = s[1];
           y = s[2];
           r = s[3];
@@ -381,7 +336,7 @@ function polyFillPath2D(window) {
           ccw = s[6];
           canvas.arc(x, y, r, startAngle, endAngle, ccw);
           break;
-        case 'AT': // arcTo
+        case "AT": // arcTo
           x1 = s[1];
           y1 = s[2];
           x = s[3];
@@ -389,7 +344,7 @@ function polyFillPath2D(window) {
           r = s[5];
           canvas.arcTo(x1, y1, x, y, r);
           break;
-        case 'E': // ellipse
+        case "E": // ellipse
           x = s[1];
           y = s[2];
           rx = s[3];
@@ -405,7 +360,7 @@ function polyFillPath2D(window) {
           canvas.arc(0, 0, 1, startAngle, endAngle, ccw);
           canvas.restore();
           break;
-        case 'R': // rect
+        case "R": // rect
           x = s[1];
           y = s[2];
           w = s[3];
@@ -426,11 +381,8 @@ function polyFillPath2D(window) {
   const cStroke = window.CanvasRenderingContext2D.prototype.stroke;
 
   window.CanvasRenderingContext2D.prototype.fill = function fill(...args) {
-    let fillRule = 'nonzero';
-    if (
-      args.length === 0 ||
-      (args.length === 1 && typeof args[0] === 'string')
-    ) {
+    let fillRule = "nonzero";
+    if (args.length === 0 || (args.length === 1 && typeof args[0] === "string")) {
       cFill.apply(this, args);
       return;
     }
@@ -451,18 +403,15 @@ function polyFillPath2D(window) {
     cStroke.call(this);
   };
 
-  const cIsPointInPath =
-    window.CanvasRenderingContext2D.prototype.isPointInPath;
+  const cIsPointInPath = window.CanvasRenderingContext2D.prototype.isPointInPath;
 
-  window.CanvasRenderingContext2D.prototype.isPointInPath = function isPointInPath(
-    ...args
-  ) {
+  window.CanvasRenderingContext2D.prototype.isPointInPath = function isPointInPath(...args) {
     // let fillRule = 'nonzero';
-    if (args[0].constructor.name === 'Path2D') {
+    if (args[0].constructor.name === "Path2D") {
       // first argument is a Path2D object
       const x = args[1];
       const y = args[2];
-      const fillRule = args[3] || 'nonzero';
+      const fillRule = args[3] || "nonzero";
       const path = args[0];
       buildPath(this, path.segments);
       return cIsPointInPath.apply(this, [x, y, fillRule]);

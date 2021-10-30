@@ -10,13 +10,13 @@ Use this to enable Path2D features in e.g. Internet Explorer.
 
 Load from cdn
 
-```
+```html
 <script lang="javascript" src="https://unpkg.com/path2d-polyfill"></script>
 ```
 
 or install from npm
 
-```
+```shell
 npm install --save path2d-polyfill
 ```
 
@@ -28,10 +28,7 @@ include directly in html-page
     ...
   </head>
   <body>
-    <script
-      lang="javascript"
-      src="node_modules/path2d-polyfill/path2d-polyfill.js"
-    ></script>
+    <script lang="javascript" src="node_modules/path2d-polyfill/path2d-polyfill.js"></script>
   </body>
 </html>
 ```
@@ -39,13 +36,13 @@ include directly in html-page
 or import with module bundler e.g. webpack _before_ you try to use the feature
 
 ```javascript
-require('path2d-polyfill');
+require("path2d-polyfill");
 ```
 
 or if you use transpiler to support es2015+ modules
 
 ```javascript
-import 'path2d-polyfill';
+import "path2d-polyfill";
 ```
 
 ## Support table
@@ -66,20 +63,20 @@ import 'path2d-polyfill';
 Example of usage
 
 ```javascript
-ctx.fill(new Path2D('M 80 80 A 45 45 0 0 0 125 125 L 125 80 Z'));
-ctx.stroke(new Path2D('M 80 80 A 45 45 0 0 0 125 125 L 125 80 Z'));
+ctx.fill(new Path2D("M 80 80 A 45 45 0 0 0 125 125 L 125 80 Z"));
+ctx.stroke(new Path2D("M 80 80 A 45 45 0 0 0 125 125 L 125 80 Z"));
 ```
 
 ## See it in action
 
 Clone this repo and run the following
 
-```
+```shell
 yarn
 yarn start
 ```
 
-open http://localhost:10001 to see the example page.
+open <http://localhost:10001> to see the example page.
 
 ## Contributing
 

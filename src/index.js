@@ -1,7 +1,7 @@
-const parsePath = require('./parse-path');
-const path2dPolyfill = require('./path2d-polyfill');
+const parsePath = require("./parse-path");
+const path2dPolyfill = require("./path2d-polyfill");
 
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   path2dPolyfill(window);
 }
 

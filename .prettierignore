@@ -1,2 +1,8 @@
+.husky
+.eslintcache
+.prettierignore
+.lintstagedrc
+yarn.lock
 node_modules
 dist
+coverage
