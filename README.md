@@ -1,6 +1,6 @@
 # path2d-polyfill
 
-![main](https://github.com/nilzona/path2d-polyfill/workflows/Build,%20Test%20and%20maybe%20Publish/badge.svg)
+[![validate](https://github.com/nilzona/path2d-polyfill/actions/workflows/validate.yaml/badge.svg)](https://github.com/nilzona/path2d-polyfill/actions/workflows/validate.yaml)
 
 Polyfills Path2D api for rendering SVG paths in canvas
 
