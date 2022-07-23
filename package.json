@@ -1,6 +1,6 @@
 {
   "name": "path2d-polyfill",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Polyfills Path2D api for canvas rendering",
   "scripts": {
     "build": "rm -rf dist/* && rollup -c",
