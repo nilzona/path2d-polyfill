@@ -8,7 +8,7 @@ Use this to enable Path2D features in e.g. Internet Explorer.
 
 ## Usage
 
-Load from cdn
+Add this script tag to your page to enable the feature.
 
 ```html
 <script lang="javascript" src="https://unpkg.com/path2d-polyfill"></script>
@@ -20,7 +20,7 @@ or install from npm
 npm install --save path2d-polyfill
 ```
 
-and import with module bundler e.g. webpack _before_ you try to use the feature
+and import with module bundler e.g. webpack _before_ using the feature
 
 ```javascript
 require("path2d-polyfill");
@@ -67,4 +67,4 @@ open <http://localhost:10001> to see the example page.
 
 ## Contributing
 
-Recommended to use vscode with the prettier extension and use "format on save" option
+Recommended to use vscode with the prettier extension to keep formatting intact.
