@@ -1,5 +1,5 @@
 (function () {
-  var canvas = document.getElementById("can3");
+  var canvas = document.getElementById("path2d-methods-canvas");
   var ctx = canvas.getContext("2d");
 
   var path1 = new Path2D();
@@ -34,11 +34,11 @@
 
   ctx.translate(100, 0);
   var path4 = new Path2D(path3);
-
   ctx.fillStyle = "rgba(0, 255, 255, 0.8)";
   ctx.stroke(path4);
   ctx.fill(path4);
 
+  // arc
   ctx.translate(100, -50);
   var path5 = new Path2D();
   path5.moveTo(150, 20);
@@ -49,6 +49,7 @@
   ctx.stroke(path5);
   ctx.fill(path5);
 
+  // ellipse
   ctx.translate(0, 50);
   var path6 = new Path2D();
   path6.ellipse(150, 120, 60, 40, Math.PI / 4, 0, (5 * Math.PI) / 6, true);

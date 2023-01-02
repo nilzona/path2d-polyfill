@@ -5,5 +5,4 @@ dist
 .vscode
 .cache
 .nyc_output
-example/index.js
-example/index.js.map
+example/path2d-polyfill.dev.js

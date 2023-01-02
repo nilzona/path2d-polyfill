@@ -1,5 +1,5 @@
 (function () {
-  var canvas = document.getElementById("can1");
+  var canvas = document.getElementById("arc-canvas");
   var ctx = canvas.getContext("2d");
 
   function draw2circles(x1, y1, x2, y2, r) {

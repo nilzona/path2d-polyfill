@@ -1,3 +1,7 @@
+import { type PathCommand, type Command, type MovePathCommand } from "./types";
+
+type ArgLengthProp = "a" | "c" | "h" | "l" | "m" | "q" | "s" | "t" | "v" | "z";
+
 const ARG_LENGTH = {
   a: 7,
   c: 6,
@@ -15,7 +19,7 @@ const SEGMENT_PATTERN = /([astvzqmhlc])([^astvzqmhlc]*)/gi;
 
 const NUMBER = /-?[0-9]*\.?[0-9]+(?:e[-+]?\d+)?/gi;
 
-function parseValues(args) {
+function parseValues(args: string): number[] {
   const numbers = args.match(NUMBER);
   return numbers ? numbers.map(Number) : [];
 }
@@ -31,8 +35,8 @@ function parseValues(args) {
  * @param {string} path
  * @returns {array}
  */
-function parse(path) {
-  const data = [];
+export function parsePath(path: string): PathCommand[] {
+  const data: PathCommand[] = [];
   const p = String(path).trim();
 
   // A path data segment (if there is one) must begin with a "moveto" command
@@ -40,13 +44,13 @@ function parse(path) {
     return data;
   }
 
-  p.replace(SEGMENT_PATTERN, (_, command, args) => {
-    let type = command.toLowerCase();
-    let theArgs = parseValues(args);
-    let theCommand = command;
+  p.replace(SEGMENT_PATTERN, (_, command: string, args: string) => {
+    const theArgs = parseValues(args);
+    let type = command.toLowerCase() as ArgLengthProp;
+    let theCommand = command as Command;
     // overloaded moveTo
     if (type === "m" && theArgs.length > 2) {
-      data.push([theCommand].concat(theArgs.splice(0, 2)));
+      data.push([theCommand, ...theArgs.splice(0, 2)] as MovePathCommand);
       type = "l";
       theCommand = theCommand === "m" ? "l" : "L";
     }
@@ -56,19 +60,17 @@ function parse(path) {
       return "";
     }
 
-    data.push([theCommand].concat(theArgs.splice(0, ARG_LENGTH[type])));
+    data.push([theCommand, ...theArgs.splice(0, ARG_LENGTH[type])]);
 
     // The command letter can be eliminated on subsequent commands if the
     // same command is used multiple times in a row (e.g., you can drop the
     // second "L" in "M 100 200 L 200 100 L -100 -200" and use
     // "M 100 200 L 200 100 -100 -200" instead).
     while (theArgs.length >= ARG_LENGTH[type] && theArgs.length && ARG_LENGTH[type]) {
-      data.push([theCommand].concat(theArgs.splice(0, ARG_LENGTH[type])));
+      data.push([theCommand, ...theArgs.splice(0, ARG_LENGTH[type])]);
     }
 
     return "";
   });
   return data;
 }
-
-module.exports = parse;

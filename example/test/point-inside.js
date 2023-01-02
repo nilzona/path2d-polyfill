@@ -1,5 +1,5 @@
 (function () {
-  var canvas = document.getElementById("can6");
+  var canvas = document.getElementById("point-inside-canvas");
   var ctx = canvas.getContext("2d");
 
   // even odd path
