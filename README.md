@@ -61,9 +61,9 @@ To get Path2D features with the [node-canvas library](https://github.com/Automat
 const { createCanvas, CanvasRenderingContext2D } = require("canvas");
 const { polyfillPath2D } = require("path2d-polyfill/path2d");
 
-let polyfilled = { CanvasRenderingContext2D, Path2D: null };
-polyfillPath2D(polyfilled);
-const Path2D = polyfilled.Path2D;
+global.CanvasRenderingContext2D = CanvasRenderingContext2D;
+polyfillPath2D(global);
+// Path2D has now been added to global object
 
 const canvas = createCanvas(200, 200);
 const ctx = canvas.getContext("2d");
