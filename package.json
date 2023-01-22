@@ -15,9 +15,15 @@
     "prepare": "husky install",
     "release": "release-it"
   },
-  "browser": "dist/path2d-polyfill.min.js",
-  "module": "dist/path2d-polyfill.esm.js",
-  "main": "dist/path2d-polyfill.cjs.js",
+  "exports": {
+    "node": {
+      "import": "./dist/path2d-node.mjs",
+      "require": "./dist/path2d-node.cjs"
+    },
+    "development": "./dist/path2d-polyfill.dev.js",
+    "module": "./dist/path2d-polyfill.esm.js",
+    "default": "./dist/path2d-polyfill.min.js"
+  },
   "files": [
     "dist"
   ],

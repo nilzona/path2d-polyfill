@@ -6,10 +6,19 @@ const serve = require("rollup-plugin-serve");
 const production = !process.env.ROLLUP_WATCH;
 
 const config = (environment = "browser", target = "iife") => {
-  let suffix = target === "iife" ? "min" : target;
+  let suffix = "";
+  if (environment === "browser") {
+    suffix = target === "iife" ? ".min" : `.${target}`;
+  }
   let format = target === "dev" ? "iife" : target;
+  let name = environment === "browser" ? "polyfill" : "node";
 
-  const outputFile = production ? `dist/path2d-polyfill.${suffix}.js` : "example/path2d-polyfill.dev.js";
+  let ending = "js";
+  if (environment === "node") {
+    ending = target === "cjs" ? "cjs" : "mjs";
+  }
+
+  const outputFile = production ? `dist/path2d-${name}${suffix}.${ending}` : `example/path2d-${name}.dev.${ending}`;
 
   const input = environment === "node" ? "src/index.ts" : "src/browser.ts";
 
@@ -34,5 +43,11 @@ const config = (environment = "browser", target = "iife") => {
 };
 
 module.exports = production
-  ? [config("node", "cjs"), config("node", "esm"), config("browser", "dev"), config("browser", "iife")]
-  : config("browser", "iife");
+  ? [
+      config("node", "cjs"),
+      config("node", "esm"),
+      config("browser", "esm"),
+      config("browser", "dev"),
+      config("browser", "iife"),
+    ]
+  : [config("browser", "iife")];
