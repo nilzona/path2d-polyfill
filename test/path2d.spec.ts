@@ -1,60 +1,41 @@
-const sinon = require("sinon");
-const chai = require("chai");
-const sinonChai = require("sinon-chai");
-const polyfillPath2D = require("../src/path2d-polyfill");
+import * as sinon from "sinon";
+import { type SinonSpy, type SinonMock } from "sinon";
+import * as chai from "chai";
+import * as sinonChai from "sinon-chai";
+import { polyfillPath2D, Path2D } from "../src/path2d";
+import { CanvasRenderingContext2DForTest, type WindowForTest } from "./test-types";
 
 chai.use(sinonChai);
 const expect = chai.expect;
 
-function CanvasRenderingContext2D() {}
-let window;
-let ctx;
-let cMock;
+let window: WindowForTest;
+let ctx: CanvasRenderingContext2DForTest;
+let cMock: SinonMock;
 
-describe("Canvas path", () => {
+describe("Path2D", () => {
   beforeEach(() => {
-    CanvasRenderingContext2D.prototype = {
-      fill() {},
-      stroke() {},
-      isPointInPath() {},
-      beginPath() {},
-      moveTo() {},
-      lineTo() {},
-      arc() {},
-      arcTo() {},
-      closePath() {},
-      bezierCurveTo() {},
-      quadraticCurveTo() {},
-      rect() {},
-      save() {},
-      translate() {},
-      rotate() {},
-      scale() {},
-      restore() {},
-      strokeStyle: null,
-      lineWidth: null,
+    CanvasRenderingContext2DForTest.prototype.fill = function () {};
+    CanvasRenderingContext2DForTest.prototype.stroke = function () {};
+    CanvasRenderingContext2DForTest.prototype.isPointInPath = function () {
+      return false;
     };
 
     window = {
-      CanvasRenderingContext2D,
-      document: {
-        createElement: () => {
-          const el = {};
-          el.getContext = () => new CanvasRenderingContext2D();
-          return el;
-        },
-      },
+      CanvasRenderingContext2D: CanvasRenderingContext2DForTest,
+      // @ts-expect-error Path2D is aobut to get polyfilled
+      Path2D: undefined,
     };
   });
 
-  describe("Polyfill", () => {
+  describe("polyfill", () => {
     it("should not add Path2D if window is undefined", () => {
-      window = undefined;
-      polyfillPath2D(window);
-      expect(window).to.be.an("undefined");
+      const anUndefinedVar = undefined;
+      polyfillPath2D(anUndefinedVar);
+      expect(anUndefinedVar).to.be.a("undefined");
     });
 
     it("should not add Path2D if window.CanvasRenderingContext2D is undefined", () => {
+      // @ts-expect-error testing exception when CanvasRenderingContext2D is not set
       window.CanvasRenderingContext2D = undefined;
       polyfillPath2D(window);
       expect(window.Path2D).to.be.an("undefined");
@@ -62,41 +43,13 @@ describe("Canvas path", () => {
 
     it("should add Path2D constructor to window object", () => {
       polyfillPath2D(window);
-      expect(new window.Path2D()).to.be.an.instanceOf(window.Path2D);
-    });
-
-    it("should add Path2D constructor to window object if Svg Path as argument is not supported", () => {
-      polyfillPath2D(window);
-      const orgPath = window.Path2D;
-
-      CanvasRenderingContext2D.prototype.getImageData = function getImageData() {
-        return { data: [123] };
-      };
-
-      polyfillPath2D(window);
-      // Expected Path2D to be replaced with a new instance based failure
-      // on supportsSvgPathArgument() call
-      expect(window.Path2D).to.not.equal(orgPath);
-      expect(new window.Path2D()).to.be.an.instanceOf(window.Path2D);
-    });
-
-    it("should not add Path2D constructor to window object if Svg Path as argument is supported", () => {
-      polyfillPath2D(window);
-      const orgPath = window.Path2D;
-
-      CanvasRenderingContext2D.prototype.getImageData = function getImageData() {
-        return { data: [255] };
-      };
-
-      polyfillPath2D(window);
-      expect(window.Path2D).to.equal(orgPath);
-      expect(new window.Path2D()).to.be.an.instanceOf(window.Path2D);
+      expect(new window.Path2D()).to.be.an.instanceOf(Path2D);
     });
   });
 
   describe("stroke/fill", () => {
-    let stroke;
-    let fill;
+    let stroke: SinonSpy;
+    let fill: SinonSpy;
     beforeEach(() => {
       stroke = sinon.fake();
       fill = sinon.fake();
@@ -136,10 +89,16 @@ describe("Canvas path", () => {
       ctx.stroke();
       expect(stroke).to.have.been.calledOnceWith();
     });
+
+    it("should throw error when an arc command has been added without a starting point", () => {
+      const p = new window.Path2D();
+      p.commands.push(["A", 45, 45, 0, 0, 0]);
+      expect(() => ctx.stroke(p)).to.throw(Error, "This should never happen");
+    });
   });
 
   describe("isPointInPath", () => {
-    let isPointInPath;
+    let isPointInPath: SinonSpy;
     beforeEach(() => {
       isPointInPath = sinon.fake();
       sinon.replace(window.CanvasRenderingContext2D.prototype, "isPointInPath", isPointInPath);
@@ -168,7 +127,7 @@ describe("Canvas path", () => {
     });
 
     it("isPointInPath - with Path2D as first argument", () => {
-      var region = new window.Path2D("M 30 90 L 110 20 L 240 130 L 60 130 L 190 20 L 270 90 Z");
+      const region = new window.Path2D("M 30 90 L 110 20 L 240 130 L 60 130 L 190 20 L 270 90 Z");
       const x = 30;
       const y = 20;
       cMock.expects("moveTo").once().withArgs(30, 90);
@@ -180,7 +139,7 @@ describe("Canvas path", () => {
     });
 
     it("isPointInPath - with Path2D as first argument and fillRule", () => {
-      var region = new window.Path2D("M 30 90 L 110 20 L 240 130 L 60 130 L 190 20 L 270 90 Z");
+      const region = new window.Path2D("M 30 90 L 110 20 L 240 130 L 60 130 L 190 20 L 270 90 Z");
       const x = 30;
       const y = 20;
       const fillRule = "evenodd";
@@ -193,7 +152,7 @@ describe("Canvas path", () => {
     });
   });
 
-  describe("Render path", () => {
+  describe("render path", () => {
     beforeEach(() => {
       ctx = new window.CanvasRenderingContext2D();
       cMock = sinon.mock(ctx);
@@ -222,6 +181,17 @@ describe("Canvas path", () => {
         const p2 = new window.Path2D();
         p2.addPath(p);
         ctx.stroke(p2);
+        cMock.verify();
+      });
+      it("addPath with falsy parameter", () => {
+        cMock.expects("lineTo").once().withArgs(10, 0);
+        cMock.expects("lineTo").once().withArgs(10, 10);
+        cMock.expects("closePath").once();
+        const p = new window.Path2D("M 0 0 L 10 0 L 10 10 Z");
+        const p2 = "this is not a Path2D object";
+        // @ts-expect-error testing a falsy parameter
+        p.addPath(p2);
+        ctx.stroke(p);
         cMock.verify();
       });
       it("moveTo", () => {
@@ -283,6 +253,20 @@ describe("Canvas path", () => {
         cMock.expects("rect").once().withArgs(20, 20, 30, 30);
         const p = new window.Path2D();
         p.rect(20, 20, 30, 30);
+        ctx.stroke(p);
+        cMock.verify();
+      });
+      it("roundRect", () => {
+        cMock.expects("roundRect").once().withArgs(20, 20, 30, 30, 10);
+        const p = new window.Path2D();
+        p.roundRect(20, 20, 30, 30, 10);
+        ctx.stroke(p);
+        cMock.verify();
+      });
+      it("roundRect2", () => {
+        cMock.expects("roundRect").once().withArgs(20, 20, 30, 30);
+        const p = new window.Path2D();
+        p.roundRect(20, 20, 30, 30);
         ctx.stroke(p);
         cMock.verify();
       });

@@ -1,5 +1,5 @@
 (function () {
-  var canvas = document.getElementById("can2");
+  var canvas = document.getElementById("bezier-canvas");
   var ctx = canvas.getContext("2d");
 
   ctx.strokeStyle = "black";

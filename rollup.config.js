@@ -1,44 +1,39 @@
-/* eslint-env node */
-const commonjs = require("@rollup/plugin-commonjs");
-const { babel } = require("@rollup/plugin-babel");
-const { terser } = require("rollup-plugin-terser");
+const typescript = require("@rollup/plugin-typescript");
+const terser = require("@rollup/plugin-terser");
 const livereload = require("rollup-plugin-livereload");
 const serve = require("rollup-plugin-serve");
 
-const pkg = require("./package.json");
 const production = !process.env.ROLLUP_WATCH;
 
-const config = (isEsm) => {
-  const outputFile = production ? (isEsm ? pkg.module : pkg.main) : "example/index.js";
+const config = (environment = "browser", target = "iife") => {
+  let suffix = "";
+  if (environment === "browser") {
+    suffix = target === "iife" ? ".min" : `.${target}`;
+  }
+  let format = target === "dev" ? "iife" : target;
+  let name = environment === "browser" ? "polyfill" : "node";
 
-  const umdName = "path2dPolyfill";
+  let ending = "js";
+  if (environment === "node") {
+    ending = target === "cjs" ? "cjs" : "mjs";
+  }
+
+  const outputFile = production ? `dist/path2d-${name}${suffix}.${ending}` : `example/path2d-${name}.dev.${ending}`;
+
+  const input = environment === "node" ? "src/index.ts" : "src/browser.ts";
+
+  let minify = target === "iife" && production;
 
   const cfg = {
-    input: "src/index",
+    input,
     output: {
-      format: isEsm ? "es" : "umd",
+      format,
       file: outputFile,
-      name: umdName,
-      sourcemap: true,
-      exports: "named",
+      name: "path2dPolyfill",
     },
     plugins: [
-      commonjs(),
-      babel({
-        include: ["src/**"],
-        babelHelpers: "bundled",
-        presets: [
-          [
-            "@babel/preset-env",
-            {
-              targets: {
-                browsers: ["ie 11"],
-              },
-            },
-          ],
-        ],
-      }),
-      production ? (isEsm ? 0 : terser()) : 0,
+      minify ? terser() : 0,
+      typescript(),
       production ? 0 : serve("example"),
       production ? 0 : livereload({ watch: "example" }),
     ].filter(Boolean),
@@ -47,4 +42,12 @@ const config = (isEsm) => {
   return cfg;
 };
 
-module.exports = [config(), production ? config(true) : undefined].filter(Boolean);
+module.exports = production
+  ? [
+      config("node", "cjs"),
+      config("node", "esm"),
+      config("browser", "esm"),
+      config("browser", "dev"),
+      config("browser", "iife"),
+    ]
+  : [config("browser", "iife")];

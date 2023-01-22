@@ -8,10 +8,10 @@
 .nyc_output
 .vscode
 .cache
+.DS_Store
 yarn.lock
 node_modules
 dist
 coverage
 LICENSE
-example/index.js
-example/index.js.map
+example/path2d-polyfill.dev.js
