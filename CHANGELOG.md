@@ -1,3 +1,25 @@
+## [2.0.0](https://github.com/nilzona/path2d-polyfill/compare/v1.2.3...v2.0.0) (2023-01-22)
+
+### ⚠ BREAKING CHANGES
+
+- target build now has the name `dist/path2d-polyfill.min.js`
+
+- chore: null Path2D in example index.html
+
+- Update tsconfig.json
+
+Co-authored-by: Linus Unnebäck <linus@folkdatorn.se>
+
+- chore: build for node and browsers
+
+- docs: update doc example
+
+Co-authored-by: Linus Unnebäck <linus@folkdatorn.se>
+
+### Features
+
+- node support with roundRect polyfill ([#43](https://github.com/nilzona/path2d-polyfill/issues/43)) ([2fffe15](https://github.com/nilzona/path2d-polyfill/commit/2fffe15a76e7adac50beacc0f9587d5b3cc71485))
+
 ## [1.2.3](https://github.com/nilzona/path2d-polyfill/compare/v1.2.2...v1.2.3) (2022-10-11)
 
 ## [1.2.2](https://github.com/nilzona/path2d-polyfill/compare/v1.2.1...v1.2.2) (2022-07-23)
