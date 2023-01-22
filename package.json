@@ -34,7 +34,8 @@
   "keywords": [
     "Path2D",
     "polyfill",
-    "canvas"
+    "canvas",
+    "roundRect"
   ],
   "author": "nilzona",
   "license": "MIT",
