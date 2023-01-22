@@ -1,3 +1,9 @@
+## [2.0.1](https://github.com/nilzona/path2d-polyfill/compare/v2.0.0...v2.0.1) (2023-01-22)
+
+### Bug Fixes
+
+- add browser and main fields in package.json ([82e8522](https://github.com/nilzona/path2d-polyfill/commit/82e8522b17c750cc06dbade1e7022ffea312fd5d))
+
 ## [2.0.0](https://github.com/nilzona/path2d-polyfill/compare/v1.2.3...v2.0.0) (2023-01-22)
 
 ### ⚠ BREAKING CHANGES
