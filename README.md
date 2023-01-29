@@ -9,7 +9,7 @@ Polyfills `Path2D` api and `roundRect` for CanvasRenderingContext2D
 Add this script tag to your page to enable the feature.
 
 ```html
-<script lang="javascript" src="https://cdn.jsdelivr.net/npm/path2d-polyfill/dist/path2d-polyfill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/path2d-polyfill/dist/path2d-polyfill.min.js"></script>
 ```
 
 or install from npm

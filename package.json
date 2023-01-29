@@ -3,7 +3,8 @@
   "version": "2.0.1",
   "description": "Polyfills Path2D api for canvas rendering",
   "scripts": {
-    "build": "rm -rf dist/* && rollup -c",
+    "build": "rm -rf dist/* && rollup -c && yarn build-types",
+    "build-types": "tsc src/index.ts --emitDeclarationOnly --declaration --skipLibCheck --strict --outDir ./dist",
     "start": "rollup -c -w",
     "lint": "eslint .",
     "check-types": "tsc --noEmit",
@@ -15,6 +16,7 @@
     "prepare": "husky install",
     "release": "release-it"
   },
+  "types": "dist/index.d.ts",
   "main": "dist/path2d-node.cjs",
   "browser": "dist/path2d-polyfill.min.js",
   "exports": {
