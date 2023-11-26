@@ -1,0 +1,4 @@
+{
+  "extends": "@qlik/tsconfig/node.json",
+  "include": ["src", "test"]
+}

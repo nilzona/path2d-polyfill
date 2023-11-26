@@ -2,7 +2,7 @@ node_modules
 coverage
 dist
 .eslintcache
-.vscode
 .cache
 .nyc_output
-example/path2d-polyfill.dev.js
+.turbo
+packages/path2d-polyfill/test/path2d-polyfill.dev.js

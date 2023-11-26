@@ -1,0 +1,57 @@
+name: Update Dependencies
+
+on:
+  schedule:
+    - cron: "0 4 * * 6"
+  workflow_dispatch:
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+
+      - name: Git Config
+        run: |
+          git config user.name "svc-pipeline"
+          git config user.email "svc_pipeline@qlik.com"
+
+      - name: Use pnpm 7
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
+
+      - name: Install Dependencies
+        run: pnpm i
+
+      - name: Update Dependencies
+        run: pnpm update --latest --recursive
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          commit-message: "chore: update npm dependencies"
+          committer: svc-pipeline <svc_pipeline@qlik.com>
+          author: svc-pipeline <svc_pipeline@qlik.com>
+          branch: chore/update-dependencies
+          delete-branch: true
+          title: "chore: update all dependencies"
+
+      - name: Enable Pull Request Automerge
+        if: steps.cpr.outputs.pull-request-operation == 'created'
+        uses: peter-evans/enable-pull-request-automerge@v2
+        with:
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash

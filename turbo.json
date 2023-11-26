@@ -1,0 +1,25 @@
+{
+  "pipeline": {
+    "build": {
+      "outputs": []
+    },
+    "dev": {
+      "outputs": []
+    },
+    "lint": {
+      "outputs": []
+    },
+    "check-types": {
+      "outputs": []
+    },
+    "test": {
+      "outputs": []
+    },
+    "format:check": {
+      "outputs": []
+    },
+    "format:write": {
+      "outputs": []
+    }
+  }
+}

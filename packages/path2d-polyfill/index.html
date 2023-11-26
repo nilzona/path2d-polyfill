@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <title>Testing canvas</title>
+    <style>
+      body {
+        background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+        width: 100%;
+        margin: 0;
+      }
+      canvas {
+        background-color: whitesmoke;
+      }
+      .main {
+        position: relative;
+        width: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+      .square {
+        width: 550px;
+        height: 550px;
+        margin: 25px 0 0 25px;
+      }
+    </style>
+    <script lang="javascript">
+      // remove Path2D from window api to enable code in all browsers
+      window.Path2D = null;
+      window.CanvasRenderingContext2D.prototype.roundRect = null;
+    </script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="square">
+        <div>Arc example</div>
+        <canvas id="arc-canvas" width="500" height="500"></canvas>
+      </div>
+      <div class="square">
+        <div>Bezier example</div>
+        <canvas id="bezier-canvas" width="500" height="500"></canvas>
+      </div>
+      <div class="square">
+        <div>Use Path2D methods</div>
+        <canvas id="path2d-methods-canvas" width="500" height="500"></canvas>
+      </div>
+      <div class="square">
+        <div>Ellipse example</div>
+        <canvas id="ellipse-canvas" width="500" height="500"></canvas>
+      </div>
+      <div class="square">
+        <div>Close example</div>
+        <canvas id="close-canvas" width="500" height="500"></canvas>
+      </div>
+      <div class="square">
+        <div>Point inside example</div>
+        <canvas id="point-inside-canvas" width="500" height="500"></canvas>
+      </div>
+      <div class="square">
+        <div>Rounded rect example</div>
+        <canvas id="rounded-rect-canvas" width="500" height="500"></canvas>
+      </div>
+    </div>
+    <script type="module" src="/src/index.ts"></script>
+    <script type="module" src="/test/arc.js"></script>
+    <script type="module" src="/test/bezier.js"></script>
+    <script type="module" src="/test/path2d-methods.js"></script>
+    <script type="module" src="/test/ellipse.js"></script>
+    <script type="module" src="/test/close.js"></script>
+    <script type="module" src="/test/point-inside.js"></script>
+    <script type="module" src="/test/rounded-rect.js"></script>
+  </body>
+</html>
