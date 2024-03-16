@@ -66,5 +66,7 @@
   "engines": {
     "node": ">=18"
   },
-  "browsersList": {}
+  "publishConfig": {
+    "access": "public"
+  }
 }

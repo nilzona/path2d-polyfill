@@ -19,7 +19,6 @@
     "publish-packages": "changeset publish",
     "validate": "pnpm format:check & pnpm lint & pnpm test",
     "version-publish-packages": "changeset version && changeset publish",
-    "test": "turbo run test",
-    "update-deps": "turbo run update-deps --force --no-cache && pnpm update --latest --recursive"
+    "test": "turbo run test"
   }
 }
