@@ -34,11 +34,6 @@ jobs:
           node-version: 18
           cache: pnpm
 
-      - name: Setup access to qlik npm registry
-        uses: qlik-trial/qmfe-workflows/actions/npm-github-access@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Install Dependencies
         run: pnpm i
 
