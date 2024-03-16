@@ -30,7 +30,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup-node src/index.ts --target es5 --format esm,cjs --dts",
+    "build": "tsup-node src/index.ts --target node18 --format esm,cjs --dts",
     "check-types": "tsc --noEmit",
     "format:check": "prettier --check '**' --ignore-unknown",
     "format:write": "prettier --write '**' --ignore-unknown",
@@ -56,6 +56,6 @@
     "vitest": "1.4.0"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=6"
   }
 }

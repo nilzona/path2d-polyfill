@@ -64,7 +64,7 @@
     "vitest": "1.4.0"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=18"
   },
   "browsersList": {}
 }
