@@ -29,9 +29,9 @@ jobs:
         with:
           node-version: 18
           cache: pnpm
-      - run: pnpm install --force
+      - run: pnpm install
+      - run: pnpm build
       - run: pnpm format:check
       - run: pnpm lint
       - run: pnpm check-types
-      - run: pnpm build
       - run: pnpm test
