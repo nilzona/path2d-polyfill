@@ -20,10 +20,10 @@ jobs:
           git config user.name "svc-pipeline"
           git config user.email "svc_pipeline@qlik.com"
 
-      - name: Use pnpm 7
-        uses: pnpm/action-setup@v2
+      - name: Use pnpm 8
+        uses: pnpm/action-setup@v3
         with:
-          version: 7
+          version: 8
 
       - uses: actions/setup-node@v4
         with:

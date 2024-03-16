@@ -21,13 +21,13 @@ jobs:
 
       - name: Git Config
         run: |
-          git config user.name "svc-pipeline"
-          git config user.email "svc_pipeline@qlik.com"
+          git config user.name "nilzona"
+          git config user.email "nilssonanders79@gmail.com"
 
-      - name: Use pnpm 7
-        uses: pnpm/action-setup@v2
+      - name: Use pnpm 8
+        uses: pnpm/action-setup@v3
         with:
-          version: 7
+          version: 8
 
       - uses: actions/setup-node@v4
         with:
@@ -47,3 +47,4 @@ jobs:
           publish: pnpm publish-packages
         env:
           GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
