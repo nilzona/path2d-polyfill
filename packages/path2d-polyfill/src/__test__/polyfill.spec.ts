@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import { Path2D } from "path2d";
 import { afterEach, beforeAll, describe, expect, it } from "vitest";
 import { polyfillPath2D } from "../polyfill";

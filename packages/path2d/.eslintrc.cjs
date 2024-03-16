@@ -4,7 +4,7 @@ module.exports = {
   parserOptions: {
     project: "tsconfig.eslint.json",
   },
-  extends: ["@qlik/eslint-config"],
+  extends: ["@qlik/eslint-config", "@qlik/eslint-config/vitest"],
   rules: {
     "no-param-reassign": "off",
   },
