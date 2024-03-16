@@ -1,5 +1,11 @@
 # path2d
 
+## 0.1.1
+
+### Patch Changes
+
+- 56d5f7e: Path to make releasing work
+
 ## 0.1.0
 
 ### Minor Changes

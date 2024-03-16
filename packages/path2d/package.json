@@ -1,6 +1,6 @@
 {
   "name": "path2d",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Path2D API for node. Can be used for server-side rendering with canvas",
   "keywords": [
     "Path2D",
