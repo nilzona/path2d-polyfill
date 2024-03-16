@@ -3,9 +3,20 @@ on:
   pull_request:
     branches:
       - "main"
+  push:
+    branches:
+      - "main"
+    tags-ignore:
+      - "v*.*.*"
 
 jobs:
+  skip-check:
+    if: ${{ !contains(github.event.pull_request.title, 'chore(release):') }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "run only on non-release commits"
   validate:
+    needs: [skip-check]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
