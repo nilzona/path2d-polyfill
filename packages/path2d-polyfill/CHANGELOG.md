@@ -1,5 +1,13 @@
 # path2d-polyfill
 
+## 2.1.1
+
+### Patch Changes
+
+- 56d5f7e: Path to make releasing work
+- Updated dependencies [56d5f7e]
+  - path2d@0.1.1
+
 ## 2.1.0
 
 ### Minor Changes
