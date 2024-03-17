@@ -1,6 +1,13 @@
 import { Path2D, buildPath } from "./path2d.js";
 import { roundRect } from "./round-rect.js";
-import type { CanvasFillRule, ICanvasRenderingContext2D, IPath2D, IPrototype, PartialBy } from "./types.js";
+import type {
+  CanvasFillRule,
+  ICanvasRenderingContext2D,
+  ICanvasRenderingContext2DWithoutPath2D,
+  IPath2D,
+  IPrototype,
+  PartialBy,
+} from "./types.js";
 
 type FillFn = (fillRule?: CanvasFillRule) => void;
 type StrokeFn = () => void;
@@ -10,7 +17,9 @@ type IsPointInPathFn = (x: number, y: number, fillRule?: CanvasFillRule) => bool
  * Adds Path2D capabilities to CanvasRenderingContext2D stroke, fill and isPointInPath
  * @param global - window like object containing a CanvasRenderingContext2D constructor
  */
-export function applyPath2DToCanvasRenderingContext(CanvasRenderingContext2D?: IPrototype<ICanvasRenderingContext2D>) {
+export function applyPath2DToCanvasRenderingContext(
+  CanvasRenderingContext2D?: IPrototype<ICanvasRenderingContext2DWithoutPath2D>,
+) {
   if (!CanvasRenderingContext2D) return;
 
   /* eslint-disable @typescript-eslint/unbound-method */
@@ -24,7 +33,7 @@ export function applyPath2DToCanvasRenderingContext(CanvasRenderingContext2D?: I
     if (args[0] instanceof Path2D) {
       const path = args[0];
       const fillRule = (args[1] as CanvasFillRule) || "nonzero";
-      buildPath(this, path.commands);
+      buildPath(this as ICanvasRenderingContext2D, path.commands);
       return cFill.apply(this, [fillRule]);
     }
     const fillRule = (args[0] as CanvasFillRule) || "nonzero";
@@ -33,7 +42,7 @@ export function applyPath2DToCanvasRenderingContext(CanvasRenderingContext2D?: I
 
   CanvasRenderingContext2D.prototype.stroke = function stroke(path?: Path2D) {
     if (path) {
-      buildPath(this, path.commands);
+      buildPath(this as ICanvasRenderingContext2D, path.commands);
     }
     cStroke.apply(this);
   };
@@ -45,7 +54,7 @@ export function applyPath2DToCanvasRenderingContext(CanvasRenderingContext2D?: I
       const x = args[1] as number;
       const y = args[2] as number;
       const fillRule = (args[3] as CanvasFillRule) || "nonzero";
-      buildPath(this, path.commands);
+      buildPath(this as ICanvasRenderingContext2D, path.commands);
       return cIsPointInPath.apply(this, [x, y, fillRule]);
     }
     return cIsPointInPath.apply(this, args as [x: number, y: number, fillRule: CanvasFillRule]);

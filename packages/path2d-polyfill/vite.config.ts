@@ -16,6 +16,7 @@ export default defineConfig({
       plugins: [
         babel({
           presets: ["@babel/preset-env"],
+          babelHelpers: "bundled",
         }),
       ],
     },

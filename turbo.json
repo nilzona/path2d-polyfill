@@ -1,25 +1,13 @@
 {
   "pipeline": {
     "build": {
-      "outputs": []
+      "dependsOn": ["^build"]
     },
-    "dev": {
-      "outputs": []
-    },
-    "lint": {
-      "outputs": []
-    },
-    "check-types": {
-      "outputs": []
-    },
-    "test": {
-      "outputs": []
-    },
-    "format:check": {
-      "outputs": []
-    },
-    "format:write": {
-      "outputs": []
-    }
+    "dev": {},
+    "lint": {},
+    "check-types": {},
+    "test": {},
+    "format:check": {},
+    "format:write": {}
   }
 }
