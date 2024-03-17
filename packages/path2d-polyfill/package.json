@@ -1,6 +1,6 @@
 {
   "name": "path2d-polyfill",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "description": "Polyfills Path2D api for canvas rendering",
   "keywords": [
     "Path2D",
