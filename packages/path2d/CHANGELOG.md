@@ -1,5 +1,11 @@
 # path2d
 
+## 0.1.2
+
+### Patch Changes
+
+- 0e6e715: Make types compatible with node-canvas
+
 ## 0.1.1
 
 ### Patch Changes
