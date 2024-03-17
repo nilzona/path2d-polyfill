@@ -33,8 +33,7 @@ const { createCanvas, CanvasRenderingContext2D } = require("canvas");
 const { applyPath2DToCanvasRenderingContext, Path2D } = require("path2d");
 
 applyPath2DToCanvasRenderingContext(CanvasRenderingContext2D);
-global.CanvasRenderingContext2D = CanvasRenderingContext2D;
-// Path2D has now been added to global object
+// Path2D features has now been added to CanvasRenderingContext2D
 
 const canvas = createCanvas(200, 200);
 const ctx = canvas.getContext("2d");
