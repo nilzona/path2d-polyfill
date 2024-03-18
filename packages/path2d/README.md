@@ -1,6 +1,6 @@
 # path2d-polyfill
 
-[![validate](https://github.com/nilzona/path2d-polyfill/actions/workflows/validate.yaml/badge.svg)](https://github.com/nilzona/path2d-polyfill/actions/workflows/validate.yaml)
+[![CI](https://github.com/nilzona/path2d-polyfill/actions/workflows/ci.yml/badge.svg)](https://github.com/nilzona/path2d-polyfill/actions/workflows/ci.yml)
 
 Implements `Path2D` api and `roundRect` for CanvasRenderingContext2D
 
