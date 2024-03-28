@@ -95,6 +95,8 @@ export interface ICanvasRenderingContext2D {
   rect(x: number, y: number, width: number, height: number): void;
   isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean;
   isPointInPath(path: Path2D, x: number, y: number, fillRule?: CanvasFillRule): boolean;
+  clip(fillRule?: CanvasFillRule): void;
+  clip(path: Path2D, fillRule?: CanvasFillRule): void;
   fill(fillRule?: CanvasFillRule): void;
   fill(path: Path2D, fillRule?: CanvasFillRule): void;
   stroke(): void;
@@ -120,6 +122,8 @@ export interface ICanvasRenderingContext2DWithoutPath2D {
   rect(x: number, y: number, width: number, height: number): void;
   isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean;
   // isPointInPath(path: Path2D, x: number, y: number, fillRule?: CanvasFillRule): boolean;
+  clip(fillRule?: CanvasFillRule): void;
+  // clip(path: Path2D, fillRule?: CanvasFillRule): void;
   fill(fillRule?: CanvasFillRule): void;
   // fill(path: Path2D, fillRule?: CanvasFillRule): void;
   stroke(): void;
