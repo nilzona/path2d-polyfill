@@ -8,6 +8,7 @@ export class CanvasRenderingContext2DForTest implements ICanvasRenderingContext2
     this.strokeStyle = null;
     this.lineWidth = null;
   }
+  clip(a?: CanvasFillRule | Path2D, b?: CanvasFillRule) {}
   fill(a?: CanvasFillRule | Path2D, b?: CanvasFillRule) {}
   stroke(a?: CanvasFillRule | Path2D) {}
   isPointInPath(a: number | Path2D, b: number, c?: number | CanvasFillRule, d?: number | CanvasFillRule) {

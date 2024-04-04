@@ -24,10 +24,22 @@ export function applyPath2DToCanvasRenderingContext(
 
   /* eslint-disable @typescript-eslint/unbound-method */
   // setting unbound functions here. Make sure this is set in function call later
+  const cClip: FillFn = CanvasRenderingContext2D.prototype.clip;
   const cFill: FillFn = CanvasRenderingContext2D.prototype.fill;
   const cStroke: StrokeFn = CanvasRenderingContext2D.prototype.stroke;
   const cIsPointInPath: IsPointInPathFn = CanvasRenderingContext2D.prototype.isPointInPath;
   /* eslint-enable @typescript-eslint/unbound-method */
+
+  CanvasRenderingContext2D.prototype.clip = function clip(...args: unknown[]) {
+    if (args[0] instanceof Path2D) {
+      const path = args[0];
+      const fillRule = (args[1] as CanvasFillRule) || "nonzero";
+      buildPath(this as ICanvasRenderingContext2D, path.commands);
+      return cClip.apply(this, [fillRule]);
+    }
+    const fillRule = (args[0] as CanvasFillRule) || "nonzero";
+    return cClip.apply(this, [fillRule]);
+  };
 
   CanvasRenderingContext2D.prototype.fill = function fill(...args: unknown[]) {
     if (args[0] instanceof Path2D) {
