@@ -6,6 +6,7 @@ import { CanvasRenderingContext2DForTest } from "./test-types.js";
 
 vi.mock("./test-types.js");
 
+type MockedClip = MockInstance<[a?: CanvasFillRule | Path2D | undefined, b?: CanvasFillRule | undefined], void>;
 type MockedFill = MockInstance<[a?: CanvasFillRule | Path2D | undefined, b?: CanvasFillRule | undefined], void>;
 type MockedStroke = MockInstance<[a?: CanvasFillRule | Path2D | undefined], void>;
 type MockedIsPointInPath = MockInstance<
@@ -16,13 +17,15 @@ type MockedIsPointInPath = MockInstance<
 let ctx: CanvasRenderingContext2DForTest;
 let cStrokeSpy: MockedStroke;
 let cFillSpy: MockedFill;
+let cClipSpy: MockedClip;
 let cIsPointInPathSpy: MockedIsPointInPath;
 
 describe("Path2D", () => {
   beforeAll(() => {
-    // prep some for testing, create spies on original CanvasRenderingContex methods
+    // prep some for testing, create spies on original CanvasRenderingContext methods
     cStrokeSpy = CanvasRenderingContext2DForTest.prototype.stroke as unknown as MockedStroke;
     cFillSpy = CanvasRenderingContext2DForTest.prototype.fill as unknown as MockedFill;
+    cClipSpy = CanvasRenderingContext2DForTest.prototype.clip as unknown as MockedClip;
     cIsPointInPathSpy = CanvasRenderingContext2DForTest.prototype.isPointInPath as unknown as MockedIsPointInPath;
     applyPath2DToCanvasRenderingContext(CanvasRenderingContext2DForTest);
   });
@@ -30,10 +33,37 @@ describe("Path2D", () => {
     ctx = new CanvasRenderingContext2DForTest();
     cStrokeSpy.mockReset();
     cFillSpy.mockReset();
+    cClipSpy.mockReset();
     cIsPointInPathSpy.mockReset();
   });
 
-  describe("stroke/fill", () => {
+  describe("stroke/fill/clip", () => {
+    it("clip - no arguments, defaults to nonzero", () => {
+      ctx.clip();
+      expect(cClipSpy).toHaveBeenCalledOnce();
+      expect(cClipSpy).toHaveBeenCalledWith("nonzero");
+    });
+
+    it("clip - with fillrule", () => {
+      ctx.clip("evenodd");
+      expect(cClipSpy).toHaveBeenCalledOnce();
+      expect(cClipSpy).toHaveBeenCalledWith("evenodd");
+    });
+
+    it("clip - with just path defaults to nonzero", () => {
+      const p = new Path2D("M 0 0 L 10 0 L 10 10 Z");
+      ctx.clip(p);
+      expect(cClipSpy).toHaveBeenCalledOnce();
+      expect(cClipSpy).toHaveBeenCalledWith("nonzero");
+    });
+
+    it("clip - with path and fillrule", () => {
+      const p = new Path2D("M 0 0 L 10 0 L 10 10 Z");
+      ctx.clip(p, "evenodd");
+      expect(cClipSpy).toHaveBeenCalledOnce();
+      expect(cClipSpy).toHaveBeenCalledWith("evenodd");
+    });
+
     it("fill - no arguments, defaults to nonzero", () => {
       ctx.fill();
       expect(cFillSpy).toHaveBeenCalledOnce();
