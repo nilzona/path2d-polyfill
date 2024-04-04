@@ -1,5 +1,16 @@
 # path2d-polyfill
 
+## 3.1.0
+
+### Minor Changes
+
+- 2de6861: Polyfill the CanvasRenderingContext.clip() function
+
+### Patch Changes
+
+- Updated dependencies [2de6861]
+  - path2d@0.2.0
+
 ## 3.0.1
 
 ### Patch Changes
