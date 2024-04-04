@@ -12,12 +12,12 @@ npm install --save path2d
 
 ## Use in a node environment
 
-It is possible to use this library in a node environment as well. The package exports a few functions that can be used:
+The package exports a few functions that can be used in a node environment:
 
 - `Path2D` - class to create Path2D objects used by the polyfill methods
 - `parsePath` - function for parsing an SVG path string into canvas commands
 - 'roundRect' - implementation of roundRect using canvas commans
-- `applyPath2DToCanvasRenderingContext` - Adds Path2D functions (if needed) to a CanvasRenderingContext and augments the fill and stroke command
+- `applyPath2DToCanvasRenderingContext` - Adds Path2D functions (if needed) to a CanvasRenderingContext and augments the fill, stroke and clip command
 - `applyRoundRectToCanvasRenderingContext2D` - Adds roundRect function (if needed) to a CanvasRenderingContext
 
 ```js
