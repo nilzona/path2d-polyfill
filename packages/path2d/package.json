@@ -43,18 +43,18 @@
   },
   "prettier": "@qlik/prettier-config",
   "devDependencies": {
-    "@qlik/eslint-config": "0.7.15",
-    "@qlik/prettier-config": "0.4.11",
-    "@qlik/tsconfig": "0.2.4",
-    "@swc/core": "1.4.11",
-    "@types/node": "20.11.30",
-    "@vitest/coverage-v8": "1.4.0",
-    "eslint": "8.57.0",
+    "@qlik/eslint-config": "0.7.16",
+    "@qlik/prettier-config": "0.4.12",
+    "@qlik/tsconfig": "0.2.5",
+    "@swc/core": "1.4.16",
+    "@types/node": "20.12.7",
+    "@vitest/coverage-v8": "1.5.0",
+    "eslint": "9.1.0",
     "prettier": "3.2.5",
     "rimraf": "5.0.5",
     "tsup": "8.0.2",
-    "typescript": "5.4.3",
-    "vitest": "1.4.0"
+    "typescript": "5.4.5",
+    "vitest": "1.5.0"
   },
   "engines": {
     "node": ">=6"
