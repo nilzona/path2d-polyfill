@@ -8,7 +8,11 @@
     "pnpm": ">=8",
     "node": ">=18"
   },
-  "packageManager": "pnpm@7.5.0",
+  "updateConfig": {
+    "ignoreDependencies": [
+      "eslint"
+    ]
+  },
   "scripts": {
     "build": "turbo run build",
     "format:check": "turbo run format:check",
