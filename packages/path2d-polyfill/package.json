@@ -49,19 +49,19 @@
     "path2d": "workspace:*"
   },
   "devDependencies": {
-    "@babel/core": "7.24.3",
-    "@babel/preset-env": "7.24.3",
-    "@qlik/eslint-config": "0.7.15",
-    "@qlik/prettier-config": "0.4.11",
-    "@qlik/tsconfig": "0.2.4",
+    "@babel/core": "7.24.4",
+    "@babel/preset-env": "7.24.4",
+    "@qlik/eslint-config": "0.7.16",
+    "@qlik/prettier-config": "0.4.12",
+    "@qlik/tsconfig": "0.2.5",
     "@rollup/plugin-babel": "6.0.4",
-    "@vitest/coverage-v8": "1.4.0",
+    "@vitest/coverage-v8": "1.5.0",
     "eslint": "8.57.0",
     "jsdom": "24.0.0",
     "prettier": "3.2.5",
-    "typescript": "5.4.3",
-    "vite": "5.2.7",
-    "vitest": "1.4.0"
+    "typescript": "5.4.5",
+    "vite": "5.2.9",
+    "vitest": "1.5.0"
   },
   "engines": {
     "node": ">=18"

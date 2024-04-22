@@ -9,33 +9,25 @@ jobs:
   update-dependencies:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GH_ACCESS_TOKEN }}
-
       - name: Git Config
         run: |
           git config user.name "svc-pipeline"
           git config user.email "svc_pipeline@qlik.com"
-
-      - name: Use pnpm 8
-        uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v3
         with:
-          version: 8
-
+          version: 9
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: pnpm
-
       - name: Install Dependencies
         run: pnpm i
-
       - name: Update Dependencies
         run: pnpm update --latest --recursive
-
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
@@ -47,7 +39,6 @@ jobs:
           branch: chore/update-dependencies
           delete-branch: true
           title: "chore: update all dependencies"
-
       - name: Enable Pull Request Automerge
         if: steps.cpr.outputs.pull-request-operation == 'created'
         uses: peter-evans/enable-pull-request-automerge@v2
