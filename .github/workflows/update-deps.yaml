@@ -38,7 +38,7 @@ jobs:
           author: svc-pipeline <svc_pipeline@qlik.com>
           branch: chore/update-dependencies
           delete-branch: true
-          title: "chore: update all dependencies"
+          title: "chore: update npm dependencies"
       - name: Enable Pull Request Automerge
         if: steps.cpr.outputs.pull-request-operation == 'created'
         uses: peter-evans/enable-pull-request-automerge@v2
