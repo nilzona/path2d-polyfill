@@ -51,7 +51,7 @@
   "devDependencies": {
     "@babel/core": "7.24.5",
     "@babel/preset-env": "7.24.5",
-    "@qlik/eslint-config": "0.7.19",
+    "@qlik/eslint-config": "0.7.20",
     "@qlik/prettier-config": "0.4.13",
     "@qlik/tsconfig": "0.2.5",
     "@rollup/plugin-babel": "6.0.4",
