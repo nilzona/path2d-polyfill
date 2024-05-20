@@ -1,7 +1,7 @@
 {
   "private": true,
   "devDependencies": {
-    "@changesets/cli": "2.27.1",
+    "@changesets/cli": "2.27.2",
     "turbo": "1.13.3"
   },
   "engines": {
