@@ -43,7 +43,7 @@
   },
   "prettier": "@qlik/prettier-config",
   "devDependencies": {
-    "@qlik/eslint-config": "0.7.21",
+    "@qlik/eslint-config": "0.7.22",
     "@qlik/prettier-config": "0.4.13",
     "@qlik/tsconfig": "0.2.5",
     "@swc/core": "1.5.7",
