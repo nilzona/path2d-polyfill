@@ -1,5 +1,11 @@
 # path2d-polyfill
 
+## 3.1.1
+
+### Patch Changes
+
+- 384b9a5: Drop the required node version in package.json `engines` field.
+
 ## 3.1.0
 
 ### Minor Changes
