@@ -2,7 +2,7 @@
   "private": true,
   "devDependencies": {
     "@changesets/cli": "2.27.5",
-    "turbo": "1.13.3"
+    "turbo": "2.0.4"
   },
   "engines": {
     "pnpm": ">=8",
