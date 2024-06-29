@@ -1,5 +1,13 @@
 # path2d-polyfill
 
+## 3.1.2
+
+### Patch Changes
+
+- 751cc2e: chore: update npm dependencies
+- Updated dependencies [751cc2e]
+  - path2d@0.2.1
+
 ## 3.1.1
 
 ### Patch Changes
