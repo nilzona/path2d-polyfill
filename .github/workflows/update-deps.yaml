@@ -17,9 +17,7 @@ jobs:
         run: |
           git config user.name "svc-pipeline"
           git config user.email "svc_pipeline@qlik.com"
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 9
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -27,7 +25,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm i
       - name: Update Dependencies
-        run: pnpm update --latest --recursive
+        run: pnpm update --recursive
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4

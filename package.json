@@ -1,13 +1,14 @@
 {
+  "name": "path2d-polyfill-repo",
   "private": true,
   "devDependencies": {
-    "@changesets/cli": "2.27.5",
-    "turbo": "1.13.3"
+    "@changesets/cli": "^2.27.6",
+    "turbo": "^2.0.6"
   },
   "engines": {
-    "pnpm": ">=8",
     "node": ">=18"
   },
+  "packageManager": "pnpm@9.4.0",
   "pnpm": {
     "updateConfig": {
       "ignoreDependencies": [
