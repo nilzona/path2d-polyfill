@@ -25,7 +25,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm i
       - name: Update Dependencies
-        run: pnpm update --latest --recursive
+        run: pnpm update --recursive
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
