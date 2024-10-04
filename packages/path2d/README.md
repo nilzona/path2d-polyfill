@@ -1,4 +1,4 @@
-# path2d-polyfill
+# path2d
 
 [![CI](https://github.com/nilzona/path2d-polyfill/actions/workflows/ci.yml/badge.svg)](https://github.com/nilzona/path2d-polyfill/actions/workflows/ci.yml)
 
@@ -16,7 +16,7 @@ The package exports a few functions that can be used in a node environment:
 
 - `Path2D` - class to create Path2D objects used by the polyfill methods
 - `parsePath` - function for parsing an SVG path string into canvas commands
-- 'roundRect' - implementation of roundRect using canvas commans
+- 'roundRect' - implementation of roundRect using canvas commands
 - `applyPath2DToCanvasRenderingContext` - Adds Path2D functions (if needed) to a CanvasRenderingContext and augments the fill, stroke and clip command
 - `applyRoundRectToCanvasRenderingContext2D` - Adds roundRect function (if needed) to a CanvasRenderingContext
 
