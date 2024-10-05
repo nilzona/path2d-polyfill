@@ -2,8 +2,8 @@
   "name": "path2d-polyfill-repo",
   "private": true,
   "devDependencies": {
-    "@changesets/cli": "^2.27.8",
-    "turbo": "^2.1.2"
+    "@changesets/cli": "^2.27.9",
+    "turbo": "^2.1.3"
   },
   "engines": {
     "node": ">=18"
