@@ -62,6 +62,7 @@ describe("roundRect", () => {
     ctx.stroke(p);
     expect(ctx.moveTo).not.toHaveBeenCalled();
     expect(ctx.arcTo).not.toHaveBeenCalled();
+    expect(ctx.closePath).not.toHaveBeenCalled();
   });
 
   it("with one radius", () => {
@@ -73,7 +74,7 @@ describe("roundRect", () => {
     expect(ctx.arcTo).toHaveBeenNthCalledWith(2, 10, 0, 10, 1, 1);
     expect(ctx.arcTo).toHaveBeenNthCalledWith(3, 10, 10, 9, 10, 1);
     expect(ctx.arcTo).toHaveBeenNthCalledWith(4, 0, 10, 0, 9, 1);
-    expect(ctx.moveTo).toHaveBeenNthCalledWith(2, 0, 0);
+    expect(ctx.closePath).toHaveBeenCalled();
   });
 
   it("with one radius - as array", () => {
@@ -85,7 +86,7 @@ describe("roundRect", () => {
     expect(ctx.arcTo).toHaveBeenNthCalledWith(2, 10, 0, 10, 1, 1);
     expect(ctx.arcTo).toHaveBeenNthCalledWith(3, 10, 10, 9, 10, 1);
     expect(ctx.arcTo).toHaveBeenNthCalledWith(4, 0, 10, 0, 9, 1);
-    expect(ctx.moveTo).toHaveBeenNthCalledWith(2, 0, 0);
+    expect(ctx.closePath).toHaveBeenCalled();
   });
 
   it("with two radiuses", () => {
@@ -97,7 +98,7 @@ describe("roundRect", () => {
     expect(ctx.arcTo).toHaveBeenNthCalledWith(2, 10, 0, 10, 2, 2);
     expect(ctx.arcTo).toHaveBeenNthCalledWith(3, 10, 10, 9, 10, 1);
     expect(ctx.arcTo).toHaveBeenNthCalledWith(4, 0, 10, 0, 8, 2);
-    expect(ctx.moveTo).toHaveBeenNthCalledWith(2, 0, 0);
+    expect(ctx.closePath).toHaveBeenCalled();
   });
 
   it("with three radiuses", () => {
@@ -109,7 +110,7 @@ describe("roundRect", () => {
     expect(ctx.arcTo).toHaveBeenNthCalledWith(2, 10, 0, 10, 2, 2);
     expect(ctx.arcTo).toHaveBeenNthCalledWith(3, 10, 10, 7, 10, 3);
     expect(ctx.arcTo).toHaveBeenNthCalledWith(4, 0, 10, 0, 8, 2);
-    expect(ctx.moveTo).toHaveBeenNthCalledWith(2, 0, 0);
+    expect(ctx.closePath).toHaveBeenCalled();
   });
 
   it("with four radiuses", () => {
@@ -121,6 +122,6 @@ describe("roundRect", () => {
     expect(ctx.arcTo).toHaveBeenNthCalledWith(2, 10, 0, 10, 2, 2);
     expect(ctx.arcTo).toHaveBeenNthCalledWith(3, 10, 10, 7, 10, 3);
     expect(ctx.arcTo).toHaveBeenNthCalledWith(4, 0, 10, 0, 6, 4);
-    expect(ctx.moveTo).toHaveBeenNthCalledWith(2, 0, 0);
+    expect(ctx.closePath).toHaveBeenCalled();
   });
 });
