@@ -6,13 +6,10 @@ import { CanvasRenderingContext2DForTest } from "./test-types.js";
 
 vi.mock("./test-types.js");
 
-type MockedClip = MockInstance<[a?: CanvasFillRule | Path2D | undefined, b?: CanvasFillRule | undefined], void>;
-type MockedFill = MockInstance<[a?: CanvasFillRule | Path2D | undefined, b?: CanvasFillRule | undefined], void>;
-type MockedStroke = MockInstance<[a?: CanvasFillRule | Path2D | undefined], void>;
-type MockedIsPointInPath = MockInstance<
-  [a: number | Path2D, b: number, c?: number | CanvasFillRule | undefined, d?: number | CanvasFillRule | undefined],
-  boolean
->;
+type MockedClip = MockInstance<(a?: CanvasFillRule | Path2D, b?: CanvasFillRule) => void>;
+type MockedFill = MockInstance<(a?: CanvasFillRule | Path2D, b?: CanvasFillRule) => void>;
+type MockedStroke = MockInstance<(a?: CanvasFillRule | Path2D) => void>;
+type MockedIsPointInPath = MockInstance<() => string | number>;
 
 let ctx: CanvasRenderingContext2DForTest;
 let cStrokeSpy: MockedStroke;
