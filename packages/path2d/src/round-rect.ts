@@ -66,6 +66,5 @@ export function roundRect(
   this.arcTo(x + width, y, x + width, y + tr, tr);
   this.arcTo(x + width, y + height, x + width - br, y + height, br);
   this.arcTo(x, y + height, x, y + height - bl, bl);
-  // and move to rects control point for further path drawing
-  this.moveTo(x, y);
+  this.closePath();
 }
