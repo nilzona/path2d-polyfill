@@ -40,17 +40,26 @@
     path6.roundRect(0, 0, 80, 50);
     ctx.stroke(path6);
     ctx.fill(path6);
-    // roundRect when path already has begun with other elements and with more path elements after
-    ctx.translate(0, 100);
+
+    // round rect with big linewidth
+    ctx.translate(100, 0);
     const path7 = new Path2D();
-    path7.moveTo(0, 75);
-    path7.lineTo(50, 75);
-    path7.lineTo(0, 125);
-    path7.roundRect(0, 0, 80, 50, [5]);
-    path7.lineTo(-50, 50);
-    path7.lineTo(-50, 0);
+    path7.roundRect(0, 0, 80, 50, [15, 15, 15, 0]);
+    const temp = ctx.lineWidth;
+    ctx.lineWidth = 10;
     ctx.stroke(path7);
-    ctx.fill(path7);
+    ctx.lineWidth = temp;
+    // roundRect when path already has begun with other elements and with more path elements after
+    ctx.translate(-100, 100);
+    const path8 = new Path2D();
+    path8.moveTo(0, 75);
+    path8.lineTo(50, 75);
+    path8.lineTo(0, 125);
+    path8.roundRect(0, 0, 80, 50, [5]);
+    path8.lineTo(-50, 50);
+    path8.lineTo(-50, 0);
+    ctx.stroke(path8);
+    ctx.fill(path8);
     // draw roundRect directly in canvas
     ctx.translate(-100, 175);
     ctx.roundRect(0, 0, 80, 50, [5, 10, 20, 30]);
