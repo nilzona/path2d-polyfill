@@ -1,5 +1,11 @@
 # path2d
 
+## 0.2.2
+
+### Patch Changes
+
+- 29bdc9d: Fix rounded rect bottom-right corner
+
 ## 0.2.1
 
 ### Patch Changes
