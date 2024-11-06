@@ -3,7 +3,10 @@
     "build": {
       "dependsOn": ["^build"]
     },
-    "dev": {},
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
     "lint": {},
     "check-types": {},
     "test": {},

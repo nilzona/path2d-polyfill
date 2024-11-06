@@ -21,8 +21,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": "./src/index.ts"
     }
   },
   "main": "dist/index.cjs",
@@ -43,23 +42,29 @@
   },
   "prettier": "@qlik/prettier-config",
   "devDependencies": {
-    "@qlik/eslint-config": "^0.7.28",
+    "@qlik/eslint-config": "0.8.1",
     "@qlik/prettier-config": "^0.4.18",
     "@qlik/tsconfig": "^0.2.7",
-    "@swc/core": "^1.7.26",
-    "@types/node": "^20.16.10",
-    "@vitest/coverage-v8": "^1.6.0",
-    "eslint": "^8.57.0",
+    "@swc/core": "^1.9.1",
+    "@types/node": "22.9.0",
+    "@vitest/coverage-v8": "2.1.4",
+    "eslint": "^8.57.1",
     "prettier": "^3.3.3",
-    "rimraf": "^5.0.10",
-    "tsup": "^8.3.0",
-    "typescript": "^5.6.2",
-    "vitest": "^1.6.0"
+    "rimraf": "6.0.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3",
+    "vitest": "2.1.4"
   },
   "engines": {
     "node": ">=6"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": {
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs"
+      }
+    }
   }
 }
