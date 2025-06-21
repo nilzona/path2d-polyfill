@@ -22,34 +22,34 @@ export function applyPath2DToCanvasRenderingContext(
 ) {
   if (!CanvasRenderingContext2D) return;
 
-  /* eslint-disable @typescript-eslint/unbound-method */
   // setting unbound functions here. Make sure this is set in function call later
   const cClip: FillFn = CanvasRenderingContext2D.prototype.clip;
   const cFill: FillFn = CanvasRenderingContext2D.prototype.fill;
   const cStroke: StrokeFn = CanvasRenderingContext2D.prototype.stroke;
   const cIsPointInPath: IsPointInPathFn = CanvasRenderingContext2D.prototype.isPointInPath;
-  /* eslint-enable @typescript-eslint/unbound-method */
 
   CanvasRenderingContext2D.prototype.clip = function clip(...args: unknown[]) {
     if (args[0] instanceof Path2D) {
       const path = args[0];
-      const fillRule = (args[1] as CanvasFillRule) || "nonzero";
+      const fillRule = args[1] !== undefined ? (args[1] as CanvasFillRule) : "nonzero";
       buildPath(this as ICanvasRenderingContext2D, path.commands);
-      return cClip.apply(this, [fillRule]);
+      cClip.apply(this, [fillRule]);
+      return;
     }
-    const fillRule = (args[0] as CanvasFillRule) || "nonzero";
-    return cClip.apply(this, [fillRule]);
+    const fillRule = args[0] !== undefined ? (args[0] as CanvasFillRule) : "nonzero";
+    cClip.apply(this, [fillRule]);
   };
 
   CanvasRenderingContext2D.prototype.fill = function fill(...args: unknown[]) {
     if (args[0] instanceof Path2D) {
       const path = args[0];
-      const fillRule = (args[1] as CanvasFillRule) || "nonzero";
+      const fillRule = args[1] !== undefined ? (args[1] as CanvasFillRule) : "nonzero";
       buildPath(this as ICanvasRenderingContext2D, path.commands);
-      return cFill.apply(this, [fillRule]);
+      cFill.apply(this, [fillRule]);
+      return;
     }
-    const fillRule = (args[0] as CanvasFillRule) || "nonzero";
-    return cFill.apply(this, [fillRule]);
+    const fillRule = args[0] !== undefined ? (args[0] as CanvasFillRule) : "nonzero";
+    cFill.apply(this, [fillRule]);
   };
 
   CanvasRenderingContext2D.prototype.stroke = function stroke(path?: Path2D) {
@@ -65,7 +65,7 @@ export function applyPath2DToCanvasRenderingContext(
       const path = args[0];
       const x = args[1] as number;
       const y = args[2] as number;
-      const fillRule = (args[3] as CanvasFillRule) || "nonzero";
+      const fillRule = args[3] !== undefined ? (args[3] as CanvasFillRule) : "nonzero";
       buildPath(this as ICanvasRenderingContext2D, path.commands);
       return cIsPointInPath.apply(this, [x, y, fillRule]);
     }

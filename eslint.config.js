@@ -7,9 +7,8 @@ export default qlik.compose(
   // use the default react config
   ...qlik.configs.recommended,
   {
-    files: ["**/__tests__/*"],
     rules: {
-      "@typescript-eslint/ban-ts-comment": "off",
+      "no-param-reassign": "off",
     },
   },
 );

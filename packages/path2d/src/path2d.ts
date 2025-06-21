@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { parsePath } from "./parse-path.js";
 import type {
   ArcCommand,
@@ -60,6 +59,7 @@ export class Path2D implements IPath2D {
   }
 
   addPath(path: Path2D) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (path && path instanceof Path2D) {
       this.commands.push(...path.commands);
     }

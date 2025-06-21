@@ -96,7 +96,9 @@ describe("Path2D", () => {
     it("should throw error when an arc command has been added without a starting point", () => {
       const p = new Path2D();
       p.commands.push(["A", 45, 45, 0, 0, 0]);
-      expect(() => ctx.stroke(p)).toThrowError("This should never happen");
+      expect(() => {
+        ctx.stroke(p);
+      }).toThrowError("This should never happen");
     });
   });
 

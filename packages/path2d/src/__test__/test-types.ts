@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/class-methods-use-this */
 /* eslint-disable max-classes-per-file */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { type Path2D } from "../path2d.js";
-import { type CanvasFillRule, type ICanvasRenderingContext2D, type IPath2D } from "../types.js";
+import type { Path2D } from "../path2d.js";
+import type { CanvasFillRule, ICanvasRenderingContext2D, IPath2D } from "../types.js";
 
 export class CanvasRenderingContext2DForTest implements ICanvasRenderingContext2D {
   strokeStyle: string | null;

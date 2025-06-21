@@ -111,14 +111,19 @@ export interface ICanvasRenderingContext2D {
   bezierCurveTo: (cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number) => void;
   quadraticCurveTo: (cpx: number, cpy: number, x: number, y: number) => void;
   rect: (x: number, y: number, width: number, height: number) => void;
-  isPointInPath: (x: number, y: number, fillRule?: CanvasFillRule) => boolean;
-  isPointInPath: (path: Path2D, x: number, y: number, fillRule?: CanvasFillRule) => boolean;
-  clip: (fillRule?: CanvasFillRule) => void;
-  clip: (path: Path2D, fillRule?: CanvasFillRule) => void;
-  fill: (fillRule?: CanvasFillRule) => void;
-  fill: (path: Path2D, fillRule?: CanvasFillRule) => void;
-  stroke: () => void;
-  stroke: (path: Path2D) => void;
+  isPointInPath: {
+    (x: number, y: number, fillRule?: CanvasFillRule): boolean;
+    (path: Path2D, x: number, y: number, fillRule?: CanvasFillRule): boolean;
+  };
+  clip: {
+    (fillRule?: CanvasFillRule): void;
+    (path: Path2D, fillRule?: CanvasFillRule): void;
+  };
+  fill: {
+    (fillRule?: CanvasFillRule): void;
+    (path: Path2D, fillRule?: CanvasFillRule): void;
+  };
+  stroke: (path?: Path2D) => void;
   roundRect: (x: number, y: number, width: number, height: number, radii: number | number[]) => void;
 }
 

@@ -1,4 +1,4 @@
-import { type ICanvasRenderingContext2D, type IPath2D } from "./types.js";
+import type { ICanvasRenderingContext2D, IPath2D } from "./types.js";
 
 export function roundRect(
   this: IPath2D | ICanvasRenderingContext2D,

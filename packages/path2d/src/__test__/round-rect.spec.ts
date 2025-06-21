@@ -34,23 +34,27 @@ describe("roundRect", () => {
 
   it("throw error with negative radius", () => {
     const p = new Path2D();
-    expect(() => p.roundRect(20, 20, 30, 30, -10)).toThrowError(
-      "Failed to execute 'roundRect' on 'Path2D': Radius value -10 is negative",
-    );
-    expect(() => p.roundRect(20, 20, 30, 30, [-10])).toThrowError(
-      "Failed to execute 'roundRect' on 'Path2D': Radius value -10 is negative",
-    );
-    expect(() => p.roundRect(20, 20, 30, 30, [10, -10])).toThrowError(
-      "Failed to execute 'roundRect' on 'Path2D': Radius value -10 is negative",
-    );
+    expect(() => {
+      p.roundRect(20, 20, 30, 30, -10);
+    }).toThrowError("Failed to execute 'roundRect' on 'Path2D': Radius value -10 is negative");
+    expect(() => {
+      p.roundRect(20, 20, 30, 30, [-10]);
+    }).toThrowError("Failed to execute 'roundRect' on 'Path2D': Radius value -10 is negative");
+    expect(() => {
+      p.roundRect(20, 20, 30, 30, [10, -10]);
+    }).toThrowError("Failed to execute 'roundRect' on 'Path2D': Radius value -10 is negative");
   });
 
   it("throw error when wrong amount of parameters", () => {
     const p = new Path2D();
-    expect(() => p.roundRect(20, 20, 30, 30, [])).toThrowError(
+    expect(() => {
+      p.roundRect(20, 20, 30, 30, []);
+    }).toThrowError(
       "Failed to execute 'roundRect' on 'Path2D': 0 radii provided. Between one and four radii are necessary",
     );
-    expect(() => p.roundRect(20, 20, 30, 30, [1, 2, 3, 4, 5])).toThrowError(
+    expect(() => {
+      p.roundRect(20, 20, 30, 30, [1, 2, 3, 4, 5]);
+    }).toThrowError(
       "Failed to execute 'roundRect' on 'Path2D': 5 radii provided. Between one and four radii are necessary",
     );
   });
