@@ -1,4 +1,3 @@
 {
-  "extends": "@qlik/tsconfig/recommended.json",
-  "include": ["src", "test"]
+  "extends": "../../tsconfig.json"
 }

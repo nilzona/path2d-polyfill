@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { type CanvasFillRule, type ICanvasRenderingContext2D, type Path2D } from "path2d";
+/* eslint-disable @typescript-eslint/class-methods-use-this */
+import type { CanvasFillRule, ICanvasRenderingContext2D, Path2D } from "path2d";
 
 export class CanvasRenderingContext2DForTest implements ICanvasRenderingContext2D {
   strokeStyle: string | null;

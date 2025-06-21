@@ -7,10 +7,7 @@
       "cache": false,
       "persistent": true
     },
-    "lint": {},
     "check-types": {},
-    "test": {},
-    "format:check": {},
-    "format:write": {}
+    "test": {}
   }
 }

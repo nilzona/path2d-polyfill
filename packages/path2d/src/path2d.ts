@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { parsePath } from "./parse-path.js";
 import type {
   ArcCommand,

@@ -30,9 +30,9 @@
     "build": "vite build && cp dist/path2d-polyfill.min.js test/path2d-polyfill.min.js",
     "check-types": "tsc --noEmit",
     "dev": "vite",
-    "format:check": "prettier --check '**' --ignore-unknown",
-    "format:write": "prettier --write '**' --ignore-unknown",
-    "lint": "eslint .",
+    "format:check": "cd ../.. && pnpm exec prettier --check 'packages/path2d-polyfill/**' --ignore-unknown",
+    "format:write": "cd ../.. && pnpm exec prettier --write 'packages/path2d-polyfill/**' --ignore-unknown",
+    "lint": "cd ../.. && pnpm exec eslint ./packages/path2d-polyfill",
     "preview": "vite preview",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
@@ -44,24 +44,19 @@
     "last 2 versions",
     "not dead"
   ],
-  "prettier": "@qlik/prettier-config",
   "dependencies": {
     "path2d": "workspace:^"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
-    "@qlik/eslint-config": "^0.8.1",
-    "@qlik/prettier-config": "^0.4.18",
-    "@qlik/tsconfig": "^0.2.7",
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "@qlik/tsconfig": "^0.3.1",
     "@rollup/plugin-babel": "^6.0.4",
-    "@vitest/coverage-v8": "^2.1.4",
-    "eslint": "^8.57.1",
-    "jsdom": "^25.0.1",
-    "prettier": "^3.3.3",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.10",
-    "vitest": "^2.1.4"
+    "@vitest/coverage-v8": "^3.2.4",
+    "jsdom": "^26.1.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
   },
   "publishConfig": {
     "access": "public"

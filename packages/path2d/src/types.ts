@@ -64,71 +64,98 @@ export type PathCommand =
   | GenericCommand;
 
 export interface IPath2D {
-  addPath(path: IPath2D): void;
-  moveTo(x: number, y: number): void;
-  lineTo(x: number, y: number): void;
-  arc(x: number, y: number, r: number, start: number, end: number, ccw: boolean): void;
-  arcTo(x1: number, y1: number, x2: number, y2: number, r: number): void;
-  ellipse(x: number, y: number, rx: number, ry: number, angle: number, start: number, end: number, ccw: boolean): void;
-  closePath(): void;
-  bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
-  quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
-  rect(x: number, y: number, width: number, height: number): void;
-  roundRect(x: number, y: number, width: number, height: number, radii: number | number[]): void;
+  addPath: (path: IPath2D) => void;
+  moveTo: (x: number, y: number) => void;
+  lineTo: (x: number, y: number) => void;
+  arc: (x: number, y: number, r: number, start: number, end: number, ccw: boolean) => void;
+  arcTo: (x1: number, y1: number, x2: number, y2: number, r: number) => void;
+  ellipse: (
+    x: number,
+    y: number,
+    rx: number,
+    ry: number,
+    angle: number,
+    start: number,
+    end: number,
+    ccw: boolean,
+  ) => void;
+  closePath: () => void;
+  bezierCurveTo: (cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number) => void;
+  quadraticCurveTo: (cpx: number, cpy: number, x: number, y: number) => void;
+  rect: (x: number, y: number, width: number, height: number) => void;
+  roundRect: (x: number, y: number, width: number, height: number, radii: number | number[]) => void;
 }
 
 export interface ICanvasRenderingContext2D {
-  beginPath(): void;
-  save(): void;
-  translate(x: number, y: number): void;
-  rotate(angle: number): void;
-  scale(x: number, y: number): void;
-  restore(): void;
-  moveTo(x: number, y: number): void;
-  lineTo(x: number, y: number): void;
-  arc(x: number, y: number, r: number, start: number, end: number, ccw: boolean): void;
-  arcTo(x1: number, y1: number, x2: number, y2: number, r: number): void;
-  ellipse(x: number, y: number, rx: number, ry: number, angle: number, start: number, end: number, ccw: boolean): void;
-  closePath(): void;
-  bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
-  quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
-  rect(x: number, y: number, width: number, height: number): void;
-  isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean;
-  isPointInPath(path: Path2D, x: number, y: number, fillRule?: CanvasFillRule): boolean;
-  clip(fillRule?: CanvasFillRule): void;
-  clip(path: Path2D, fillRule?: CanvasFillRule): void;
-  fill(fillRule?: CanvasFillRule): void;
-  fill(path: Path2D, fillRule?: CanvasFillRule): void;
-  stroke(): void;
-  stroke(path: Path2D): void;
-  roundRect(x: number, y: number, width: number, height: number, radii: number | number[]): void;
+  beginPath: () => void;
+  save: () => void;
+  translate: (x: number, y: number) => void;
+  rotate: (angle: number) => void;
+  scale: (x: number, y: number) => void;
+  restore: () => void;
+  moveTo: (x: number, y: number) => void;
+  lineTo: (x: number, y: number) => void;
+  arc: (x: number, y: number, r: number, start: number, end: number, ccw: boolean) => void;
+  arcTo: (x1: number, y1: number, x2: number, y2: number, r: number) => void;
+  ellipse: (
+    x: number,
+    y: number,
+    rx: number,
+    ry: number,
+    angle: number,
+    start: number,
+    end: number,
+    ccw: boolean,
+  ) => void;
+  closePath: () => void;
+  bezierCurveTo: (cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number) => void;
+  quadraticCurveTo: (cpx: number, cpy: number, x: number, y: number) => void;
+  rect: (x: number, y: number, width: number, height: number) => void;
+  isPointInPath: (x: number, y: number, fillRule?: CanvasFillRule) => boolean;
+  isPointInPath: (path: Path2D, x: number, y: number, fillRule?: CanvasFillRule) => boolean;
+  clip: (fillRule?: CanvasFillRule) => void;
+  clip: (path: Path2D, fillRule?: CanvasFillRule) => void;
+  fill: (fillRule?: CanvasFillRule) => void;
+  fill: (path: Path2D, fillRule?: CanvasFillRule) => void;
+  stroke: () => void;
+  stroke: (path: Path2D) => void;
+  roundRect: (x: number, y: number, width: number, height: number, radii: number | number[]) => void;
 }
 
 export interface ICanvasRenderingContext2DWithoutPath2D {
-  beginPath(): void;
-  save(): void;
-  translate(x: number, y: number): void;
-  rotate(angle: number): void;
-  scale(x: number, y: number): void;
-  restore(): void;
-  moveTo(x: number, y: number): void;
-  lineTo(x: number, y: number): void;
-  arc(x: number, y: number, r: number, start: number, end: number, ccw: boolean): void;
-  arcTo(x1: number, y1: number, x2: number, y2: number, r: number): void;
-  ellipse(x: number, y: number, rx: number, ry: number, angle: number, start: number, end: number, ccw: boolean): void;
-  closePath(): void;
-  bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
-  quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
-  rect(x: number, y: number, width: number, height: number): void;
-  isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean;
+  beginPath: () => void;
+  save: () => void;
+  translate: (x: number, y: number) => void;
+  rotate: (angle: number) => void;
+  scale: (x: number, y: number) => void;
+  restore: () => void;
+  moveTo: (x: number, y: number) => void;
+  lineTo: (x: number, y: number) => void;
+  arc: (x: number, y: number, r: number, start: number, end: number, ccw: boolean) => void;
+  arcTo: (x1: number, y1: number, x2: number, y2: number, r: number) => void;
+  ellipse: (
+    x: number,
+    y: number,
+    rx: number,
+    ry: number,
+    angle: number,
+    start: number,
+    end: number,
+    ccw: boolean,
+  ) => void;
+  closePath: () => void;
+  bezierCurveTo: (cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number) => void;
+  quadraticCurveTo: (cpx: number, cpy: number, x: number, y: number) => void;
+  rect: (x: number, y: number, width: number, height: number) => void;
+  isPointInPath: (x: number, y: number, fillRule?: CanvasFillRule) => boolean;
   // isPointInPath(path: Path2D, x: number, y: number, fillRule?: CanvasFillRule): boolean;
-  clip(fillRule?: CanvasFillRule): void;
+  clip: (fillRule?: CanvasFillRule) => void;
   // clip(path: Path2D, fillRule?: CanvasFillRule): void;
-  fill(fillRule?: CanvasFillRule): void;
+  fill: (fillRule?: CanvasFillRule) => void;
   // fill(path: Path2D, fillRule?: CanvasFillRule): void;
-  stroke(): void;
+  stroke: () => void;
   // stroke(path: Path2D): void;
-  roundRect(x: number, y: number, width: number, height: number, radii: number | number[]): void;
+  roundRect: (x: number, y: number, width: number, height: number, radii: number | number[]) => void;
 }
 
 export type IPrototype<T> = {
