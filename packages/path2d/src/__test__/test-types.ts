@@ -65,33 +65,6 @@ export class CanvasRenderingContext2DForTestWithoutRoundRect {
   restore() {}
 }
 
-export class Path2DForTest implements IPath2D {
-  addPath() {}
-  moveTo() {}
-  lineTo() {}
-  ellipse() {}
-  arc() {}
-  arcTo() {}
-  closePath() {}
-  bezierCurveTo() {}
-  quadraticCurveTo() {}
-  rect() {}
-  roundRect() {}
-}
-
-export class Path2DForTestWithoutRoundRect {
-  addPath() {}
-  moveTo() {}
-  lineTo() {}
-  ellipse() {}
-  arc() {}
-  arcTo() {}
-  closePath() {}
-  bezierCurveTo() {}
-  quadraticCurveTo() {}
-  rect() {}
-}
-
 export interface Global {
   CanvasRenderingContext2D: typeof CanvasRenderingContext2DForTest;
   Path2D: typeof Path2D;
