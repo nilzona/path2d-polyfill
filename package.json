@@ -18,11 +18,11 @@
   "prettier": "@qlik/prettier-config",
   "devDependencies": {
     "@changesets/cli": "^2.29.5",
-    "@qlik/eslint-config": "^1.3.7",
+    "@qlik/eslint-config": "^1.3.8",
     "@qlik/prettier-config": "^0.4.25",
     "@qlik/tsconfig": "^0.3.1",
     "eslint": "^9.29.0",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.0",
     "turbo": "^2.5.4"
   },
   "packageManager": "pnpm@10.12.1",
