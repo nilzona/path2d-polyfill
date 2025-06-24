@@ -1,5 +1,11 @@
 # path2d
 
+## 0.3.1
+
+### Patch Changes
+
+- c5b97f7: chore: update npm dependencies
+
 ## 0.3.0
 
 ### Minor Changes
