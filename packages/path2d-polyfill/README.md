@@ -20,7 +20,7 @@ Example of usage
 ctx.fill(new Path2D("M 80 80 A 45 45 0 0 0 125 125 L 125 80 Z"));
 ctx.stroke(new Path2D("M 80 80 A 45 45 0 0 0 125 125 L 125 80 Z"));
 
-// Enhanced roundRect with elliptical corners
+// or ...
 const path = new Path2D();
 path.roundRect(10, 10, 100, 60, { x: 20, y: 10 }); // Elliptical corners
 ctx.stroke(path);
@@ -46,26 +46,6 @@ ctx.stroke(path2);
 | ellipse()            |    Yes    |
 | rect()               |    Yes    |
 | roundRect()          |    Yes    |
-
-## Enhanced roundRect with Elliptical Corners
-
-The `roundRect` method now supports elliptical corners using `DOMPointInit` objects:
-
-```javascript
-// Traditional circular corners (backward compatible)
-path.roundRect(x, y, width, height, radius);
-path.roundRect(x, y, width, height, [r1, r2, r3, r4]);
-
-// NEW: Elliptical corners
-path.roundRect(x, y, width, height, { x: rx, y: ry });
-path.roundRect(x, y, width, height, [{ x: rx1, y: ry1 }, r2, { x: rx3, y: ry3 }, r4]);
-
-// Partial DOMPointInit (missing values default to 0)
-path.roundRect(x, y, width, height, { x: rx }); // y defaults to 0
-path.roundRect(x, y, width, height, { y: ry }); // x defaults to 0
-```
-
-When `x !== y` in a `DOMPointInit` object, elliptical corners are created. When `x === y` or using numbers, circular corners are created, maintaining full backward compatibility.
 
 ## See it in action
 
