@@ -32,9 +32,9 @@
   "scripts": {
     "build": "tsup-node src/index.ts --target node18 --format esm,cjs --dts",
     "check-types": "tsc --noEmit",
-    "format:check": "prettier --check '**' --ignore-unknown",
-    "format:write": "prettier --write '**' --ignore-unknown",
-    "lint": "eslint .",
+    "format:check": "cd ../.. && pnpm exec prettier --check 'packages/path2d-polyfill/**' --ignore-unknown",
+    "format:write": "cd ../.. && pnpm exec prettier --write 'packages/path2d-polyfill/**' --ignore-unknown",
+    "lint": "cd ../.. && pnpm exec eslint ./packages/path2d",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
@@ -42,18 +42,18 @@
   },
   "prettier": "@qlik/prettier-config",
   "devDependencies": {
-    "@qlik/eslint-config": "0.8.1",
-    "@qlik/prettier-config": "^0.4.18",
-    "@qlik/tsconfig": "^0.2.7",
-    "@swc/core": "^1.9.1",
-    "@types/node": "22.9.0",
-    "@vitest/coverage-v8": "2.1.4",
-    "eslint": "^8.57.1",
-    "prettier": "^3.3.3",
+    "@qlik/eslint-config": "1.3.7",
+    "@qlik/prettier-config": "^0.4.25",
+    "@qlik/tsconfig": "^0.3.1",
+    "@swc/core": "^1.12.5",
+    "@types/node": "24.0.3",
+    "@vitest/coverage-v8": "3.2.4",
+    "eslint": "^9.29.0",
+    "prettier": "^3.5.3",
     "rimraf": "6.0.1",
-    "tsup": "^8.3.5",
-    "typescript": "^5.6.3",
-    "vitest": "2.1.4"
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "3.2.4"
   },
   "engines": {
     "node": ">=6"

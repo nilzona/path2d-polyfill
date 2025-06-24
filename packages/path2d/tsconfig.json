@@ -1,4 +1,4 @@
 {
   "extends": "@qlik/tsconfig/node.json",
-  "include": ["src", "test"]
+  "include": ["src", "vitest.config.ts"]
 }

@@ -95,8 +95,19 @@ describe("Path2D", () => {
 
     it("should throw error when an arc command has been added without a starting point", () => {
       const p = new Path2D();
-      p.commands.push(["A", 45, 45, 0, 0, 0]);
-      expect(() => ctx.stroke(p)).toThrowError("This should never happen");
+      p.addCustomCommand(["A", 45, 45, 0, 0, 0]);
+      expect(() => {
+        ctx.stroke(p);
+      }).toThrowError("This should never happen");
+    });
+
+    it("should throw error with an unknown path command", () => {
+      const p = new Path2D();
+      // @ts-expect-error testing wrong parameter type
+      p.addCustomCommand(["unknown", 10, 20]);
+      expect(() => {
+        ctx.stroke(p);
+      }).toThrowError("Invalid path command: unknown");
     });
   });
 

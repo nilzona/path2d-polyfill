@@ -1,4 +1,4 @@
-import babel from "@rollup/plugin-babel";
+import babelPlugin from "@rollup/plugin-babel";
 import { resolve } from "path";
 import { defineConfig } from "vite";
 
@@ -14,7 +14,7 @@ export default defineConfig({
     },
     rollupOptions: {
       plugins: [
-        babel({
+        babelPlugin({
           presets: ["@babel/preset-env"],
           babelHelpers: "bundled",
         }),

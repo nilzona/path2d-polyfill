@@ -19,6 +19,16 @@ Example of usage
 ```javascript
 ctx.fill(new Path2D("M 80 80 A 45 45 0 0 0 125 125 L 125 80 Z"));
 ctx.stroke(new Path2D("M 80 80 A 45 45 0 0 0 125 125 L 125 80 Z"));
+
+// or ...
+const path = new Path2D();
+path.roundRect(10, 10, 100, 60, { x: 20, y: 10 }); // Elliptical corners
+ctx.stroke(path);
+
+// Mixed corner types
+const path2 = new Path2D();
+path2.roundRect(10, 10, 100, 60, [{ x: 15, y: 5 }, 10, { x: 5, y: 15 }, 8]);
+ctx.stroke(path2);
 ```
 
 ## Support table
