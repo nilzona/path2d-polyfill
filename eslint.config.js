@@ -9,7 +9,7 @@ export default qlik.compose(
   ...qlik.configs.recommended,
   {
     files: ["**/packages/path2d/**/*.{js,ts}"],
-    extends: [esmTS],
+    extend: [esmTS],
   },
   {
     rules: {
