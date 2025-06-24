@@ -1,5 +1,15 @@
 # path2d
 
+## 0.3.0
+
+### Minor Changes
+
+- 7775746: Adds support for using DomPoints as radii in roundRect functions
+
+### Patch Changes
+
+- 7775746: Update of tooling, specifically eslint to support version 9+ and flat configs
+
 ## 0.2.2
 
 ### Patch Changes

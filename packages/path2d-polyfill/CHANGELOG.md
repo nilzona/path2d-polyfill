@@ -1,5 +1,18 @@
 # path2d-polyfill
 
+## 3.2.0
+
+### Minor Changes
+
+- 7775746: Adds support for using DomPoints as radii in roundRect functions
+
+### Patch Changes
+
+- 7775746: Update of tooling, specifically eslint to support version 9+ and flat configs
+- Updated dependencies [7775746]
+- Updated dependencies [7775746]
+  - path2d@0.3.0
+
 ## 3.1.3
 
 ### Patch Changes
