@@ -43,7 +43,7 @@ ctx.fillStyle = "green";
 ctx.fill(p);
 ```
 
-A working example of a node express server that serves an image drawn with canvas can be seen [here](https://gist.github.com/nilzona/e611c99336d8ea1f645bd391a459c24f)
+A working example of a node express server that serves an image drawn with canvas [can be seen here](https://gist.github.com/nilzona/e611c99336d8ea1f645bd391a459c24f)
 
 ## Support table
 

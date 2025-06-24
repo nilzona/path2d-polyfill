@@ -5,3 +5,4 @@ dist
 .cache
 .nyc_output
 .turbo
+*.tgz
