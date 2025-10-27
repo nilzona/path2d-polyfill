@@ -1,36 +1,44 @@
-import { beforeAll, beforeEach, describe, expect, it, vi, type MockInstance } from "vitest";
+import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { applyPath2DToCanvasRenderingContext } from "../apply.js";
 import { Path2D } from "../path2d.js";
-import type { CanvasFillRule } from "../types.js";
 import { CanvasRenderingContext2DForTest } from "./test-types.js";
 
-vi.mock("./test-types.js");
-
-type MockedClip = MockInstance<(a?: CanvasFillRule | Path2D, b?: CanvasFillRule) => void>;
-type MockedFill = MockInstance<(a?: CanvasFillRule | Path2D, b?: CanvasFillRule) => void>;
-type MockedStroke = MockInstance<(a?: CanvasFillRule | Path2D) => void>;
-type MockedIsPointInPath = MockInstance<() => string | number>;
+const cClipSpy = vi.spyOn(CanvasRenderingContext2DForTest.prototype, "clip");
+const cFillSpy = vi.spyOn(CanvasRenderingContext2DForTest.prototype, "fill");
+const cStrokeSpy = vi.spyOn(CanvasRenderingContext2DForTest.prototype, "stroke");
+const cIsPointInPathSpy = vi.spyOn(CanvasRenderingContext2DForTest.prototype, "isPointInPath");
 
 let ctx: CanvasRenderingContext2DForTest;
-let cStrokeSpy: MockedStroke;
-let cFillSpy: MockedFill;
-let cClipSpy: MockedClip;
-let cIsPointInPathSpy: MockedIsPointInPath;
 
 describe("Path2D", () => {
   beforeAll(() => {
-    // prep some for testing, create spies on original CanvasRenderingContext methods
-    cStrokeSpy = CanvasRenderingContext2DForTest.prototype.stroke as unknown as MockedStroke;
-    cFillSpy = CanvasRenderingContext2DForTest.prototype.fill as unknown as MockedFill;
-    cClipSpy = CanvasRenderingContext2DForTest.prototype.clip as unknown as MockedClip;
-    cIsPointInPathSpy = CanvasRenderingContext2DForTest.prototype.isPointInPath as unknown as MockedIsPointInPath;
     applyPath2DToCanvasRenderingContext(CanvasRenderingContext2DForTest);
   });
   beforeEach(() => {
     ctx = new CanvasRenderingContext2DForTest();
-    cStrokeSpy.mockReset();
-    cFillSpy.mockReset();
+    // Spy on all the canvas methods we want to test
+    vi.spyOn(ctx, "moveTo");
+    vi.spyOn(ctx, "lineTo");
+    vi.spyOn(ctx, "closePath");
+    vi.spyOn(ctx, "bezierCurveTo");
+    vi.spyOn(ctx, "quadraticCurveTo");
+    vi.spyOn(ctx, "arc");
+    vi.spyOn(ctx, "arcTo");
+    vi.spyOn(ctx, "ellipse");
+    vi.spyOn(ctx, "rect");
+    vi.spyOn(ctx, "roundRect");
+    vi.spyOn(ctx, "translate");
+    vi.spyOn(ctx, "scale");
+    vi.spyOn(ctx, "rotate");
+    vi.spyOn(ctx, "save");
+    vi.spyOn(ctx, "restore");
+    vi.spyOn(ctx, "clip");
+    vi.spyOn(ctx, "fill");
+    vi.spyOn(ctx, "stroke");
+    vi.spyOn(ctx, "isPointInPath");
     cClipSpy.mockReset();
+    cFillSpy.mockReset();
+    cStrokeSpy.mockReset();
     cIsPointInPathSpy.mockReset();
   });
 
