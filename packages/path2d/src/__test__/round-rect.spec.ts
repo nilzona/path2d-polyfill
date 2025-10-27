@@ -7,8 +7,6 @@ import {
 import { Path2D } from "../path2d.js";
 import { CanvasRenderingContext2DForTestWithoutRoundRect } from "./test-types.js";
 
-vi.mock("./test-types.js");
-
 let ctx: CanvasRenderingContext2DForTestWithoutRoundRect;
 
 describe("roundRect", () => {
@@ -23,6 +21,24 @@ describe("roundRect", () => {
   });
   beforeEach(() => {
     ctx = new CanvasRenderingContext2DForTestWithoutRoundRect();
+    vi.spyOn(ctx, "moveTo");
+    vi.spyOn(ctx, "lineTo");
+    vi.spyOn(ctx, "closePath");
+    vi.spyOn(ctx, "bezierCurveTo");
+    vi.spyOn(ctx, "quadraticCurveTo");
+    vi.spyOn(ctx, "arc");
+    vi.spyOn(ctx, "arcTo");
+    vi.spyOn(ctx, "ellipse");
+    vi.spyOn(ctx, "rect");
+    vi.spyOn(ctx, "translate");
+    vi.spyOn(ctx, "scale");
+    vi.spyOn(ctx, "rotate");
+    vi.spyOn(ctx, "save");
+    vi.spyOn(ctx, "restore");
+    vi.spyOn(ctx, "clip");
+    vi.spyOn(ctx, "fill");
+    vi.spyOn(ctx, "stroke");
+    vi.spyOn(ctx, "isPointInPath");
   });
 
   it("with no radius", () => {
