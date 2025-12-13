@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@qlik/tsconfig": "^0.3.1",
-    "@types/node": "^24.10.1",
+    "@types/node": "^25.0.1",
     "@vitest/coverage-v8": "^4.0.15",
     "rimraf": "6.1.2",
     "tsup": "^8.5.1",
