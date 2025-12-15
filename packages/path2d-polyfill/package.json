@@ -53,9 +53,9 @@
     "@qlik/tsconfig": "^0.3.1",
     "@rollup/plugin-babel": "^6.1.0",
     "@vitest/coverage-v8": "^4.0.15",
-    "jsdom": "^27.2.0",
+    "jsdom": "^27.3.0",
     "typescript": "^5.9.3",
-    "vite": "^7.2.6",
+    "vite": "^7.2.7",
     "vitest": "^4.0.15"
   },
   "publishConfig": {
