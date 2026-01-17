@@ -48,15 +48,15 @@
     "path2d": "workspace:^"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.5",
-    "@babel/preset-env": "^7.28.5",
+    "@babel/core": "^7.28.6",
+    "@babel/preset-env": "^7.28.6",
     "@qlik/tsconfig": "^0.3.1",
     "@rollup/plugin-babel": "^6.1.0",
-    "@vitest/coverage-v8": "^4.0.16",
+    "@vitest/coverage-v8": "^4.0.17",
     "jsdom": "^27.4.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
-    "vitest": "^4.0.16"
+    "vitest": "^4.0.17"
   },
   "publishConfig": {
     "access": "public"
