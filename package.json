@@ -22,7 +22,7 @@
     "@qlik/prettier-config": "^0.4.32",
     "@qlik/tsconfig": "^0.3.1",
     "eslint": "^9.39.2",
-    "prettier": "^3.8.0",
+    "prettier": "^3.8.1",
     "turbo": "^2.7.5"
   },
   "packageManager": "pnpm@10.20.0",
