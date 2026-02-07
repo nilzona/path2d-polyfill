@@ -48,12 +48,12 @@
     "path2d": "workspace:^"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.6",
-    "@babel/preset-env": "^7.28.6",
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.0",
     "@qlik/tsconfig": "^0.3.1",
     "@rollup/plugin-babel": "^6.1.0",
     "@vitest/coverage-v8": "^4.0.18",
-    "jsdom": "^27.4.0",
+    "jsdom": "^28.0.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
     "vitest": "^4.0.18"
