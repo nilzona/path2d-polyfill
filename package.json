@@ -18,7 +18,7 @@
   "prettier": "@qlik/prettier-config",
   "devDependencies": {
     "@changesets/cli": "^2.30.0",
-    "@qlik/eslint-config": "^1.4.25",
+    "@qlik/eslint-config": "^1.4.27",
     "@qlik/prettier-config": "^0.4.36",
     "@qlik/tsconfig": "^0.3.1",
     "eslint": "^10.1.0",
