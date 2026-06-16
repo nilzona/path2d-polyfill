@@ -68,7 +68,7 @@ export function applyPath2DToCanvasRenderingContext(CanvasRenderingContext2D?: P
     if (args[0] instanceof Path2D) {
       const path = args[0];
       const fillRule = args[1] !== undefined ? (args[1] as CanvasFillRule) : "nonzero";
-      path.buildPathInCanvas(this as ICanvasRenderingContext2D);
+      path.buildPathInCanvas(this);
       cClip.apply(this, [fillRule]);
       return;
     }
@@ -84,7 +84,7 @@ export function applyPath2DToCanvasRenderingContext(CanvasRenderingContext2D?: P
     if (args[0] instanceof Path2D) {
       const path = args[0];
       const fillRule = args[1] !== undefined ? (args[1] as CanvasFillRule) : "nonzero";
-      path.buildPathInCanvas(this as ICanvasRenderingContext2D);
+      path.buildPathInCanvas(this);
       cFill.apply(this, [fillRule]);
       return;
     }
@@ -98,7 +98,7 @@ export function applyPath2DToCanvasRenderingContext(CanvasRenderingContext2D?: P
    */
   CanvasRenderingContext2D.prototype.stroke = function stroke(path?: Path2D) {
     if (path) {
-      path.buildPathInCanvas(this as ICanvasRenderingContext2D);
+      path.buildPathInCanvas(this);
     }
     cStroke.apply(this);
   };
@@ -114,7 +114,7 @@ export function applyPath2DToCanvasRenderingContext(CanvasRenderingContext2D?: P
       const x = args[1] as number;
       const y = args[2] as number;
       const fillRule = args[3] !== undefined ? (args[3] as CanvasFillRule) : "nonzero";
-      path.buildPathInCanvas(this as ICanvasRenderingContext2D);
+      path.buildPathInCanvas(this);
       return cIsPointInPath.apply(this, [x, y, fillRule]);
     }
     return cIsPointInPath.apply(this, args as [x: number, y: number, fillRule: CanvasFillRule]);

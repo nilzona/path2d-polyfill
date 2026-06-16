@@ -1,2 +1,3 @@
 packages/path2d-polyfill/test/path2d-polyfill.min.js
 pnpm-lock.yaml
+pnpm-workspace.yaml

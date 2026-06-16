@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/class-methods-use-this */
 import type { CanvasFillRule, ICanvasRenderingContext2D, Path2D } from "path2d";
 
 export class CanvasRenderingContext2DForTest implements ICanvasRenderingContext2D {
