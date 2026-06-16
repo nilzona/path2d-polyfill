@@ -9,7 +9,7 @@ jobs:
   update-dependencies:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ secrets.GH_ACCESS_TOKEN }}
@@ -17,8 +17,8 @@ jobs:
         run: |
           git config user.name "svc-pipeline"
           git config user.email "svc_pipeline@qlik.com"
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: pnpm
@@ -28,7 +28,7 @@ jobs:
         run: pnpm update --latest --recursive
       - name: Create Pull Request
         id: cpr
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           commit-message: "chore: update npm dependencies"
