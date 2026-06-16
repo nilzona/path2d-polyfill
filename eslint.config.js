@@ -1,7 +1,8 @@
 // @ts-check
 import qlik, { esmTS } from "@qlik/eslint-config";
+import { defineConfig } from "eslint/config";
 
-export default qlik.compose(
+export default defineConfig(
   {
     // ignore these
     ignores: ["**/dist", "**/coverage", "**/.turbo", "**/node_modules", "**/*.min.js"],
@@ -9,11 +10,12 @@ export default qlik.compose(
   ...qlik.configs.recommended,
   {
     files: ["**/packages/path2d/**/*.{js,ts}"],
-    extend: [esmTS],
+    extends: [esmTS],
   },
   {
     rules: {
       "no-param-reassign": "off",
+      "@typescript-eslint/unbound-method": "off",
     },
   },
 );

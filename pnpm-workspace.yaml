@@ -1,2 +1,18 @@
 packages:
   - "packages/*"
+allowBuilds:
+  unrs-resolver: true
+minimumReleaseAgeExclude:
+  - '@qlik/eslint-config@2.0.11'
+  - '@vitest/coverage-v8@4.1.9'
+  - '@vitest/expect@4.1.9'
+  - '@vitest/mocker@4.1.9'
+  - '@vitest/pretty-format@4.1.9'
+  - '@vitest/runner@4.1.9'
+  - '@vitest/snapshot@4.1.9'
+  - '@vitest/spy@4.1.9'
+  - '@vitest/utils@4.1.9'
+  - vitest@4.1.9
+  - js-yaml@4.1.2
+overrides:
+  js-yaml@<=4.1.1: ^4.1.2

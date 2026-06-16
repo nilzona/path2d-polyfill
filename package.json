@@ -17,26 +17,18 @@
   },
   "prettier": "@qlik/prettier-config",
   "devDependencies": {
-    "@changesets/cli": "^2.30.0",
-    "@qlik/eslint-config": "^1.4.29",
-    "@qlik/prettier-config": "^0.4.37",
-    "@qlik/tsconfig": "^0.3.1",
-    "eslint": "^9.39.3",
-    "prettier": "^3.8.2",
-    "turbo": "^2.9.14",
-    "typescript": "^5.9.3",
-    "vitest": "^4.1.4"
+    "@changesets/cli": "^2.31.0",
+    "@qlik/eslint-config": "^2.0.11",
+    "@qlik/prettier-config": "^1.0.0",
+    "@qlik/tsconfig": "^1.0.0",
+    "eslint": "^10.5.0",
+    "prettier": "^3.8.4",
+    "turbo": "^2.9.18",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
   },
-  "packageManager": "pnpm@10.33.0",
+  "packageManager": "pnpm@11.6.0",
   "engines": {
     "node": ">=18"
-  },
-  "pnpm": {
-    "updateConfig": {
-      "ignoreDependencies": [
-        "eslint",
-        "typescript"
-      ]
-    }
   }
 }

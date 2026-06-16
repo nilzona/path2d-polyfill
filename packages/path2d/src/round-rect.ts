@@ -159,7 +159,7 @@ export function roundRect(
       } else if (typeof v !== "number") {
         // Invalid type
         throw new TypeError(
-          `Failed to execute 'roundRect' on '${this.constructor.name}': Radius value ${v} is not a number or DOMPointInit.`,
+          `Failed to execute 'roundRect' on '${this.constructor.name}': Radius value is not a number or DOMPointInit.`,
         );
       } else if (typeof v === "number" && v < 0) {
         // Negative number
