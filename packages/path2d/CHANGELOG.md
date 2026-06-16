@@ -1,5 +1,11 @@
 # path2d
 
+## 0.3.3
+
+### Patch Changes
+
+- 3cb1dfc: chore: update dependencies
+
 ## 0.3.2
 
 ### Patch Changes
