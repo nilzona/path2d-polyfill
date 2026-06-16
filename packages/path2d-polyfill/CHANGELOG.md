@@ -1,5 +1,13 @@
 # path2d-polyfill
 
+## 3.2.2
+
+### Patch Changes
+
+- 3cb1dfc: chore: update dependencies
+- Updated dependencies [3cb1dfc]
+  - path2d@0.3.3
+
 ## 3.2.1
 
 ### Patch Changes
