@@ -41,11 +41,11 @@
     "watch": "pnpm build --watch"
   },
   "devDependencies": {
-    "@qlik/tsconfig": "^1.0.0",
-    "@types/node": "^25.9.3",
+    "@qlik/tsconfig": "^1.0.2",
+    "@types/node": "^26.0.1",
     "@vitest/coverage-v8": "^4.1.9",
     "rimraf": "6.1.3",
-    "tsdown": "^0.22.2"
+    "tsdown": "^0.22.3"
   },
   "engines": {
     "node": ">=6"
