@@ -1,5 +1,11 @@
 # path2d
 
+## 0.3.4
+
+### Patch Changes
+
+- d7d8414: chore: update npm dependencies
+
 ## 0.3.3
 
 ### Patch Changes
