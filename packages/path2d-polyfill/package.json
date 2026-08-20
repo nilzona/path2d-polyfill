@@ -50,9 +50,7 @@
   "devDependencies": {
     "@babel/core": "^8.0.1",
     "@babel/preset-env": "^8.0.2",
-    "@qlik/tsconfig": "^1.0.2",
     "@rollup/plugin-babel": "^7.1.0",
-    "@vitest/coverage-v8": "^4.1.10",
     "jsdom": "^30.0.1",
     "vite": "^8.2.1"
   },
