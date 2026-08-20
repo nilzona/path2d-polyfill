@@ -9,6 +9,9 @@ on:
     tags-ignore:
       - "v*.*.*"
 
+permissions:
+  contents: read
+
 jobs:
   skip-check:
     if: ${{ !contains(github.event.pull_request.title, 'chore(release):') }}
