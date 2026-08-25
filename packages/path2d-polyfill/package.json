@@ -52,7 +52,7 @@
     "@babel/preset-env": "^8.0.2",
     "@rollup/plugin-babel": "^7.1.0",
     "jsdom": "^30.0.1",
-    "vite": "^8.2.1"
+    "vite": "^8.2.2"
   },
   "publishConfig": {
     "access": "public",
