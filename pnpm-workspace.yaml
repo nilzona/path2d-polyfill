@@ -1,7 +1,9 @@
 packages:
   - "packages/*"
+update:
+  changeset: true
+updateConfig:
+  ignoreDependencies:
+    - typescript
 allowBuilds:
   unrs-resolver: false
-  updateConfig:
-  ignoreDependencies:
-    - "typescript"

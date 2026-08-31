@@ -26,10 +26,12 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
+      - name: Update pnpm
+        run: pnpm self-update
       - name: Install Dependencies
         run: pnpm i
       - name: Update Dependencies
-        run: pnpm update --latest --recursive --changeset
+        run: pnpm update --latest --recursive
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v8
