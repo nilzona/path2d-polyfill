@@ -17,18 +17,18 @@
   },
   "prettier": "@qlik/prettier-config",
   "devDependencies": {
-    "@changesets/cli": "^3.0.1",
+    "@changesets/cli": "^3.0.2",
     "@qlik/eslint-config": "^2.1.0",
     "@qlik/prettier-config": "^1.1.0",
     "@qlik/tsconfig": "^1.1.0",
-    "@vitest/coverage-v8": "^4.1.11",
+    "@vitest/coverage-v8": "^5.0.0",
     "eslint": "^10.9.1",
     "prettier": "^3.9.6",
     "turbo": "^2.10.12",
-    "typescript": "^6.0.3",
-    "vitest": "^4.1.11"
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.0"
   },
-  "packageManager": "pnpm@11.24.0",
+  "packageManager": "pnpm@11.25.0",
   "engines": {
     "node": ">=22.13"
   }
