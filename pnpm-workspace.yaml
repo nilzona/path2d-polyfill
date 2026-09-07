@@ -2,8 +2,7 @@ packages:
   - "packages/*"
 update:
   changeset: true
-updateConfig:
-  ignoreDependencies:
-    - "typescript"
+  ignoreDeps:
+    - typescript
 allowBuilds:
   unrs-resolver: false
