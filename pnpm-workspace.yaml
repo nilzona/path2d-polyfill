@@ -4,6 +4,6 @@ update:
   changeset: true
 updateConfig:
   ignoreDependencies:
-    - typescript
+    - "typescript"
 allowBuilds:
   unrs-resolver: false

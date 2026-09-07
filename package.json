@@ -22,13 +22,13 @@
     "@qlik/prettier-config": "^1.1.0",
     "@qlik/tsconfig": "^1.1.0",
     "@vitest/coverage-v8": "^5.0.0",
-    "eslint": "^10.9.1",
+    "eslint": "^10.10.0",
     "prettier": "^3.9.6",
     "turbo": "^2.10.12",
-    "typescript": "^7.0.2",
+    "typescript": "^6.0.3",
     "vitest": "^5.0.0"
   },
-  "packageManager": "pnpm@11.25.0",
+  "packageManager": "pnpm@12.3.4",
   "engines": {
     "node": ">=22.13"
   }
