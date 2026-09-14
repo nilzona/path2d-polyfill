@@ -48,11 +48,11 @@
     "path2d": "workspace:^"
   },
   "devDependencies": {
-    "@babel/core": "^8.0.1",
-    "@babel/preset-env": "^8.0.2",
+    "@babel/core": "^8.0.5",
+    "@babel/preset-env": "^8.0.5",
     "@rollup/plugin-babel": "^7.1.0",
     "jsdom": "^30.0.1",
-    "vite": "^8.2.2"
+    "vite": "^8.3.0"
   },
   "publishConfig": {
     "access": "public",
