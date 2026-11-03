@@ -18,7 +18,7 @@
   "prettier": "@qlik/prettier-config",
   "devDependencies": {
     "@changesets/cli": "^3.0.3",
-    "@qlik/eslint-config": "^2.1.7",
+    "@qlik/eslint-config": "^2.1.8",
     "@qlik/prettier-config": "^1.1.0",
     "@qlik/tsconfig": "^1.1.0",
     "@vitest/coverage-v8": "^5.0.5",
@@ -28,7 +28,7 @@
     "typescript": "^6.0.3",
     "vitest": "^5.0.5"
   },
-  "packageManager": "pnpm@12.15.0",
+  "packageManager": "pnpm@12.16.1",
   "engines": {
     "node": ">=22.13"
   }
