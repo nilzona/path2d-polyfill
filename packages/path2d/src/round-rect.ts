@@ -178,39 +178,76 @@ export function roundRect(
     return;
   }
 
-  // Calculate corner radii based on the number of radii provided
+  // Preserve the original top-left point for the final subpath move.
+  const originalX = x;
+  const originalY = y;
+
+  // Assign corner radii based on the number of radii provided (per the HTML spec).
   // tl = top-left, tr = top-right, br = bottom-right, bl = bottom-left
-  const maxRadiusX = width / 2; // Maximum horizontal radius (half the width)
-  const maxRadiusY = height / 2; // Maximum vertical radius (half the height)
-
-  // Start with top-left radius, clamped to maximum allowed values
-  const tl = {
-    x: Math.min(maxRadiusX, normalizedRadii[0].x),
-    y: Math.min(maxRadiusY, normalizedRadii[0].y),
-  };
-
-  // Initially set all corners to the same radius
-  let tr = tl;
-  let br = tl;
-  let bl = tl;
-
-  // Apply different radius patterns based on array length
-  if (normalizedRadii.length === 2) {
-    // Two radii: [horizontal, vertical] - top-right and bottom-left get the second radius
-    tr = { x: Math.min(maxRadiusX, normalizedRadii[1].x), y: Math.min(maxRadiusY, normalizedRadii[1].y) };
-    bl = tr;
-  }
-  if (normalizedRadii.length === 3) {
-    // Three radii: [top-left, top-right/bottom-left, bottom-right]
-    tr = { x: Math.min(maxRadiusX, normalizedRadii[1].x), y: Math.min(maxRadiusY, normalizedRadii[1].y) };
-    bl = tr;
-    br = { x: Math.min(maxRadiusX, normalizedRadii[2].x), y: Math.min(maxRadiusY, normalizedRadii[2].y) };
-  }
+  let tl: NormalizedRadius;
+  let tr: NormalizedRadius;
+  let br: NormalizedRadius;
+  let bl: NormalizedRadius;
   if (normalizedRadii.length === 4) {
     // Four radii: [top-left, top-right, bottom-right, bottom-left]
-    tr = { x: Math.min(maxRadiusX, normalizedRadii[1].x), y: Math.min(maxRadiusY, normalizedRadii[1].y) };
-    br = { x: Math.min(maxRadiusX, normalizedRadii[2].x), y: Math.min(maxRadiusY, normalizedRadii[2].y) };
-    bl = { x: Math.min(maxRadiusX, normalizedRadii[3].x), y: Math.min(maxRadiusY, normalizedRadii[3].y) };
+    [tl, tr, br, bl] = normalizedRadii;
+  } else if (normalizedRadii.length === 3) {
+    // Three radii: [top-left, top-right/bottom-left, bottom-right]
+    tl = normalizedRadii[0];
+    tr = normalizedRadii[1];
+    bl = normalizedRadii[1];
+    br = normalizedRadii[2];
+  } else if (normalizedRadii.length === 2) {
+    // Two radii: [top-left/bottom-right, top-right/bottom-left]
+    tl = normalizedRadii[0];
+    br = normalizedRadii[0];
+    tr = normalizedRadii[1];
+    bl = normalizedRadii[1];
+  } else {
+    // One radius: same for every corner
+    tl = normalizedRadii[0];
+    tr = normalizedRadii[0];
+    br = normalizedRadii[0];
+    bl = normalizedRadii[0];
+  }
+
+  // Use independent copies so scaling one corner can't mutate another via aliasing.
+  tl = { x: tl.x, y: tl.y };
+  tr = { x: tr.x, y: tr.y };
+  br = { x: br.x, y: br.y };
+  bl = { x: bl.x, y: bl.y };
+
+  // Normalize negative dimensions by flipping the rectangle (per the HTML spec):
+  // a negative width flips horizontally (swap the left/right corner radii) and a
+  // negative height flips vertically (swap the top/bottom corner radii).
+  if (width < 0) {
+    x += width;
+    width = -width;
+    [tl, tr] = [tr, tl];
+    [bl, br] = [br, bl];
+  }
+  if (height < 0) {
+    y += height;
+    height = -height;
+    [tl, bl] = [bl, tl];
+    [tr, br] = [br, tr];
+  }
+
+  // Corner curves must not overlap. Scale all radii together when adjacent corners
+  // would exceed an edge, matching the HTML spec's roundRect scaling step. A zero
+  // denominator means the edge has no rounding, so it must not constrain the scale.
+  const ratio = (numerator: number, denominator: number) => (denominator > 0 ? numerator / denominator : Infinity);
+  const scale = Math.min(
+    ratio(width, tl.x + tr.x),
+    ratio(height, tr.y + br.y),
+    ratio(width, br.x + bl.x),
+    ratio(height, bl.y + tl.y),
+  );
+  if (scale < 1) {
+    for (const corner of [tl, tr, br, bl]) {
+      corner.x *= scale;
+      corner.y *= scale;
+    }
   }
 
   // Draw the rounded rectangle by connecting corners with appropriate curves
@@ -272,5 +309,5 @@ export function roundRect(
   // Close the path to complete the rounded rectangle
   this.closePath();
   // Move back to the starting point (top-left corner) for consistency
-  this.moveTo(x, y);
+  this.moveTo(originalX, originalY);
 }
