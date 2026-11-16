@@ -37,11 +37,11 @@ jobs:
         run: pnpm build
       - name: Create Release Pull Request or Publish to Qlik GitHub Packages npm registry
         id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
-          setupGitUser: false
-          commit: "chore(release): version packages"
-          title: "chore(release): version packages"
-          publish: pnpm publish-packages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+          github-token: ${{ secrets.GH_ACCESS_TOKEN }}
+          push-with-git-cli: true
+          commit-message: "chore(release): version packages"
+          pr-title: "chore(release): version packages"
+          publish-script: pnpm publish-packages
+          create-github-releases: true
