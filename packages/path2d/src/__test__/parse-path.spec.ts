@@ -402,5 +402,34 @@ describe("parse-path", () => {
       ary = parsePath(path);
       expect(ary).toEqual([["M", 0, 0]]);
     });
+
+    test("compact flags without separators", () => {
+      // Default SVGO output omits the separators after the single-character flags
+      path = "M0 0a5 5 0 0110 10";
+      ary = parsePath(path);
+      expect(ary).toEqual([
+        ["M", 0, 0],
+        ["a", 5, 5, 0, 0, 1, 10, 10],
+      ]);
+    });
+
+    test("compact flags match spaced equivalent", () => {
+      expect(parsePath("M0 0a5 5 0 0110 10")).toEqual(parsePath("M0 0a5 5 0 0 1 10 10"));
+    });
+
+    test("compact flags followed by negative coordinates", () => {
+      path = "M0 0a5 5 0 01-10-10";
+      ary = parsePath(path);
+      expect(ary).toEqual([
+        ["M", 0, 0],
+        ["a", 5, 5, 0, 0, 1, -10, -10],
+      ]);
+    });
+
+    test("chained compact arcs", () => {
+      path = "M12 2a10 10 0 100 20 10 10 0 000-20z";
+      ary = parsePath(path);
+      expect(ary).toEqual([["M", 12, 2], ["a", 10, 10, 0, 1, 0, 0, 20], ["a", 10, 10, 0, 0, 0, 0, -20], ["z"]]);
+    });
   });
 });

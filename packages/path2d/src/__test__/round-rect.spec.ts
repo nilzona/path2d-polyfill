@@ -200,4 +200,41 @@ describe("roundRect", () => {
       p.roundRect(20, 20, 30, 30, { x: 2, y: -1 });
     }).toThrowError("Failed to execute 'roundRect' on 'Path2D': Radius value -1 is negative");
   });
+
+  it("scales all radii together instead of clamping each corner", () => {
+    // 80 + 10 <= 100, so no scaling is needed and large radii are preserved
+    // rather than being clamped to width / 2 (50).
+    const p = new Path2D();
+    p.roundRect(0, 0, 100, 100, [80, 10]);
+    ctx.stroke(p);
+    expect(ctx.arcTo).toHaveBeenNthCalledWith(1, 0, 0, 80, 0, 80);
+    expect(ctx.arcTo).toHaveBeenNthCalledWith(2, 100, 0, 100, 10, 10);
+    expect(ctx.arcTo).toHaveBeenNthCalledWith(3, 100, 100, 20, 100, 80);
+    expect(ctx.arcTo).toHaveBeenNthCalledWith(4, 0, 100, 0, 90, 10);
+  });
+
+  it("scales oversized radii uniformly keeping circular corners circular", () => {
+    // radius 40 on a 100x50 rect scales by 50 / 80 to a circular radius of 25,
+    // so arcTo is used rather than 40x25 ellipses.
+    const p = new Path2D();
+    p.roundRect(0, 0, 100, 50, 40);
+    ctx.stroke(p);
+    expect(ctx.ellipse).not.toHaveBeenCalled();
+    expect(ctx.arcTo).toHaveBeenNthCalledWith(1, 0, 0, 25, 0, 25);
+    expect(ctx.arcTo).toHaveBeenNthCalledWith(2, 100, 0, 100, 25, 25);
+    expect(ctx.arcTo).toHaveBeenNthCalledWith(3, 100, 50, 75, 50, 25);
+    expect(ctx.arcTo).toHaveBeenNthCalledWith(4, 0, 50, 0, 25, 25);
+  });
+
+  it("normalizes negative width without emitting negative radii", () => {
+    const p = new Path2D();
+    p.roundRect(100, 0, -100, 50, 10);
+    ctx.stroke(p);
+    expect(ctx.ellipse).not.toHaveBeenCalled();
+    expect(ctx.moveTo).toHaveBeenNthCalledWith(1, 0, 40);
+    expect(ctx.arcTo).toHaveBeenNthCalledWith(1, 0, 0, 10, 0, 10);
+    expect(ctx.arcTo).toHaveBeenNthCalledWith(2, 100, 0, 100, 10, 10);
+    expect(ctx.arcTo).toHaveBeenNthCalledWith(3, 100, 50, 90, 50, 10);
+    expect(ctx.arcTo).toHaveBeenNthCalledWith(4, 0, 50, 0, 40, 10);
+  });
 });

@@ -41,6 +41,19 @@ const SEGMENT_PATTERN = /([astvzqmhlc])([^astvzqmhlc]*)/gi;
 const NUMBER = /-?[0-9]*\.?[0-9]+(?:e[-+]?\d+)?/gi;
 
 /**
+ * Sticky pattern matching a single numeric value (with optional leading separators)
+ * at the current scan position. Used to tokenize elliptical arc arguments one value
+ * at a time so that compact flags can be handled separately.
+ */
+const ARC_NUMBER = /[\s,]*(-?[0-9]*\.?[0-9]+(?:e[-+]?\d+)?)/iy;
+
+/**
+ * Sticky pattern matching a single `0` or `1` arc flag (with optional leading
+ * separators) at the current scan position.
+ */
+const ARC_FLAG = /[\s,]*([01])/y;
+
+/**
  * Parses numeric arguments from a string containing SVG path command arguments.
  *
  * @param args - String containing space or comma-separated numeric values
@@ -56,6 +69,77 @@ const NUMBER = /-?[0-9]*\.?[0-9]+(?:e[-+]?\d+)?/gi;
 function parseValues(args: string): number[] {
   const numbers = args.match(NUMBER);
   return numbers ? numbers.map(Number) : [];
+}
+
+/**
+ * Parses the arguments of elliptical arc commands (`a`/`A`).
+ *
+ * Unlike other path commands, the `large-arc-flag` and `sweep-flag` are single
+ * `0`/`1` characters that may be written without any separator before the
+ * following value (e.g. the compact `a5 5 0 0110 10` produced by SVGO, where
+ * `0110` encodes flag `0`, flag `1`, and the x coordinate `10`). Scanning every
+ * argument as a generic number would misread those flags, so each 7-tuple of arc
+ * arguments is tokenized explicitly with the flag positions handled as single
+ * digits.
+ *
+ * @param args - String containing the arguments following an arc command
+ * @returns Flat array of parsed numbers for all complete arc argument groups
+ *
+ * @see {@link https://www.w3.org/TR/SVG2/paths.html#PathDataBNF} SVG path grammar
+ *
+ * @example
+ * ```typescript
+ * parseArcValues("5 5 0 0110 10") // returns [5, 5, 0, 0, 1, 10, 10]
+ * parseArcValues("5 5 0 01-10-10") // returns [5, 5, 0, 0, 1, -10, -10]
+ * ```
+ */
+function parseArcValues(args: string): number[] {
+  const result: number[] = [];
+  let lastIndex = 0;
+
+  const readToken = (pattern: RegExp): number | null => {
+    pattern.lastIndex = lastIndex;
+    const match = pattern.exec(args);
+    if (!match || match.index !== lastIndex) {
+      return null;
+    }
+    lastIndex = pattern.lastIndex;
+    return Number(match[1]);
+  };
+
+  // A flag is a single `0`/`1`, but fall back to a full number to preserve the
+  // lenient behavior for non-conformant inputs (e.g. an arbitrary value in a
+  // flag position).
+  const readFlag = (): number | null => {
+    const flag = readToken(ARC_FLAG);
+    return flag !== null ? flag : readToken(ARC_NUMBER);
+  };
+
+  for (;;) {
+    const rx = readToken(ARC_NUMBER);
+    const ry = readToken(ARC_NUMBER);
+    const rotation = readToken(ARC_NUMBER);
+    const largeArcFlag = readFlag();
+    const sweepFlag = readFlag();
+    const x = readToken(ARC_NUMBER);
+    const y = readToken(ARC_NUMBER);
+
+    if (
+      rx === null ||
+      ry === null ||
+      rotation === null ||
+      largeArcFlag === null ||
+      sweepFlag === null ||
+      x === null ||
+      y === null
+    ) {
+      break;
+    }
+
+    result.push(rx, ry, rotation, largeArcFlag, sweepFlag, x, y);
+  }
+
+  return result;
 }
 
 /**
@@ -97,9 +181,10 @@ export function parsePath(path: string): PathCommand[] {
   }
 
   p.replace(SEGMENT_PATTERN, (_, command: string, args: string) => {
-    const theArgs = parseValues(args);
     let type = command.toLowerCase() as ArgLengthProp;
     let theCommand = command as Command;
+    // Arc flags can be written without separators, so arcs need dedicated tokenizing.
+    const theArgs = type === "a" ? parseArcValues(args) : parseValues(args);
 
     // Special handling for moveTo command with multiple coordinate pairs
     // After the first moveTo, subsequent coordinate pairs are treated as lineTo commands
