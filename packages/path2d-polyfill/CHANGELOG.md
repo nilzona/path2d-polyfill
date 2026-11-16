@@ -1,5 +1,11 @@
 # path2d-polyfill
 
+## 3.2.4
+
+### Patch Changes
+
+- a3c75a9: Update path2d dependency
+
 ## 3.2.3
 
 ### Patch Changes
