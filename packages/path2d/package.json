@@ -41,7 +41,7 @@
     "watch": "pnpm build --watch"
   },
   "devDependencies": {
-    "@types/node": "^26.6.6",
+    "@types/node": "^26.6.11",
     "rimraf": "6.1.4",
     "tsdown": "^0.23.7"
   },
